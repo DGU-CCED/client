@@ -7,6 +7,8 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Home from './pages/auth/Home';
 import HackathonDetail from './components/HackathonDetail';
+import Management from './components/Management';
+import Create from './components/Create';
 
 class App extends Component{
   render(){
@@ -17,6 +19,8 @@ class App extends Component{
           <Route path='/hackathon/list/1' element={<Home/>}/>
           <Route exact path='/hackathon/list' element={<Home/>}/>
           <Route exact path="/hackathon/detail/:id" element={<HackathonDetail/>}/>
+          <Route exact path="/management" element={<Management />} />
+          <Route exact path="/create" element={<Create />} />
           <Route path='/login' element={<LoginPage />}/>
           <Route path='/register' element={<RegisterPage />}/>
         </Routes>       

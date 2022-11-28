@@ -42,7 +42,8 @@ const StyledHeader = styled.header`
 const NavManu = styled.ul`
   list-style: none;
   display: flex;
-  margin: 0 auto;
+  position: absolute;
+  margin-left: 50px;
 
   li {
     &:hover {
