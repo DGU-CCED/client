@@ -1,0 +1,14 @@
+
+.hackathonBox{
+    justify-content: center;
+    align-items: flex-start;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #ffffff;
+    width: 200px;
+    height: 400px;
+    margin: 0 auto;
+}
+.hackathonList{
+    font-size: small;
+}
