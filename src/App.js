@@ -7,19 +7,21 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import Home from './pages/auth/Home';
 import HackathonDetail from './components/HackathonDetail';
+import KanbanBoard from './components/kanban/index';
 
-class App extends Component{
-  render(){
-    return(
+class App extends Component {
+  render() {
+    return (
       <div className="App">
         <Header />
         <Routes>
-          <Route path='/hackathon/list/1' element={<Home/>}/>
-          <Route exact path='/hackathon/list' element={<Home/>}/>
-          <Route exact path="/hackathon/detail/:id" element={<HackathonDetail/>}/>
-          <Route path='/login' element={<LoginPage />}/>
-          <Route path='/register' element={<RegisterPage />}/>
-        </Routes>       
+          <Route path='/hackathon/list/1' element={<Home />} />
+          <Route exact path='/hackathon/list' element={<Home />} />
+          <Route exact path="/hackathon/detail/:id" element={<HackathonDetail />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/register' element={<RegisterPage />} />
+          <Route path='/kanbanboard' element={<KanbanBoard />} />
+        </Routes>
       </div>
     );
   }
