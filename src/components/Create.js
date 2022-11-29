@@ -1,14 +1,56 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';  // DatePicker 라는 컴포넌트도 가져오깅
 import "react-datepicker/dist/react-datepicker.css"; 	// 스타일 맥이기
 import './react-datepicker.css';
+import './Create.css'
+
+const ImgPreview = styled.img`
+  border-style: solid;
+  border-color: black;
+  width: 250px;
+  height: 250px;
+  margin: 30px;
+  position: absolute;
+  left: 41%;
+  right: 50%;
+`;
+
+const UploadImage = styled.input`
+  height: 30px;
+  
+  left: 50%;
+  right: 30%;
+  margin-top: 300px;
+`
+
 
 const Create = () => {
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState('');
+    const [pm, setPm] = useState(0);
+    const [developer, setDeveloper] = useState(0);
+    const [designer, setDesigner] = useState(0);
+    const [description, setDescription] = useState("");
+    const navigate = useNavigate();
+    const [img, setImg] = useState('')
+
+    const formSubmit = (e) => {
+        const img = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file', img);
+    
+         axios.post("이미지 요청 주소", formData).then(res => {
+          setImg(res.data.location)
+          alert('성공')
+        }).catch(err => {
+          alert('실패')
+        })
+    }
 
     const onNameHandler = (event) => {
         setName(event.currentTarget.value);
@@ -23,6 +65,21 @@ const Create = () => {
         setEndDate(event.currentTarget.value);
         
         console.log(startDate);
+    }
+    const onPmHandler = (event) => {
+        setPm(event.currentTarget.value);
+    }
+    const onDeveloperHandler = (event) => {
+        setDeveloper(event.currentTarget.value);
+    }
+    const onDesignerHandler = (event) => {
+        setDesigner(event.currentTarget.value);
+    }
+    const onDescriptionHandler = (event) => {
+        setDescription(event.currentTarget.value);
+    }
+    const onClickButton = () =>{
+        navigate('/management');
     }
 
     const getFormattedDate = (date) => {
@@ -56,13 +113,15 @@ const Create = () => {
 
     return (
         <>
+        <div className='Wrapper'>
             <div className='FormWrap'>
-                <form class="form" style={{color: 'white'}}>
-                    <p>해커톤 이름</p>
-                    <div><input name="name" type="text" placeholder='해커톤 이름' value={name} onChange={onNameHandler}/></div>
-                    <p>시작 날짜</p>
+                <form className="form" style={{color: 'white'}}>
+                    <p className='text'>해커톤 이름</p>
+                    <div><input className='input'name="name" type="text" placeholder='해커톤 이름' value={name} onChange={onNameHandler}/></div>
+                    <p className='text'>시작 날짜</p>
                     <div>
                         <DatePicker
+                          className='input'
                           minDate={new Date()}
                           closeOnScroll={true}
                           selected={startDate}
@@ -80,9 +139,10 @@ const Create = () => {
                         }
                         />
                     </div>
-                    <p>종료 날짜</p>
+                    <p className='text'>종료 날짜</p>
                     <div>
                         <DatePicker
+                            className='input'
                             minDate={startDate}
                             closeOnScroll={true}
                             selected={endDate}
@@ -100,26 +160,38 @@ const Create = () => {
                             }
                         />
                     </div>
-                    <p>진행 장소</p>
-                    <div><input name="location" type="text" placeholder='진행 장소' value={location} onChange={onLocationHandler} /></div>
-                    <p>팀 구성</p>
-                    <span>기획자</span>
-                    <span><input type="number" className='teamMember'/></span>
-                    <span>개발자</span>
-                    <span><input type="number" className='teamMember'/></span>
-                    <span>디자이너</span>
-                    <span><input type="number" className='teamMember'/></span>
-                    <p>해커톤 이미지</p>
-                    {/* 업로드 구현 */}<input type="text"/>
-                    <p>해커톤 소개</p>
-                    <div>
-                        <input type="textarea"/>
+                    <p className='text'>진행 장소</p>
+                    <div><input className='input' name="location" type="text" placeholder='진행 장소' value={location} onChange={onLocationHandler} /></div>
+                    <p className='text'>팀 구성</p>
+                    <span className='teamBox1'>
+                        <span>기획자</span>
+                        <span><input type="number" className='teamMember' onChange={onPmHandler}/></span>
+                    </span>
+                    <span className='teamBox2'>
+                        <span>개발자</span>
+                        <span><input type="number" className='teamMember' onChange={onDeveloperHandler}/></span>
+                    </span>
+                    <span className='teamBox3'>
+                        <span>디자이너</span>
+                        <span><input type="number" className='teamMember' onChange={onDesignerHandler}/></span>
+                    </span>
+                    <p className='text'>해커톤 이미지</p>
+                    <div className="img-preview">
+                        <ImgPreview id="img-preview" src={img} alt="이미지 선택 전"/>
+                        <UploadImage type='file' 
+                            accept='image/*' 
+                            id='img' 
+                            onChange={formSubmit}>
+                        </UploadImage>
                     </div>
-                    <div><button className="move">Upload</button></div>
-                    {/* <div><button onClick={onClickButton} class="moveRegister">회원가입 이동</button></div>
-                    <div><button onClick={onClickHome} class="loginregister__button">로그인</button></div> */}
+                    <p className='text'>해커톤 소개</p>
+                    <div>
+                        <textarea rows={1} name="description" type="textarea" wrap="on" placeholder="자기소개" value={description} onChange={onDescriptionHandler} className="loginregister__desc"/>
+                    </div>
+                    <div><button className="move" onClick={onClickButton}>Upload</button></div>
                 </form>
             </div>
+        </div>
         </>
     );
 }
