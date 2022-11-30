@@ -10,6 +10,7 @@ import HackathonDetail from './components/HackathonDetail';
 import Management from './components/Management';
 import Create from './components/Create';
 import KanbanBoard from './components/kanban/index';
+import FreeSpace from './components/freespace/Editor';
 
 class App extends Component {
   render() {
@@ -17,15 +18,20 @@ class App extends Component {
       <div className="App">
         <Header />
         <Routes>
-          <Route path='/hackathon/list/1' element={<Home/>}/>
-          <Route exact path='/hackathon/list' element={<Home/>}/>
-          <Route exact path="/hackathon/detail/:id" element={<HackathonDetail/>}/>
+          <Route path="/hackathon/list/1" element={<Home />} />
+          <Route exact path="/hackathon/list" element={<Home />} />
+          <Route
+            exact
+            path="/hackathon/detail/:id"
+            element={<HackathonDetail />}
+          />
           <Route exact path="/management" element={<Management />} />
           <Route exact path="/create" element={<Create />} />
-          <Route path='/login' element={<LoginPage />}/>
-          <Route path='/register' element={<RegisterPage />}/>
-          <Route path='/kanbanboard' element={<KanbanBoard />} />
-        </Routes>       
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/kanbanboard" element={<KanbanBoard />} />
+          <Route path="/freespace" element={<FreeSpace />} />
+        </Routes>
       </div>
     );
   }
