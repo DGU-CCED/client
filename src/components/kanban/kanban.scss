@@ -1,10 +1,11 @@
 .kanban {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-center;
+    justify-content: center;
 
     &__section {
         width: 400px;
-        background-color: #383838;
+        background-color: #ff008c;
         padding: 10px;
         border-radius: 10px;
 
@@ -16,6 +17,7 @@
             font-size: 1.2rem;
             font-weight: 700;
             margin: 10px 0 20px;
+            color: #ffffff;
         }
 
         &__content {
@@ -24,4 +26,78 @@
             }
         }
     }
+}
+
+.label {
+    display: flex;
+    align-items: flex-start;
+    background: #ff008c;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    justify-content: center;
+    color: #ffffff;
+}
+
+.background {
+    background: black;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    background: white;
+    width: 66%;
+    margin: auto;
+    border-radius: 30px;
+    border-style: none;
+}
+
+.codeConventionWrapper { 
+    padding:10px;
+}
+
+.codeConvention { 
+    padding: 10px;
+    border-radius: 10px;
+    margin:auto;
+    border:5px solid #ff008c;
+}
+
+.textArea {
+    width: 100%;
+    height: 6.25em;
+    border: none;
+    resize: none;
+}
+
+.progressWrapper {
+    padding:10px;
+}
+
+.progress { 
+    padding: 10px;
+    border-radius: 10px;
+    margin:auto;
+    border:5px solid #ff008c;
+}
+
+.freespaceWrapper {
+    padding:10px;
+}
+
+.freespace { 
+    padding: 10px;
+    border-radius: 10px;
+    margin:auto;
+    border:5px solid #ff008c;
+}
+
+.kanbanBoardWrapper {
+    padding:10px;
 }
