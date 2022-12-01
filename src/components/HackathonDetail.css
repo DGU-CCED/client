@@ -1,0 +1,52 @@
+.wrap{
+    color: white;
+    margin-top: 100px;
+    margin-left: 200px;
+    text-align: left;
+}
+.name{
+    font-size: 50px;
+}
+.date_loc{
+    margin-top: -20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.teamPart{
+    margin-top:30px;
+    margin-left: -30px;
+}
+.teamBox11{
+    width:auto;
+    padding: 10px;
+    background-color: #E68037;
+    border-radius: 24px;
+    margin-left: 30px;
+    margin-right:10px;
+}
+.teamBox21{
+    width:auto;
+    padding: 10px;
+    background-color: #84AD58;
+    border-radius: 24px;
+    margin-right:10px;
+}
+.teamBox31{
+    width:auto;
+    padding: 10px;
+    background-color: #DF4845;
+    border-radius: 24px;
+    margin-right:10px;
+}
+.wrap2{
+    color: white;
+    margin-top: 40px;
+}
+.detail_content{
+    font-size: 20px;
+}
+.horizon{
+    margin-top: 30px;
+    border-bottom: 1px solid saddlebrown;
+    
+}

@@ -59,8 +59,42 @@ const HackathonList = () =>{
     const navigate = useNavigate();
     const [pageNum, setPageNum] = useState(1);
     const [type, setType] = useState("newest");
+    const [currentPageData, setCurrentPageData] = useState([]);
+    const url = '/hackathon/list/'+type+'/'+pageNum;
     
     let currentPageHackathon = dummy.data.filter(v => v.id>=(pageNum-1)*3+1 && v.id<=(pageNum*3));
+    
+    // const getData = async() => {
+    //     axios.get(url)
+    //     .then((res) => {
+    //         setCurrentPageData(res.data);
+    //         console.log("성공");
+    //         console.log(currentPageData);
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     getData();
+    // }, [pageNum]);
+    useEffect(() => {
+        const getData = async() => {
+            try {
+                const response = await axios.get(url);
+                console.log(response);
+                setCurrentPageData(response.data.data);
+                console.log(currentPageData[0].name);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getData();
+    }, [pageNum]);
+
+    
 
     const onClickPrev = (event) => {
         if(pageNum === 1){
@@ -96,12 +130,29 @@ const HackathonList = () =>{
     //     );
     // });
 
-    const dummyHackathon = currentPageHackathon.map((item, index) => {
+    const dummyHackathon = dummy.data.map((item, index) => {
         return(
             <>
             <div className='hackathonBox'>
                 <li key={index} className="hackathonList">
                     {/* <img src="../.././assets/bubbleson.jpeg" alt="에러" style={{maxWidth: '100%'}}/> */}
+                    <img src={item.hackathon_image} alt="에러" style={{height: "200px"}}/>
+                    <p>{item.name}</p>
+                    <p>{item.start_date} ~ {item.end_date}</p>
+                    <p>{item.content}</p>
+                    <p>개발자 : {item.developer} PM : {item.pm} 디자이너 : {item.designer}</p>
+                    <Link to={'/hackathon/detail/'+item.id} className="linkStyle" style={{textDecoration: 'none', color: 'blue', fontWeight: "bolder"}} >이동 테스트...(클릭)</Link>
+                </li>
+            </div>
+            </>
+        );
+    });
+
+    const thisPage = currentPageData.map((item, index) => {
+        return(
+            <>
+            <div className='hackathonBox'>
+                <li key={index} className="hackathonList">
                     <img src={item.hackathon_image} alt="에러" style={{height: "200px"}}/>
                     <p>{item.name}</p>
                     <p>{item.start_date} ~ {item.end_date}</p>
@@ -123,7 +174,7 @@ const HackathonList = () =>{
                 totalPosts={posts.length}
                 paginate={setCurrentPage}/> */}
             <div className='hackathonWrap'>
-                <div className="hackathonBoard">{dummyHackathon}</div>
+                <div className="hackathonBoard">{thisPage}</div>
                 <div className='pagination'>
                     <button onClick={onClickPrev} className="pageButton">이전 페이지</button>
                     <span className="currentPage">{pageNum}</span>
