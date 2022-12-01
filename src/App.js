@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -10,7 +10,7 @@ import HackathonDetail from './components/HackathonDetail';
 import Management from './components/Management';
 import Create from './components/Create';
 import KanbanBoard from './components/kanban/index';
-import FreeSpace from './components/freespace/Editor';
+import Progress from './components/progress/progress';
 
 class App extends Component {
   render() {
@@ -30,7 +30,7 @@ class App extends Component {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/kanbanboard" element={<KanbanBoard />} />
-          <Route path="/freespace" element={<FreeSpace />} />
+          <Route path="/progress" element={<Progress />} />
         </Routes>
       </div>
     );

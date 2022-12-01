@@ -49,78 +49,82 @@ const Kanban = () => {
     return (
 
         <div>
-      <div>
-        <textarea placeholder="CodeConvention을 입력해주세요"></textarea>
-      </div>
-      <div>
-        <form>
-          <label>
-            19:00~20:00
-            <input type="text" />
-            <br />
-            20:00~21:00
-            <input type="text" />
-          </label>
-        </form>
-      </div>
-      <Editor
-        previewStyle="vertical"
-        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-      />
-      <DragDropContext onDragEnd={onDragEnd}>
-            <div className="kanban">
-                {
-                    data.map(section => (
-                        <Droppable
-                            key={section.id}
-                            droppableId={section.id}
-                        >
-                            {(provided) => (
-                                <div
-                                    {...provided.droppableProps}
-                                    className='kanban__section'
-                                    ref={provided.innerRef}
-                                >
-                                    <div className="kanban__section__title">
-                                        {section.title}
-                                    </div>
-                                    <div className="kanban__section__content">
-                                        {
-                                            section.tasks.map((task, index) => (
-                                                <Draggable
-                                                    key={task.id}
-                                                    draggableId={task.id}
-                                                    index={index}
-                                                >
-                                                    {(provided, snapshot) => (
-                                                        <div
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            style={{
-                                                                ...provided.draggableProps.style,
-                                                                opacity: snapshot.isDragging ? '0.5' : '1'
-                                                            }}
-                                                        >
-                                                            <Card>
-                                                                {task.title}
-                                                            </Card>
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            ))
-                                        }
-                                        {provided.placeholder}
-                                    </div>
-                                </div>
-                            )}
-                        </Droppable>
-                    ))
-                }
+            <div>
+                <textarea placeholder="CodeConvention을 입력해주세요"></textarea>
             </div>
-        </DragDropContext>
-    </div>
-        
+            <div>
+                <form>
+                    <label>
+                        19:00~20:00
+                        <input type="text" />
+                        <br />
+                        20:00~21:00
+                        <input type="text" />
+                    </label>
+                </form>
+            </div>
+
+
+            <Editor
+                previewStyle="vertical"
+                plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+            />
+
+
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div className="kanban">
+                    {
+                        data.map(section => (
+                            <Droppable
+                                key={section.id}
+                                droppableId={section.id}
+                            >
+                                {(provided) => (
+                                    <div
+                                        {...provided.droppableProps}
+                                        className='kanban__section'
+                                        ref={provided.innerRef}
+                                    >
+                                        <div className="kanban__section__title">
+                                            {section.title}
+                                        </div>
+                                        <div className="kanban__section__content">
+                                            {
+                                                section.tasks.map((task, index) => (
+                                                    <Draggable
+                                                        key={task.id}
+                                                        draggableId={task.id}
+                                                        index={index}
+                                                    >
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                style={{
+                                                                    ...provided.draggableProps.style,
+                                                                    opacity: snapshot.isDragging ? '0.5' : '1'
+                                                                }}
+                                                            >
+                                                                <Card>
+                                                                    {task.title}
+                                                                </Card>
+                                                            </div>
+                                                        )}
+                                                    </Draggable>
+                                                ))
+                                            }
+                                            {provided.placeholder}
+                                        </div>
+                                    </div>
+                                )}
+                            </Droppable>
+                        ))
+                    }
+                </div>
+            </DragDropContext>
+        </div>
+
     )
 }
 
