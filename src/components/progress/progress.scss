@@ -1,0 +1,53 @@
+.title {
+    display: flex;
+    align-items: flex-start;    
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 3rem;
+    font-weight: 1000;
+    justify-content:center;
+    color: #000000;
+}
+
+.subTitle {
+    display: flex;
+    align-items: flex-start;    
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    justify-content:left;
+    color: #000000;
+}
+
+.p {
+    display: flex;
+    align-items: flex-start;    
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    justify-content:left;
+    color: #000000;
+}
+
+.background {
+    background: black;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper {
+    background: white;
+    width: 66%;
+    margin: auto;
+}
+
+.progressWrapper {
+    padding:10px;
+}
+
+.progress { 
+    margin:auto;
+    border-style: none;
+}
