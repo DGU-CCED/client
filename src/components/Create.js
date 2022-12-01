@@ -44,12 +44,12 @@ const Create = () => {
         const formData = new FormData();
         formData.append('file', img);
     
-         axios.post("이미지 요청 주소", formData).then(res => {
-          setImg(res.data.location)
-          alert('성공')
-        }).catch(err => {
-          alert('실패')
-        })
+        // axios.post("이미지 요청 주소", formData).then(res => {
+        //   setImg(res.data.location)
+        //   alert('성공')
+        // }).catch(err => {
+        //   alert('실패')
+        // })
     }
 
     const onNameHandler = (event) => {
@@ -81,6 +81,7 @@ const Create = () => {
     const onClickButton = () =>{
         navigate('/management');
     }
+
 
     const getFormattedDate = (date) => {
         const month = date.toLocaleDateString('ko-KR', {

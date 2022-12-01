@@ -37,25 +37,24 @@ const Styled = styled.div`
 
 const HackathonList = () =>{
 
-    /*// jsonplaceholder 이용 axios 및 pagination 구현
-    const [posts, setPosts] = useState([]); // json data가 array로 들어옴
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);*/
-
-    /*
-    useEffect(() => {
-        const fetchData = async () => { // async, await, axios로 data 가져옴.
-            setLoading(true);
-            const response = await axios.get(
-                "https://jsonplaceholder.typicode.com/posts"
-            );
-            setPosts(response.data);
-            setLoading(false);
-        };
-        fetchData();
-    }, []); // 두 번째 인자로 []를 두었는데, 이렇게 하면 컴포넌트가 맨 처음 랜더링 될때만 useEffect 정의한 내용 실행
-    console.log(posts);*/
+    // jsonplaceholder 이용 axios 및 pagination 구현
+    // const [posts, setPosts] = useState([]); // json data가 array로 들어옴
+    // const [loading, setLoading] = useState(false);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [postsPerPage, setPostsPerPage] = useState(10);
+    
+    // useEffect(() => {
+    //     const fetchData = async () => { // async, await, axios로 data 가져옴.
+    //         setLoading(true);
+    //         const response = await axios.get(
+    //             "/hackathon/list/newest/1"
+    //         );
+    //         setPosts(response.data);
+    //         setLoading(false);
+    //     };
+    //     fetchData();
+    // }, []); // 두 번째 인자로 []를 두었는데, 이렇게 하면 컴포넌트가 맨 처음 랜더링 될때만 useEffect 정의한 내용 실행
+    // console.log(posts);
 
     const navigate = useNavigate();
     const [pageNum, setPageNum] = useState(1);

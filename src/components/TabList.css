@@ -5,6 +5,7 @@
     position:relative;width:100vw;height:50px;border-bottom:1px solid #DDD; color:white;
 }
 .tabList{
+    margin-left:-40px;
     display:table;
     width:100vw;
     table-layout:auto;
