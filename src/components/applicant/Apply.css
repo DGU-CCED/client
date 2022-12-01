@@ -1,0 +1,50 @@
+.teamPart{
+    text-align: left;
+}
+.teamPartSelect{
+    margin-top:30px;
+}
+.text_part{
+    margin-left: 40px;
+}
+.teamBox1 {
+    background-color: #E68037;
+    margin: 30px;
+    padding: 10px;
+}
+.teamBox2 {
+    background-color: #84AD58;
+    margin: 30px;
+    padding: 10px;
+}
+.teamBox3 {
+    background-color: #DF4845;
+    margin: 30px;
+    padding: 10px;
+}
+
+.description{
+    text-align: left;
+    margin: 10px;
+}
+.text_desc{
+    margin-top: 50px;
+    margin-left:30px;
+    margin-bottom: -10px;
+}
+.applicant_desc {
+    width: 500px;
+    height: 150px;
+    padding-left: 10px;
+    margin: 10px;
+    border-radius: 24px;
+}
+.submit{
+    background-color: #FF008C;
+    width: 150px;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 30px;
+    color: white;
+    font-weight: 400;
+}

@@ -11,6 +11,7 @@ import Management from './components/Management';
 import Create from './components/Create';
 import KanbanBoard from './components/kanban/index';
 import Progress from './components/progress/progress';
+import Apply from './components/applicant/Apply';
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
             path="/hackathon/detail/:id"
             element={<HackathonDetail />}
           />
+          <Route path="/apply" element={<Apply />}/>
           <Route exact path="/management" element={<Management />} />
           <Route exact path="/create" element={<Create />} />
           <Route path="/login" element={<LoginPage />} />

@@ -5,7 +5,7 @@ import "./LoginRegister.css"
 
 function RegisterPage() {
   const [name, setName] = useState("");
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [description, setDescription] = useState("");
@@ -18,8 +18,8 @@ function RegisterPage() {
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   }
-  const onIdHandler = (event) => {
-      setId(event.currentTarget.value);
+  const onEmailHandler = (event) => {
+      setEmail(event.currentTarget.value);
   }
 
   const onPasswordHandler = (event) => {
@@ -49,7 +49,7 @@ function RegisterPage() {
 
   const onClickButton = (event) => {
     api.post('/Auth/register',{
-      id: id,
+      email: email,
       password: password,
       name: name,
       description: description,
@@ -72,7 +72,7 @@ function RegisterPage() {
       <form class="form">
           <div class="title"><h2>회원가입</h2></div>
           <div><input name="name" type="text" placeholder="이름" value={name} onChange={onNameHandler} className="loginregister__input"/></div>
-          <div><input name="email" type="text" placeholder="ID" value={id} onChange={onIdHandler} className="loginregister__input"/></div>
+          <div><input name="email" type="text" placeholder="E-mail" value={email} onChange={onEmailHandler} className="loginregister__input"/></div>
           <div><input name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler} className="loginregister__input"/></div>
           <div><textarea rows={1} name="description" type="textarea" wrap="on" placeholder="자기소개" value={description} onChange={onDescriptionHandler} className="loginregister__desc"/></div>
           <div><input name="institution" type="text" placeholder="학교" value={institution} onChange={onInstitutionHandler} className="loginregister__input"/></div>
