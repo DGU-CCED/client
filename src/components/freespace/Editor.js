@@ -14,25 +14,9 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
 export default function Writer() {
   return (
-    <div>
-      <div>
-        <textarea placeholder="CodeConvention을 입력해주세요"></textarea>
-      </div>
-      <div>
-        <form>
-          <label>
-            19:00~20:00
-            <input type="text" />
-            <br />
-            20:00~21:00
-            <input type="text" />
-          </label>
-        </form>
-      </div>
-      <Editor
-        previewStyle="vertical"
-        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-      />
-    </div>
+    <Editor
+      previewStyle="vertical"
+      plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
+    />
   );
 }
