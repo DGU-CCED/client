@@ -31,7 +31,7 @@ const Apply = () => {
     }
     const onClickButton = (event) => {
         event.preventDefault();
-        i
+        
         navigate('/hackathon/list');
     }
     
