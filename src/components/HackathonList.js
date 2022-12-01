@@ -59,6 +59,7 @@ const HackathonList = () =>{
 
     const navigate = useNavigate();
     const [pageNum, setPageNum] = useState(1);
+    const [type, setType] = useState("newest");
     
     let currentPageHackathon = dummy.data.filter(v => v.id>=(pageNum-1)*3+1 && v.id<=(pageNum*3));
 

@@ -6,7 +6,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-axios.defaults.baseURL = "https://localhos:3000";
+axios.defaults.baseURL = "ec2-52-79-235-201.ap-northeast-2.compute.amazonaws.com:3000";
 axios.defaults.withCredentials = true;
 
 ReactDOM.render((

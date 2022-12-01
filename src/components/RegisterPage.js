@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 import "./LoginRegister.css"
 
 function RegisterPage() {
@@ -47,7 +48,22 @@ function RegisterPage() {
   }
 
   const onClickButton = (event) => {
-    
+    api.post('/Auth/register',{
+      id: id,
+      password: password,
+      name: name,
+      description: description,
+      // profile_path: profile_path,
+      major: major,
+      institution: institution,
+      age: age,
+      sex: sex
+    }).then((response)=>{
+      console.log(response);
+      navigate('/login');
+    }).catch((error) => {
+      console.log(error);
+    })
     navigate('/login');
   }
 

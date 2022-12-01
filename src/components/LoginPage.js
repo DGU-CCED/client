@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import api from '../api';
 import "./LoginRegister.css"
 
 function LoginPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState(""); 
   const navigate = useNavigate();
+
   
   const onIdHandler = (event) => {
     setId(event.currentTarget.value);
+    console.log({id});
   }
 
   const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value)
+    setPassword(event.currentTarget.value);
+    console.log({password});
   }
 
   const onClickButton = () => {
@@ -20,7 +25,18 @@ function LoginPage() {
   }
 
   const onClickHome = () => {
-    navigate('/hackathon/list');
+    api.post('/Auth/login',{
+      id: id,
+      password: password,
+    }).then((response)=> {
+      console.log(response);
+      navigate('/hackathon/list');
+    }).catch((error) => {
+      console.log(error);
+    });
+
+    // navigate('/hackathon/list');
+    
   }
 
   return (
