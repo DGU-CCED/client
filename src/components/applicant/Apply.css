@@ -1,11 +1,13 @@
-.teamPart{
+.apply_teamPart{
     text-align: left;
 }
 .teamPartSelect{
-    margin-top:30px;
+    margin:30px;
 }
 .text_part{
-    margin-left: 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 .teamBox1 {
     background-color: #E68037;
@@ -24,13 +26,13 @@
 }
 
 .description{
-    text-align: left;
-    margin: 10px;
+
+    
 }
 .text_desc{
-    margin-top: 50px;
-    margin-left:30px;
-    margin-bottom: -10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 .applicant_desc {
     width: 500px;
@@ -44,7 +46,15 @@
     width: 150px;
     height: 50px;
     border-radius: 12px;
-    font-size: 30px;
+    font-size: 20px;
     color: white;
     font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttonWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
