@@ -77,7 +77,7 @@ function LoginPage() {
   return (
       <div class="loginregister">
         <form class="form">
-            <div class="title"><h2>로그인</h2></div>
+            <div className="login_title"><h2>로그인</h2></div>
             <div><input name="email" type="text" placeholder="E-mail" value={email} onChange={onEmailHandler} class="loginregister__input"/></div>
             <div><input name="password" type="password" placeholder="비밀번호" value={password} onChange={onPasswordHandler} class="loginregister__input"/></div>
             <div><button onClick={onClickButton} class="moveRegister">회원가입 이동</button></div>
