@@ -4,22 +4,30 @@
     align-items: center;
     justify-content: center;
     width:100%;
-    height:100vh;
+    height:100%;
 }
 .form{
     border: 1px solid #ffffff;
     padding: 20px;
 }
-.title{
-    color: #ffffff;
-    font-weight: 700;
+.login_title{
     font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    
+}
+.register_title{
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    
 }
 .loginregister__input {
     width: 300px;
     height: 30px;
     padding-left: 10px;
     margin: 10px;
+    border: 1px solid #ffffff;
     border-radius: 10px;
 }
 .loginregister__desc {
@@ -41,6 +49,8 @@
     border-radius: 40px;
     height: 48px;
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
 }
 .moveRegister{
     background-color: #7838C5;
@@ -50,4 +60,6 @@
     width: 100%;
     height: 48px;
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
 }
