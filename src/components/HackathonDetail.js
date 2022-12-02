@@ -17,6 +17,7 @@ const ApplyButton = styled.button`
     font-size: 30px;
     color: white;
     font-weight: 400;
+    
 `
 
 const HackathonDetail = () => {
@@ -72,8 +73,8 @@ const HackathonDetail = () => {
                 
                 <div>
                     {/* 해커톤 정보 출력 */}
-                    <p><ApplyButton onClick={onClickButton}>참가</ApplyButton></p>
-                    <Link to={'/hackathon/list'} className="linkStyle" style={{textDecoration: 'none', color: 'white'}} >돌아가기(클릭)</Link>
+                    <p><ApplyButton className="applybutton" onClick={onClickButton}>참가</ApplyButton></p>
+                    <Link to={'/hackathon/list'} className="linkStyle" style={{textDecoration: 'none', color: 'white'}}>돌아가기(클릭)</Link>
                 </div>
             </Styled>
         </>
