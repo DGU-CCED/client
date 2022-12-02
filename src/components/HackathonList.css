@@ -34,6 +34,12 @@
     justify-content: center;
     color: #ffffff;
 }
+.hackathonTabBox{
+    justify-content: center;
+    align-items: flex-start;
+    display: block;
+    margin: 0 auto;
+}
 
 .linkStyle {
   text-decoration: none;
