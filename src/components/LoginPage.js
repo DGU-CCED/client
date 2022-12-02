@@ -37,34 +37,35 @@ function LoginPage() {
   };
 
   const onClickHome = (e) => {
-    // try{
-    //   const response = axios.post('/auth/login',{
-    //     email: email,
-    //     password: password
-    //   });
-    //   console.log(response.header);
-    //   console.log(response.statusCode);
-    //   console.log(response.message);
-    //   navigate('/hackathon/list');
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // try{
-    //   const response = axios.get('/user');
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // const response = axios.post('/auth/login',{
-    //   email: email,
-    //   password: password
-    // });
-    // console.log(response.statusCode);
-    const response = axios.get('/user');
-    console.log(response);
+    // get api 연습
+    // const response = axios.get('/user');
+    // console.log(response);
+
+    e.preventDefault();
+    axios.post('/auth/login', {
+      email: email,
+      password: password,
+    })
+    .then((response) => {
+      let accessToken = response.headers.get("access-token");
+      let refreshToken = response.headers.get("refresh-token");
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_token', refreshToken);
+    })
+    .then((response) => {
+      if(response){
+        alert("로그인 성공~!~!");
+      }
+      else{
+        alert("로그인 실패 ㅠ_ㅜ");
+      }
+    })
+    .then(() => {
+      navigate('/hackathon/list/newest/1');
+    })
   };
 
-  const onclick = () => {
+  const onclick = () => { // 나중에 삭제
     // const response = axios.get('/user');
     // console.log(response);
     const response = axios.post('/auth/login', {
