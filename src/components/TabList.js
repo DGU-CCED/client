@@ -9,6 +9,8 @@ const Tab = (props) => {
     const changeTab = () => {
         document.querySelector('.tabList li a.on').classList.remove('on');
         document.querySelector('.tabList li a#' + tabId).classList.add('on');
+        localStorage.setItem('type', tabId);
+        console.log(tabId);
     }
 
     return(

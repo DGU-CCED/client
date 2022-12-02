@@ -78,7 +78,7 @@ const Header = () => {
     <>
       <StyledHeader>
         <div className="nav_logo">
-          <Link to={'/'} className="nav-logo-link">
+          <Link to={'/hackathon/list'} className="nav-logo-link">
             Our42
           </Link>
         </div>
