@@ -28,14 +28,14 @@ export default function () {
   ]);
 
   return (
-    <div className="background">
+    <div className="progress_background">
       <div className="wrapper">
         <div>
           <p className="title">해커톤 진행률</p>
         </div>
         <div>
           <p className="subTitle">전체 진행도</p>
-          <div className="progressWrapper">
+          <div className="progress_progressWrapper">
             <div className="progress">
               <Line percent="50"></Line>
             </div>
@@ -47,7 +47,7 @@ export default function () {
           {team.map((section) => (
             <div>
               <p className="p">{section.id}팀</p>
-              <div className="progressWrapper">
+              <div className="progress_progressWrapper">
                 <div className="progress">
                   <Line percent={section.percent}></Line>
                 </div>

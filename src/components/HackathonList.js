@@ -8,32 +8,7 @@ import './HackathonList.css';
 import Posts from './Posts';
 import Pagination from './Pagination';
 
-const Styled = styled.div`
-  color: white;
-  .hackathonList {
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    margin-bottom: 10vh;
-  }
-  .linkStyle {
-    text-decoration: none;
-  }
-  .pageButton {
-    margin: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.5s;
-    height: 30px;
-    color: #ffffff;
-    background: #84ad58;
-  }
-  .currentPage {
-    font-size: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-`;
+const Styled = styled.div``;
 
 const HackathonList = () => {
   // jsonplaceholder 이용 axios 및 pagination 구현
@@ -203,25 +178,23 @@ const HackathonList = () => {
 
   return (
     <>
-      <Styled>
-        {/* <Posts posts={currentPosts(posts)} loading={loading} />
+      {/* <Posts posts={currentPosts(posts)} loading={loading} />
             <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={posts.length}
                 paginate={setCurrentPage}/> */}
-        <div className="hackathonWrap">
-          <div className="hackathonBoard">{thisPage}</div>
-          <div className="Pagination">
-            <button onClick={onClickPrev} className="pageButton">
-              이전 페이지
-            </button>
-            <span className="currentPage">{pageNum}</span>
-            <button onClick={onClickNext} className="pageButton">
-              다음 페이지
-            </button>
-          </div>
-        </div>
-      </Styled>
+      <div className="hackathonWrap">
+        <div className="hackathonBoard">{thisPage}</div>
+      </div>
+      <div className="Pagination">
+        <button onClick={onClickPrev} className="pageButton">
+          이전 페이지
+        </button>
+        <span className="currentPage">{pageNum}</span>
+        <button onClick={onClickNext} className="pageButton">
+          다음 페이지
+        </button>
+      </div>
     </>
   );
 };

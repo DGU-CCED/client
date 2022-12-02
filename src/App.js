@@ -12,6 +12,7 @@ import Create from './components/Create';
 import KanbanBoard from './components/kanban/index';
 import Progress from './components/progress/progress';
 import Apply from './components/applicant/Apply';
+import ViewApplicant from './components/viewApplicant/viewApplicant';
 
 class App extends Component {
   render() {
@@ -26,13 +27,14 @@ class App extends Component {
             path="/hackathon/detail/:id"
             element={<HackathonDetail />}
           />
-          <Route path="/apply" element={<Apply />}/>
+          <Route path="/apply" element={<Apply />} />
           <Route exact path="/management" element={<Management />} />
           <Route exact path="/create" element={<Create />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/kanbanboard" element={<KanbanBoard />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/viewapplicant" element={<ViewApplicant />} />
         </Routes>
       </div>
     );

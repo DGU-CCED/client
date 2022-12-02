@@ -143,21 +143,21 @@ const Kanban = () => {
   };
 
   const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: '리액트의 기초 알아보기',
-      checked: true,
-    },
-    {
-      id: 2,
-      text: '컴포넌트 스타일링 해보기',
-      checked: true,
-    },
-    {
-      id: 3,
-      text: '일정 관리 앱 만들어 보기',
-      checked: false,
-    },
+    // {
+    //   id: 1,
+    //   text: '리액트의 기초 알아보기',
+    //   checked: true,
+    // },
+    // {
+    //   id: 2,
+    //   text: '컴포넌트 스타일링 해보기',
+    //   checked: true,
+    // },
+    // {
+    //   id: 3,
+    //   text: '일정 관리 앱 만들어 보기',
+    //   checked: false,
+    // },
   ]);
 
   // 고윳값으로 사용될 id
@@ -199,10 +199,10 @@ const Kanban = () => {
     <div className="background">
       <div className="wrapper">
         <div className="codeConventionWrapper">
-          <div>
-            <label className="label">가이드라인</label>
-          </div>
           <div className="codeConvention">
+            <div>
+              <label className="label">가이드라인</label>
+            </div>
             <p className="paragraph">{textValue}</p>
             <textarea
               className="textArea"
