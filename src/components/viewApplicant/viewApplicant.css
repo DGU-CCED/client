@@ -1,0 +1,130 @@
+.viewApplicant_p{
+    color: #ffffff;
+    font-size: 20px;
+}
+.wrap{
+    color: white;
+    margin-top: 100px;
+    margin-left: 200px;
+    text-align: left;
+}
+.name{
+    font-size: 50px;
+}
+.date_loc{
+    margin-top: -20px;
+    font-size: 20px;
+    font-weight: 500;
+}
+.teamPart{
+    margin-top:30px;
+    margin-left: -30px;
+}
+.teamBox11{
+    width:max-content;
+    padding: 10px;
+    background-color: #E68037;
+    border-radius: 24px;
+    margin-left: 30px;
+    margin-right:10px;
+    font-size: 20px;   
+}
+.teamBox21{
+    width:content;
+    padding: 10px;
+    background-color: #84AD58;
+    border-radius: 24px;
+    margin-right:10px;
+    font-size: 20px;  
+}
+.teamBox31{
+    width:content;
+    padding: 10px;
+    background-color: #DF4845;
+    border-radius: 24px;
+    margin-right:10px;
+    font-size: 20px;  
+}
+.wrap2{
+    color: white;
+    margin-top: 40px;
+}
+.detail_content{
+    font-size: 20px;
+}
+.horizon{
+    margin-top: 30px;
+    border-bottom: 1px solid saddlebrown;
+    
+}
+.applicationStatusWrap{
+    margin: auto;
+}
+.applicationStatus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 33%;
+    border-radius: 10px; 
+    margin:auto;
+    color: #ffffff;
+}
+.status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    width: 33%;
+    height: max-content;
+    border-radius: 10px; 
+    margin:auto;
+    background-color: #ffffff;
+}
+
+.viewApplicant_label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;    
+    background-color: #e68037;
+    padding: 10px;
+    width: 70%;
+    border-radius: 10px;
+    margin: 10px;
+    font-size: 20px;    
+    color: #ffffff;
+}
+
+.buttonWrap{
+    width: 33%;
+    margin: auto;
+    margin-top: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around; 
+}
+
+.button1{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #ff008c;
+    padding: 10px;
+    width: 200px;
+    border-radius: 10px;
+    margin-right: 20px;
+    font-size: 20px;  
+    color: #ffffff;
+}
+.button2{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #ff008c;
+    padding: 10px;
+    width: 200px;
+    border-radius: 10px;
+    font-size: 20px;  
+    color: #ffffff;
+}
