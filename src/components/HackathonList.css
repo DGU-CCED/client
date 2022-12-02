@@ -12,3 +12,10 @@
 .hackathonList{
     font-size: small;
 }
+
+.Pagination{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: #ffffff;
+}
