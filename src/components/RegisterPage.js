@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import axios from 'axios';
 import './LoginRegister.css';
 
 function RegisterPage() {
@@ -48,8 +49,9 @@ function RegisterPage() {
   };
 
   const onClickButton = (event) => {
-    api
-      .post('/Auth/register', {
+    event.preventDefault();
+    axios
+      .post('/auth/register', {
         email: email,
         password: password,
         name: name,
@@ -67,7 +69,7 @@ function RegisterPage() {
       .catch((error) => {
         console.log(error);
       });
-    navigate('/login');
+    // navigate('/login');
   };
 
   return (
