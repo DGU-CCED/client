@@ -3,35 +3,36 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 import './HackathonList.css';
 
-const Styled = styled.div`
-  color: white;
-  .hackathonList {
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    margin-bottom: 10vh;
-  }
-  .linkStyle {
-    text-decoration: none;
-  }
-  .pageButton {
-    margin: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.5s;
-    height: 30px;
-    color: #ffffff;
-    background: #84ad58;
-  }
-  .currentPage {
-    font-size: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-`;
+const Styled = styled.div``;
+
+const Tab = (props) => {
+  const tabName = props.tab.tabName;
+  const isOn = props.tab.isOn;
+  const tabId = props.tab.id;
+
+  const changeTab = () => {
+    document.querySelector('.tabList li a.on').classList.remove('on');
+    document.querySelector('.tabList li a#' + tabId).classList.add('on');
+  };
+
+  return (
+    <li role="presentation" style={{ minWidth: props.minWidth + 'px' }}>
+      <a
+        href="#"
+        role="tab"
+        tabIndex="0"
+        id={tabId}
+        aria-selected={isOn.toString()}
+        className={isOn ? 'on' : ''}
+        onClick={changeTab}
+      >
+        <span>{tabName}</span>
+      </a>
+    </li>
+  );
+};
 
 const HackathonList2 = () => {
   // jsonplaceholder 이용 axios 및 pagination 구현
@@ -59,7 +60,6 @@ const HackathonList2 = () => {
   const [currentPageData, setCurrentPageData] = useState([]);
   const url = '/hackathon/list/' + type + '/' + pageNum;
 
-
   useEffect(() => {
     const getData = async () => {
       try {
@@ -73,7 +73,6 @@ const HackathonList2 = () => {
 
     getData();
   }, [pageNum, type]);
-  
 
   const onClickPrev = (event) => {
     if (pageNum === 1) {
@@ -90,68 +89,84 @@ const HackathonList2 = () => {
   };
 
   const onTabHandler = (event) => {
-    
     console.log(event.currentTarget.value);
     setType(event.currentTarget.value);
-  }
+  };
 
-  const thisPage = (currentPageData && currentPageData.map((item, index) => {
-    return (
-      <>
-        <div className="hackathonBox">
-          <li key={index} className="hackathonList">
-            <img
-              src={item.hackathon_image}
-              alt="에러"
-              style={{ height: '200px' }}
-            />
-            <p>{item.name}</p>
-            <p>
-              {item.start_date} ~ {item.end_date}
-            </p>
-            <p>{item.content}</p>
-            <p>
-              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-              {item.designer}
-            </p>
-            <Link
-              to={'/hackathon/detail/' + item.id}
-              className="linkStyle"
-              style={{
-                textDecoration: 'none',
-                color: 'blue',
-                fontWeight: 'bolder',
-              }}
-            >
-              이동 테스트...(클릭)
-            </Link>
-          </li>
-        </div>
-      </>
-    );
-  }));
+  const thisPage =
+    currentPageData &&
+    currentPageData.map((item, index) => {
+      return (
+        <>
+          <div className="hackathonBox">
+            <li key={index} className="hackathonList">
+              <img
+                src={item.hackathon_image}
+                alt="에러"
+                style={{ height: '200px' }}
+              />
+              <p>{item.name}</p>
+              <p>
+                {item.start_date} ~ {item.end_date}
+              </p>
+              <p>{item.content}</p>
+              <p>
+                개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
+                {item.designer}
+              </p>
+              <Link
+                to={'/hackathon/detail/' + item.id}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'blue',
+                  fontWeight: 'bolder',
+                }}
+              >
+                이동 테스트...(클릭)
+              </Link>
+            </li>
+          </div>
+        </>
+      );
+    });
+
+  const tabList = [
+    { tabName: '인기순', id: 'popular', isOn: true },
+    { tabName: '최신순', id: 'latest', isOn: false },
+    { tabName: '규모순', id: 'bigger', isOn: false },
+    // 각 Tab의 넓이 지정
+  ];
+
+  var minWidth = Math.floor(100 / tabList.length);
 
   return (
     <>
-        <div className="hackathonTabBox">
+      {/* <div className="hackathonTabBox">
             <span className='hackathonTabList'><button className='hackathonTab' value="popular" onClick={onTabHandler}>인기순</button></span>
             <span className='hackathonTabList'><button className='hackathonTab' value="latest" onClick={onTabHandler}>최신순</button></span>
             <span className='hackathonTabList'><button className='hackathonTab' value="bigger" onClick={onTabHandler}>규모순</button></span>
-        </div>
-      <Styled>
-        <div className="hackathonWrap">
-          <div className="hackathonBoard">{thisPage}</div>
-          <div className="Pagination">
-            <button onClick={onClickPrev} className="pageButton">
-              이전 페이지
-            </button>
-            <span className="currentPage">{pageNum}</span>
-            <button onClick={onClickNext} className="pageButton">
-              다음 페이지
-            </button>
-          </div>
-        </div>
-      </Styled>
+        </div> */}
+      <div className="tabBox">
+        <ul className="tabList" role="tablist">
+          {tabList &&
+            tabList.map((v) => {
+              return <Tab key={v.id} tab={v} minWidth={minWidth} />;
+            })}
+        </ul>
+      </div>
+      <div className="hackathonWrap">
+        <div className="hackathonBoard">{thisPage}</div>
+      </div>
+      <div className="Pagination">
+        <button onClick={onClickPrev} className="pageButton">
+          이전 페이지
+        </button>
+        <span className="currentPage">{pageNum}</span>
+        <button onClick={onClickNext} className="pageButton">
+          다음 페이지
+        </button>
+      </div>
     </>
   );
 };

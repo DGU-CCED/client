@@ -29,7 +29,7 @@ export default function () {
 
   return (
     <div className="progress_background">
-      <div className="wrapper">
+      <div className="progress_wrapper">
         <div>
           <p className="title">해커톤 진행률</p>
         </div>

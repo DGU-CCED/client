@@ -39,24 +39,24 @@ const Create = () => {
 
   
 
-//   const formSubmit = (e) => {
-//     const img = e.target.files[0];
-//     const formData = new FormData();
-//     formData.append('file', img);
+  //   const formSubmit = (e) => {
+  //     const img = e.target.files[0];
+  //     const formData = new FormData();
+  //     formData.append('file', img);
 
-//     // axios.post("이미지 요청 주소", formData).then(res => {
-//     //   setImg(res.data.location)
-//     //   alert('성공')
-//     // }).catch(err => {
-//     //   alert('실패')
-//     // })
-//   };
-    const formSubmit = async (event) => {
-        const formData = new FormData();
-        formData.append("images", event.target.files[0]);
-        const response = await axios.post('/image', formData);
-        setImg(response.data);
-    }
+  //     // axios.post("이미지 요청 주소", formData).then(res => {
+  //     //   setImg(res.data.location)
+  //     //   alert('성공')
+  //     // }).catch(err => {
+  //     //   alert('실패')
+  //     // })
+  //   };
+  const formSubmit = async (event) => {
+    const formData = new FormData();
+    formData.append('images', event.target.files[0]);
+    const response = await axios.post('/image', formData);
+    setImg(response.data);
+  };
 
     const onNameHandler = (event) => {
         setName(event.currentTarget.value);
@@ -127,6 +127,7 @@ const Create = () => {
     <>
       <div className="Wrapper">
         <h1 style={{color: 'white', fontSize: '50px'}}>대회 개설하기</h1>
+
         <div className="FormWrap">
           <form className="form" style={{ color: 'white' }}>
             <p className="text">해커톤 이름</p>
