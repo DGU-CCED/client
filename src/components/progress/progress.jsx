@@ -49,7 +49,9 @@ export default function () {
               <p className="p">{section.id}팀</p>
               <div className="progress_progressWrapper">
                 <div className="progress">
-                  <Line percent={section.percent}></Line>
+                  <Line percent={section.percent}>
+                    <p>asdf</p>
+                  </Line>
                 </div>
                 <p>{section.percent}%</p>
               </div>

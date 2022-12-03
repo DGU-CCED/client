@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import dummy from '../data/dummy.json';
 
 import './HackathonList.css';
 
@@ -94,8 +95,8 @@ const HackathonList2 = () => {
   };
 
   const thisPage =
-    currentPageData &&
-    currentPageData.map((item, index) => {
+    dummy.data &&
+    dummy.data.map((item, index) => {
       return (
         <>
           <div className="hackathonBox">
@@ -142,19 +143,44 @@ const HackathonList2 = () => {
 
   return (
     <>
-      {/* <div className="hackathonTabBox">
-            <span className='hackathonTabList'><button className='hackathonTab' value="popular" onClick={onTabHandler}>인기순</button></span>
-            <span className='hackathonTabList'><button className='hackathonTab' value="latest" onClick={onTabHandler}>최신순</button></span>
-            <span className='hackathonTabList'><button className='hackathonTab' value="bigger" onClick={onTabHandler}>규모순</button></span>
-        </div> */}
-      <div className="tabBox">
+      {/* <div className="tabBox">
         <ul className="tabList" role="tablist">
           {tabList &&
             tabList.map((v) => {
               return <Tab key={v.id} tab={v} minWidth={minWidth} />;
             })}
         </ul>
+      </div> */}
+      <div className="tabBox">
+        <span>
+          <button
+            className="hackathonList_butt"
+            value="popular"
+            onClick={onTabHandler}
+          >
+            인기순
+          </button>
+        </span>
+        <span>
+          <button
+            className="hackathonList_butt"
+            value="latest"
+            onClick={onTabHandler}
+          >
+            최신순
+          </button>
+        </span>
+        <span>
+          <button
+            className="hackathonList_butt"
+            value="bigger"
+            onClick={onTabHandler}
+          >
+            규모순
+          </button>
+        </span>
       </div>
+
       <div className="hackathonWrap">
         <div className="hackathonBoard">{thisPage}</div>
       </div>
