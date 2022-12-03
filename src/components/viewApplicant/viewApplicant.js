@@ -1,5 +1,31 @@
 import './viewApplicant.css';
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
+const AlwaysScrollSection = memo((props) => {
+  const { children } = props;
+  return <StyledAlwaysScrollSection>{children}</StyledAlwaysScrollSection>;
+});
+
+const StyledAlwaysScrollSection = styled.div`
+  overflow: scroll;
+  height: 200px;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 0px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+`;
 
 export default function () {
   const [data, setData] = useState([]);
@@ -34,17 +60,144 @@ export default function () {
           <button className="teamBox21">개발자 : {data.developer}명</button>
           <button className="teamBox31">디자이너 : {data.designer}명</button>
         </div>
+
         <div className="status">
-          <label className="viewApplicant_label">
-            홍민기 / 22세 / 동국대학교
-          </label>
-          <label className="viewApplicant_label">
-            홍민기 / 22세 / 동국대학교
-          </label>
-          <label className="viewApplicant_label">
-            홍민기 / 22세 / 동국대학교
-          </label>
+          <AlwaysScrollSection>
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>{' '}
+            <button className="viewApplicant_label">
+              <Link
+                to={'/approvalandrefusal'}
+                className="linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                }}
+              >
+                홍민기 / 22세 / 동국대학교
+              </Link>
+            </button>
+          </AlwaysScrollSection>
         </div>
+
         <div className="buttonWrap">
           <button className="button1">저장</button>
           <button className="button2">해커톤 시작</button>
