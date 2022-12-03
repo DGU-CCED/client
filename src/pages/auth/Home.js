@@ -13,10 +13,10 @@ function Home() {
   return (
     <div class="home-container">
       <div class="home_select">
-        <TabList />
+        {/* <TabList /> */}
       </div>
       <div class="home_list">
-        <HackathonList />
+        {/* <HackathonList /> */}
         <HackathonList2 />
       </div>
     </div>

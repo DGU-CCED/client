@@ -41,38 +41,61 @@ function LoginPage() {
     // const response = axios.get('/user');
     // console.log(response);
 
+    // e.preventDefault();
+    // axios.post('/auth/login', {
+    //   email: email,
+    //   password: password,
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    //   let accessToken = response.headers.get("Authentication");
+    //   let refreshToken = response.headers.get("Refresh");
+    //   localStorage.setItem('access_token', accessToken);
+    //   localStorage.setItem('refresh_token', refreshToken);
+    // })
+    // // .then((response) => {
+    // //   if(response){
+    // //     alert("로그인 성공~!~!");
+    // //   }
+    // //   else{
+    // //     alert("로그인 실패 ㅠ_ㅜ");
+    // //   }
+    // // })
+    // .then(() => {
+    //   navigate('/hackathon/list');
+    // })
+
     e.preventDefault();
-    axios.post('/auth/login', {
+    axios.post(`/auth/login`, {
       email: email,
       password: password,
     })
     .then((response) => {
-      let accessToken = response.headers.get("access-token");
-      let refreshToken = response.headers.get("refresh-token");
-      localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_token', refreshToken);
+      console.log(response.headers['Authentication']);
     })
-    .then((response) => {
-      if(response){
-        alert("로그인 성공~!~!");
-      }
-      else{
-        alert("로그인 실패 ㅠ_ㅜ");
-      }
-    })
-    .then(() => {
-      navigate('/hackathon/list/newest/1');
-    })
+
+
   };
 
   const onclick = () => { // 나중에 삭제
     // const response = axios.get('/user');
     // console.log(response);
-    const response = axios.post('/auth/login', {
-      email: email,
-      password: password,
-    });
-    console.log(response);
+    // const response = axios.post('/auth/login', {
+    //   email: email,
+    //   password: password,
+    // });
+    // console.log(response.headers['Authentication']);
+
+   axios.post(`/auth/login`, {
+    email: email,
+    password: password,
+   }).then(function (response) {
+    console.log(response.data);
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.headers);
+    console.log(response.config);
+   })
   };
 
   return (
