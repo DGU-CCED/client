@@ -26,16 +26,18 @@ const UploadImage = styled.input`
 `;
 
 const Create = () => {
-  const [name, setName] = useState('');
-  const [location, setLocation] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState('');
-  const [pm, setPm] = useState(0);
-  const [developer, setDeveloper] = useState(0);
-  const [designer, setDesigner] = useState(0);
-  const [description, setDescription] = useState('');
-  const navigate = useNavigate();
-  const [img, setImg] = useState('');
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState('');
+    const [pm, setPm] = useState(0);
+    const [developer, setDeveloper] = useState(0);
+    const [designer, setDesigner] = useState(0);
+    const [description, setDescription] = useState('');
+    const navigate = useNavigate();
+    const [img, setImg] = useState('');
+
+  
 
 //   const formSubmit = (e) => {
 //     const img = e.target.files[0];
@@ -56,35 +58,35 @@ const Create = () => {
         setImg(response.data);
     }
 
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
-  };
-  const onLocationHandler = (event) => {
-    setLocation(event.currentTarget.value);
-  };
-  const onStartDateHandler = (event) => {
-    setStartDate(event.currentTarget.value);
-  };
-  const onEndDateHandler = (event) => {
-    setEndDate(event.currentTarget.value);
+    const onNameHandler = (event) => {
+        setName(event.currentTarget.value);
+    };
+    const onLocationHandler = (event) => {
+        setLocation(event.currentTarget.value);
+    };
+    const onStartDateHandler = (event) => {
+        setStartDate(event.currentTarget.value);
+    };
+    const onEndDateHandler = (event) => {
+        setEndDate(event.currentTarget.value);
 
-    console.log(startDate);
-  };
-  const onPmHandler = (event) => {
-    setPm(event.currentTarget.value);
-  };
-  const onDeveloperHandler = (event) => {
-    setDeveloper(event.currentTarget.value);
-  };
-  const onDesignerHandler = (event) => {
-    setDesigner(event.currentTarget.value);
-  };
-  const onDescriptionHandler = (event) => {
-    setDescription(event.currentTarget.value);
-  };
-  const onClickButton = () => {
-    navigate('/management');
-  };
+        console.log(startDate);
+    };
+    const onPmHandler = (event) => {
+        setPm(event.currentTarget.value);
+    };
+    const onDeveloperHandler = (event) => {
+        setDeveloper(event.currentTarget.value);
+    };
+    const onDesignerHandler = (event) => {
+        setDesigner(event.currentTarget.value);
+    };
+    const onDescriptionHandler = (event) => {
+        setDescription(event.currentTarget.value);
+    };
+    const onClickButton = () => {
+        navigate('/management');
+    };
 
   useEffect(() => {
     setImg();
@@ -124,6 +126,7 @@ const Create = () => {
   return (
     <>
       <div className="Wrapper">
+        <h1 style={{color: 'white', fontSize: '50px'}}>대회 개설하기</h1>
         <div className="FormWrap">
           <form className="form" style={{ color: 'white' }}>
             <p className="text">해커톤 이름</p>
