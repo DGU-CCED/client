@@ -197,7 +197,7 @@ const Kanban = () => {
 
   return (
     <div className="background">
-      <div className="wrapper">
+      <div className="kanban_wrapper">
         <div className="codeConventionWrapper">
           <div className="codeConvention">
             <div>

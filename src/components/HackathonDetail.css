@@ -1,4 +1,4 @@
-.wrap{
+.hackathonDetail_wrap{
     color: white;
     margin-top: 100px;
     margin-left: 200px;
@@ -38,7 +38,7 @@
     border-radius: 24px;
     margin-right:10px;
 }
-.wrap2{
+.hackathonDetail_wrap2{
     color: white;
     margin-top: 40px;
 }

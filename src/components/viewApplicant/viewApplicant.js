@@ -6,7 +6,7 @@ export default function () {
 
   return (
     <>
-      <div className="wrap">
+      <div className="viewApplicant_wrap">
         <h1 className="name">{data.name}</h1>
         <div className="date_loc">
           <span className="date">{data.start_date}</span>
@@ -21,7 +21,7 @@ export default function () {
       </div>
       <div className="horizon"></div>
 
-      <div className="wrap2">
+      <div className="viewApplicant_wrap">
         <div className="detail_content">
           <h3>{data.content}</h3>
         </div>

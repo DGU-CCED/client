@@ -6,7 +6,7 @@ export default function () {
 
   return (
     <>
-      <div className="wrap">
+      <div className="approvalAndRefusal_wrap">
         <div className="formWrap">
           <p className="approvalAndRefusal_p">기획파트 지원서</p>
           <div className="introWrap">
