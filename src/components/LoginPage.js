@@ -37,65 +37,46 @@ function LoginPage() {
   };
 
   const onClickHome = (e) => {
-    // get api 연습
-    // const response = axios.get('/user');
-    // console.log(response);
-
-    // e.preventDefault();
-    // axios.post('/auth/login', {
-    //   email: email,
-    //   password: password,
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    //   let accessToken = response.headers.get("Authentication");
-    //   let refreshToken = response.headers.get("Refresh");
-    //   localStorage.setItem('access_token', accessToken);
-    //   localStorage.setItem('refresh_token', refreshToken);
-    // })
-    // // .then((response) => {
-    // //   if(response){
-    // //     alert("로그인 성공~!~!");
-    // //   }
-    // //   else{
-    // //     alert("로그인 실패 ㅠ_ㅜ");
-    // //   }
-    // // })
-    // .then(() => {
-    //   navigate('/hackathon/list');
-    // })
-
+    axios.defaults.withCredentials = false;
     e.preventDefault();
-    axios.post(`/auth/login`, {
+    axios.post('/auth/login', {
       email: email,
       password: password,
+    }).then((response) => {
+      if(response.data.data !== ""){
+        alert("로그인 성공!");
+        localStorage.setItem("access", response.data.data);
+        console.log(localStorage.getItem("access"));
+        navigate('/hackathon/list');
+      } else {
+        alert("로그인 실패..");
+      }
+    }).catch((error) => {
+      console.log(error);
+      alert("로그인 실패..");
     })
-    .then((response) => {
-      console.log(response.headers['Authentication']);
-    })
+    
 
 
   };
 
   const onclick = () => { // 나중에 삭제
-    // const response = axios.get('/user');
-    // console.log(response);
-    // const response = axios.post('/auth/login', {
-    //   email: email,
-    //   password: password,
-    // });
-    // console.log(response.headers['Authentication']);
-
-   axios.post(`/auth/login`, {
-    email: email,
-    password: password,
-   }).then(function (response) {
-    console.log(response.data);
-    console.log(response.status);
-    console.log(response.statusText);
-    console.log(response.headers);
-    console.log(response.config);
-   })
+    axios.defaults.withCredentials = false;
+    axios.post('/auth/login', {
+      email: email,
+      password: password
+    }).then(response => {
+      console.log(response);
+    }).then(response => {
+      if (response) {
+        alert("로그인 성공!");
+        localStorage.setItem("access", response.data.data);
+        console.log(localStorage.getItem("access"));
+        navigate('/hackathon/list');
+      } else{
+        alert("로그인 실패..");
+      }
+    })
   };
 
   return (
