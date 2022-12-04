@@ -26,8 +26,8 @@ const HackathonDetail = () => {
   const url = '/hackathon/detail/' + id;
 
   const style = {
-    backgroundImage: 'url('+data.hackathon_image+')',
-  }
+    backgroundImage: 'url(' + data.hackathon_image + ')',
+  };
 
   const navigate = useNavigate();
   const onClickButton = () => {
@@ -57,7 +57,7 @@ const HackathonDetail = () => {
           <span className="date"> ~ {data.end_date}</span>
           <span className="date"> / {data.location}</span>
         </div>
-        <div className="teamPart">
+        <div className="hackathonDetail_teamPart">
           <span className="teamBox11">기획자 : {data.pm}명</span>
           <span className="teamBox21">개발자 : {data.developer}명</span>
           <span className="teamBox31">디자이너 : {data.designer}명</span>

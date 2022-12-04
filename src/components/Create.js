@@ -307,32 +307,6 @@ const Create = () => {
                   className="loginregister__desc"
                 />
               </div>
-              <p className="text">해커톤 이미지</p>
-              <div className="img-preview">
-                <ImgPreview src={img} alt="이미지 선택 전" />
-              </div>
-              <div>
-                <UploadImage
-                  type="file"
-                  accept="image/*"
-                  id="img"
-                  onChange={formSubmit}
-                ></UploadImage>
-              </div>
-
-              <p className="text">해커톤 소개</p>
-              <div>
-                <textarea
-                  rows={1}
-                  name="description"
-                  type="textarea"
-                  wrap="on"
-                  placeholder="자기소개"
-                  value={description}
-                  onChange={onDescriptionHandler}
-                  className="loginregister__desc"
-                />
-              </div>
               <div>
                 <button className="move" onClick={onClickButton}>
                   Upload
