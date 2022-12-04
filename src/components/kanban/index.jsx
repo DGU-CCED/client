@@ -214,7 +214,7 @@ const Kanban = () => {
         </div>
         <div className="progressWrapper">
           <div className="progress">
-            <div>
+            <div className="progressLabelWrapper">
               <label className="label">진행상황</label>
             </div>
             <TodoTemplate>
