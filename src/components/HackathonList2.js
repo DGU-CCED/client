@@ -92,6 +92,7 @@ const HackathonList2 = () => {
   const onTabHandler = (event) => {
     console.log(event.currentTarget.value);
     setType(event.currentTarget.value);
+    setPageNum(1);
   };
 
   const thisPage =
@@ -134,8 +135,8 @@ const HackathonList2 = () => {
 
   const tabList = [
     { tabName: '인기순', id: 'popular', isOn: true },
-    { tabName: '최신순', id: 'latest', isOn: false },
-    { tabName: '규모순', id: 'bigger', isOn: false },
+    { tabName: '최신순', id: 'newest', isOn: false },
+    { tabName: '규모순', id: 'size', isOn: false },
     // 각 Tab의 넓이 지정
   ];
 
