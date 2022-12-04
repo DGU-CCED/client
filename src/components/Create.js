@@ -37,7 +37,8 @@ const Create = () => {
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
     const [img, setImg] = useState('');
-
+    const owner_id = Number(localStorage.getItem("userId"));
+    const created_time = new Date();
   
 
   //   const formSubmit = (e) => {
@@ -83,9 +84,42 @@ const Create = () => {
     };
     const onDescriptionHandler = (event) => {
         setDescription(event.currentTarget.value);
+       
     };
-    const onClickButton = () => {
-        navigate('/management');
+    const onClickButton = (event) => {
+
+        axios.defaults.withCredentials=false;
+        event.preventDefault();
+        axios.post('/hackathon/create',{
+            owner_id: owner_id,
+            name: name,
+            start_date: startDate,
+            end_date: endDate,
+            location: location,
+            content: description,
+            developer: Number(developer),
+            pm: Number(pm),
+            designer: Number(designer),
+            hackathon_image: img,
+            views: 0,
+            is_progress: false,
+            created_time: created_time,
+            tag: "해커톤",
+        })
+        .then((response) => {
+            if(response.data.data !== ""){
+                let h_title = response.data.data.name;
+                alert({h_title}+" 개설 성공");
+                navigate('/management');
+            } else {
+                alert("개설 실패");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            alert("개설 실패");
+        })
+        // navigate('/management');
     };
 
   
