@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker'; // DatePicker 라는 컴포넌트도 가져오깅
+
 import 'react-datepicker/dist/react-datepicker.css'; // 스타일 맥이기
 import './react-datepicker.css';
 import './Create.css';
@@ -45,7 +46,7 @@ const UploadImage = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 180px;
+  margin-left: 100px;
 `;
 
 const Create = () => {
@@ -59,24 +60,26 @@ const Create = () => {
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
   const [img, setImg] = useState('');
+  const owner_id = Number(localStorage.getItem('userId'));
+  const created_time = new Date();
 
   //   const formSubmit = (e) => {
   //     const img = e.target.files[0];
   //     const formData = new FormData();
   //     formData.append('file', img);
 
-  //     // axios.post("이미지 요청 주소", formData).then(res => {
-  //     //   setImg(res.data.location)
-  //     //   alert('성공')
-  //     // }).catch(err => {
-  //     //   alert('실패')
-  //     // })
-  //   };
-  const formSubmit = async (event) => {
+  const formSubmit = (event) => {
     const formData = new FormData();
     formData.append('images', event.target.files[0]);
-    const response = await axios.post('/image', formData);
-    setImg(response.data);
+    axios
+      .post('/image', formData)
+      .then((response) => {
+        setImg(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onNameHandler = (event) => {
@@ -105,13 +108,41 @@ const Create = () => {
   const onDescriptionHandler = (event) => {
     setDescription(event.currentTarget.value);
   };
-  const onClickButton = () => {
-    navigate('/management');
+  const onClickButton = (event) => {
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios
+      .post('/hackathon/create', {
+        owner_id: owner_id,
+        name: name,
+        start_date: startDate,
+        end_date: endDate,
+        location: location,
+        content: description,
+        developer: Number(developer),
+        pm: Number(pm),
+        designer: Number(designer),
+        hackathon_image: img,
+        views: 0,
+        is_progress: false,
+        created_time: created_time,
+        tag: '해커톤',
+      })
+      .then((response) => {
+        if (response.data.data !== '') {
+          let h_title = response.data.data.name;
+          alert({ h_title } + ' 개설 성공');
+          navigate('/management');
+        } else {
+          alert('개설 실패');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('개설 실패');
+      });
+    // navigate('/management');
   };
-
-  useEffect(() => {
-    setImg();
-  }, [img]);
 
   const getFormattedDate = (date) => {
     const month = date.toLocaleDateString('ko-KR', {
@@ -263,6 +294,32 @@ const Create = () => {
                   onChange={formSubmit}
                 ></UploadImage>
               </div>
+              <p className="text">해커톤 소개</p>
+              <div>
+                <textarea
+                  rows={1}
+                  name="description"
+                  type="textarea"
+                  wrap="on"
+                  placeholder="자기소개"
+                  value={description}
+                  onChange={onDescriptionHandler}
+                  className="loginregister__desc"
+                />
+              </div>
+              <p className="text">해커톤 이미지</p>
+              <div className="img-preview">
+                <ImgPreview src={img} alt="이미지 선택 전" />
+              </div>
+              <div>
+                <UploadImage
+                  type="file"
+                  accept="image/*"
+                  id="img"
+                  onChange={formSubmit}
+                ></UploadImage>
+              </div>
+
               <p className="text">해커톤 소개</p>
               <div>
                 <textarea
