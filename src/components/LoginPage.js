@@ -43,10 +43,12 @@ function LoginPage() {
       email: email,
       password: password,
     }).then((response) => {
-      if(response.data.data !== ""){
+      if(response){
+        console.log(JSON.parse(JSON.stringify(response.data.data[2].user_id)));
+        const user_id = JSON.parse(JSON.stringify(response.data.data[2].user_id));
+        localStorage.setItem("userId", user_id);
+        const check = localStorage.getItem("userId");
         alert("로그인 성공!");
-        localStorage.setItem("access", response.data.data);
-        console.log(localStorage.getItem("access"));
         navigate('/hackathon/list');
       } else {
         alert("로그인 실패..");
@@ -66,13 +68,11 @@ function LoginPage() {
       email: email,
       password: password
     }).then(response => {
-      console.log(response);
-    }).then(response => {
       if (response) {
-        alert("로그인 성공!");
-        localStorage.setItem("access", response.data.data);
-        console.log(localStorage.getItem("access"));
-        navigate('/hackathon/list');
+        localStorage.setItem("userId", response.data.data);
+        console.log(localStorage.getItem("userId"));
+        let userId = localStorage.getItem("userId")
+        alert({userId}+" 님 환영합니다.");
       } else{
         alert("로그인 실패..");
       }
