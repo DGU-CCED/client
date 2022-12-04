@@ -2,7 +2,9 @@
     color: white;
     margin-top: 100px;
     margin-left: 200px;
+    height: 400px;
     text-align: left;
+    background-repeat: no-repeat;
 }
 .name{
     font-size: 50px;

@@ -95,8 +95,8 @@ const HackathonList2 = () => {
   };
 
   const thisPage =
-    dummy.data &&
-    dummy.data.map((item, index) => {
+    currentPageData &&
+    currentPageData.map((item, index) => {
       return (
         <>
           <div className="hackathonBox">

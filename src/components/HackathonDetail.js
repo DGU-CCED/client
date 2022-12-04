@@ -25,6 +25,10 @@ const HackathonDetail = () => {
   const [data, setData] = useState([]);
   const url = '/hackathon/detail/' + id;
 
+  const style = {
+    backgroundImage: 'url('+data.hackathon_image+')',
+  }
+
   const navigate = useNavigate();
   const onClickButton = () => {
     navigate('/apply', { state: { id: id } });
@@ -46,7 +50,7 @@ const HackathonDetail = () => {
 
   return (
     <>
-      <div className="hackathonDetail_wrap">
+      <div className="hackathonDetail_wrap" style={style}>
         <h1 className="name">{data.name}</h1>
         <div className="date_loc">
           <span className="date">{data.start_date}</span>
