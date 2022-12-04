@@ -1,9 +1,10 @@
 import './kanban.scss';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import mockData from '../../mockData';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, memo } from 'react';
 import Card from '../card';
 import React from 'react';
+import styled from 'styled-components';
 
 import Prism from 'prismjs';
 // 여기 css를 수정해서 코드 하이라이팅 커스텀 가능
@@ -28,6 +29,30 @@ import {
   MdRemoveCircleOutline,
   MdAdd,
 } from 'react-icons/md';
+
+const AlwaysScrollSection = memo((props) => {
+  const { children } = props;
+  return <StyledAlwaysScrollSection>{children}</StyledAlwaysScrollSection>;
+});
+
+const StyledAlwaysScrollSection = styled.div`
+  overflow: scroll;
+  height: 800px;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 0px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+`;
 
 const Kanban = () => {
   const [data, setData] = useState(mockData);
@@ -198,95 +223,101 @@ const Kanban = () => {
   return (
     <div className="background">
       <div className="kanban_wrapper">
-        <div className="codeConventionWrapper">
-          <div className="codeConvention">
-            <div>
-              <label className="label">가이드라인</label>
+        <AlwaysScrollSection>
+          <div className="codeConventionWrapper">
+            <div className="codeConvention">
+              <div>
+                <label className="label">코드컨벤션</label>
+              </div>
+              <p className="paragraph">{textValue}</p>
+              <textarea
+                className="textArea"
+                placeholder="Code Convention을 입력해주세요."
+                value={textValue}
+                onChange={(e) => handleSetValue(e)}
+              ></textarea>
             </div>
-            <p className="paragraph">{textValue}</p>
-            <textarea
-              className="textArea"
-              placeholder="Code Convention을 입력해주세요."
-              value={textValue}
-              onChange={(e) => handleSetValue(e)}
-            ></textarea>
           </div>
-        </div>
-        <div className="progressWrapper">
-          <div className="progress">
-            <div className="progressLabelWrapper">
-              <label className="label">진행상황</label>
+          <div className="progressWrapper">
+            <div className="progress">
+              <div className="progressLabelWrapper">
+                <label className="label">진행상황</label>
+              </div>
+              <TodoTemplate>
+                <TodoInsert onInsert={onInsert} />
+                <TodoList
+                  todos={todos}
+                  onRemove={onRemove}
+                  onToggle={onToggle}
+                />
+              </TodoTemplate>
             </div>
-            <TodoTemplate>
-              <TodoInsert onInsert={onInsert} />
-              <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
-            </TodoTemplate>
           </div>
-        </div>
 
-        <div className="freespaceWrapper">
-          <div className="freespace">
-            <div>
-              <label className="label">자유 공간</label>
+          <div className="freespaceWrapper">
+            <div className="freespace">
+              <div>
+                <label className="label">자유 공간</label>
+              </div>
+              <Editor
+                previewStyle="vertical"
+                plugins={[
+                  colorSyntax,
+                  [codeSyntaxHighlight, { highlighter: Prism }],
+                ]}
+              />
             </div>
-            <Editor
-              previewStyle="vertical"
-              plugins={[
-                colorSyntax,
-                [codeSyntaxHighlight, { highlighter: Prism }],
-              ]}
-            />
           </div>
-        </div>
 
-        <div className="kanbanBoardWrapper">
-          <div>
-            <label className="label">KANBAN</label>
-          </div>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <div className="kanban">
-              {data.map((section) => (
-                <Droppable key={section.id} droppableId={section.id}>
-                  {(provided) => (
-                    <div
-                      {...provided.droppableProps}
-                      className="kanban__section"
-                      ref={provided.innerRef}
-                    >
-                      <div className="kanban__section__title">
-                        {section.title}
-                      </div>
-                      <div className="kanban__section__content">
-                        {section.tasks.map((task, index) => (
-                          <Draggable
-                            key={task.id}
-                            draggableId={task.id}
-                            index={index}
-                          >
-                            {(provided, snapshot) => (
-                              <div
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                style={{
-                                  ...provided.draggableProps.style,
-                                  opacity: snapshot.isDragging ? '0.5' : '1',
-                                }}
-                              >
-                                <Card>{task.title}</Card>
-                              </div>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </div>
-                    </div>
-                  )}
-                </Droppable>
-              ))}
+          <div className="kanbanBoardWrapper">
+            <div>
+              <label className="label">칸반보드</label>
             </div>
-          </DragDropContext>
-        </div>
+            <DragDropContext onDragEnd={onDragEnd}>
+              <div className="kanban">
+                {data.map((section) => (
+                  <Droppable key={section.id} droppableId={section.id}>
+                    {(provided) => (
+                      <div
+                        {...provided.droppableProps}
+                        className="kanban__section"
+                        ref={provided.innerRef}
+                      >
+                        <div className="kanban__section__title">
+                          {section.title}
+                        </div>
+                        <div className="kanban__section__content">
+                          {section.tasks.map((task, index) => (
+                            <Draggable
+                              key={task.id}
+                              draggableId={task.id}
+                              index={index}
+                            >
+                              {(provided, snapshot) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  style={{
+                                    ...provided.draggableProps.style,
+                                    opacity: snapshot.isDragging ? '0.5' : '1',
+                                  }}
+                                >
+                                  <Card>{task.title}</Card>
+                                </div>
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                        </div>
+                      </div>
+                    )}
+                  </Droppable>
+                ))}
+              </div>
+            </DragDropContext>
+          </div>
+        </AlwaysScrollSection>
       </div>
     </div>
   );

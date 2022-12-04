@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import './Management.css';
-import dummy from '../data/dummy.json';
+import './myPage.css';
+import dummy from '../../data/dummy.json';
 
 const CreateHackathon = styled.div`
   display: flex;
@@ -21,16 +21,10 @@ const CreateHackathon = styled.div`
   }
 `;
 
-const Management = () => {
-  const navigate = useNavigate();
-
-  const create = (event) => {
-    navigate('/create');
-  };
-
+const MyPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const url = '/management/' + '/' + pageNum;
+  const url = '/myPage/' + '/' + pageNum;
 
   useEffect(() => {
     const getData = async () => {
@@ -63,8 +57,8 @@ const Management = () => {
   const dummyManagement = dummy.data.map((item, index) => {
     return (
       <>
-        <div className="management_box">
-          <li key={index} className="management_list">
+        <div className="myPage_box">
+          <li key={index} className="myPage_list">
             <img
               src={item.hackathon_image}
               alt="에러"
@@ -80,8 +74,8 @@ const Management = () => {
               {item.designer}
             </p>
             <Link
-              to={'/viewApplicant'}
-              className="management_linkStyle"
+              to={'/kanbanboard'}
+              className="myPage_linkStyle"
               style={{
                 textDecoration: 'none',
                 color: 'blue',
@@ -98,23 +92,15 @@ const Management = () => {
 
   return (
     <>
-      <CreateHackathon>
-        <button className="createHackathonButton" onClick={create}>
-          대회 개설하기
-        </button>
-      </CreateHackathon>
-
-      {/* <p style={{ color: 'white' }}>대회관리 종료</p> */}
-
-      <div className="management_wrap">
-        <div className="management_board">{dummyManagement}</div>
+      <div className="myPage_wrap">
+        <div className="myPage_board">{dummyManagement}</div>
       </div>
-      <div className="management_buttonWrap">
-        <button onClick={onClickPrev} className="management_pageButton">
+      <div className="myPage_buttonWrap">
+        <button onClick={onClickPrev} className="myPage_pageButton">
           이전 페이지
         </button>
-        <span className="management_currentPage">{pageNum}</span>
-        <button onClick={onClickNext} className="management_pageButton">
+        <span className="myPage_currentPage">{pageNum}</span>
+        <button onClick={onClickNext} className="myPage_pageButton">
           다음 페이지
         </button>
       </div>
@@ -122,4 +108,4 @@ const Management = () => {
   );
 };
 
-export default Management;
+export default MyPage;

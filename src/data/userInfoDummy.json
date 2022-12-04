@@ -1,0 +1,36 @@
+{
+    "statusCode": 201,
+    "message": "get Hackathon list successfully",
+    "data": [
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        },
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        },
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        },
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        },
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        },
+        {
+            "name":"홍민기",
+            "age":24,
+            "university":"동국대학교"
+        }
+    ]
+}
