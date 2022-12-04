@@ -14,6 +14,7 @@ import Progress from './components/progress/progress';
 import Apply from './components/applicant/Apply';
 import ViewApplicant from './components/viewApplicant/viewApplicant';
 import ApprovalAndRefusal from './components/approvalAndRefusal/approvalAndRefusal';
+import MyPage from './components/myPage/myPage';
 
 class App extends Component {
   render() {
@@ -37,6 +38,7 @@ class App extends Component {
           <Route path="/progress" element={<Progress />} />
           <Route path="/viewapplicant" element={<ViewApplicant />} />
           <Route path="/approvalandrefusal" element={<ApprovalAndRefusal />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </div>
     );

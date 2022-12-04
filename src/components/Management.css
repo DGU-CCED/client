@@ -1,0 +1,69 @@
+.management_wrap {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: black;
+    margin-top: 10px;
+  }
+  
+  .management_board {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height: 100%;
+    background-color: black;
+    margin-left: 60px;
+  }
+
+.management_box {
+    margin: auto;
+    border: 1px solid #ffffff;
+    width: 300px;
+    height: 400px;
+    margin-left: 20px;
+    float: left;
+}
+
+.management_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    list-style: none;
+    font-size: x-small;
+    background-color: black;
+    color: #ffffff;
+    width: 100%;
+    height: max-content;
+    padding-top: 10px;
+}
+
+.management_linkStyle {
+    text-decoration: none;
+}
+
+.management_buttonWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background-color: black;
+}
+
+.management_pageButton{
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.5s;
+    height: 30px;
+    color: #ffffff;
+    background: #84ad58;
+}
+
+.management_currentPage{
+    font-size: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
