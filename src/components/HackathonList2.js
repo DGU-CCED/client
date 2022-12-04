@@ -104,7 +104,7 @@ const HackathonList2 = () => {
               <img
                 src={item.hackathon_image}
                 alt="에러"
-                style={{ height: '200px' }}
+                style={{ width: '300px', height: '200px' }}
               />
               <p>{item.name}</p>
               <p>
@@ -164,7 +164,7 @@ const HackathonList2 = () => {
         <span>
           <button
             className="hackathonList_butt"
-            value="latest"
+            value="newest"
             onClick={onTabHandler}
           >
             최신순
@@ -173,7 +173,7 @@ const HackathonList2 = () => {
         <span>
           <button
             className="hackathonList_butt"
-            value="bigger"
+            value="size"
             onClick={onTabHandler}
           >
             규모순
