@@ -15,6 +15,7 @@ import Apply from './components/applicant/Apply';
 import ViewApplicant from './components/viewApplicant/viewApplicant';
 import ApprovalAndRefusal from './components/approvalAndRefusal/approvalAndRefusal';
 import MyPage from './components/myPage/myPage';
+import Form from './components/form/form';
 
 class App extends Component {
   render() {
@@ -39,6 +40,7 @@ class App extends Component {
           <Route exact path="/viewapplicant/:id" element={<ViewApplicant />} />
           <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/form" element={<Form />} />
         </Routes>
       </div>
     );

@@ -30,7 +30,7 @@ const StyledAlwaysScrollSection = styled.div`
 `;
 
 export default function () {
-  const [team] = useState([
+  const [team, setState] = useState([
     {
       id: 1,
       percent: 50,
