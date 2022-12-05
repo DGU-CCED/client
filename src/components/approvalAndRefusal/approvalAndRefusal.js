@@ -1,7 +1,7 @@
 import './approvalAndRefusal.css';
 import React, { useState, memo, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 
 const AlwaysScrollSection = memo((props) => {
@@ -35,6 +35,8 @@ export default function () {
   const user_part = searchParams.get('part');
   const [data, setData] = useState([]);
 
+  const navigate = useNavigate();
+
   const url = '/applicant/' + id + '/' + user_id + '/' + user_part;
   useEffect(() => {
     const getData = async () => {
@@ -48,6 +50,54 @@ export default function () {
     };
     getData();
   }, []);
+
+  const accept = (event) => {
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios
+    .post('/participant/accept', {
+      hackathon_id: id,
+      user_id: user_id,
+      part: user_part
+    })
+    .then((response) => {
+      if(response.data.data !== ''){
+        alert('참가 승인');
+        navigate(-1);
+      } else {
+        alert('승인 실패');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('승인 실패');
+    })
+  }
+
+  const refuse = (event) => {
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios
+    .delete('/applicant/refuse',{
+      data: {
+        hackathon_id: id,
+        user_id: user_id,
+        part: user_part
+      }
+    })
+    .then((response) => {
+      if(response.data.data !== ''){
+        alert('참가 거부');
+        navigate(-1);
+      } else {
+        alert('거부 실패');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('거부 실패');
+    })
+  }
 
   if (user_part === 'pm') {
     return (
@@ -73,8 +123,8 @@ export default function () {
               </AlwaysScrollSection>
             </div>
             <div className="approvalAndRefusal_buttonWrap">
-              <button className="approvalAndRefusal_button1">참가 승인</button>
-              <button className="approvalAndRefusal_button2">승인 거절</button>
+              <button className="approvalAndRefusal_button1" onClick={accept}>참가 승인</button>
+              <button className="approvalAndRefusal_button2" onClick={refuse}>승인 거절</button>
             </div>
           </div>
         </div>
@@ -104,8 +154,8 @@ export default function () {
               </AlwaysScrollSection>
             </div>
             <div className="approvalAndRefusal_buttonWrap">
-              <button className="approvalAndRefusal_button1">참가 승인</button>
-              <button className="approvalAndRefusal_button2">승인 거절</button>
+              <button className="approvalAndRefusal_button1" onClick={accept}>참가 승인</button>
+              <button className="approvalAndRefusal_button2" onClick={refuse}>승인 거절</button>
             </div>
           </div>
         </div>
@@ -135,8 +185,8 @@ export default function () {
               </AlwaysScrollSection>
             </div>
             <div className="approvalAndRefusal_buttonWrap">
-              <button className="approvalAndRefusal_button1">참가 승인</button>
-              <button className="approvalAndRefusal_button2">승인 거절</button>
+              <button className="approvalAndRefusal_button1" onClick={accept}>참가 승인</button>
+              <button className="approvalAndRefusal_button2" onClick={refuse}>승인 거절</button>
             </div>
           </div>
         </div>
