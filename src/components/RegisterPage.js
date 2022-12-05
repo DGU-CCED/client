@@ -49,6 +49,7 @@ function RegisterPage() {
   };
 
   const onClickButton = (event) => {
+    axios.defaults.withCredentials = false;
     event.preventDefault();
     axios
       .post('/auth/register', {

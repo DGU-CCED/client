@@ -4,11 +4,19 @@
 }
 .viewApplicant_wrap{
     color: white;
-    margin-top: 100px;
+    /* margin-top: 100px;
     margin-left: 200px;
+    text-align: left; */
+    width: 100%;
+    height: 200px;
     text-align: left;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 .name{
+    margin-left:100px;
     font-size: 50px;
 }
 .date_loc{
@@ -18,7 +26,7 @@
 }
 .teamPart{
     margin-top:30px;
-    margin-left: -30px;
+    margin-left: 70px;
 }
 .teamBox11{
     width:max-content;
@@ -58,7 +66,8 @@
     
 }
 .applicationStatusWrap{
-    margin: auto;
+    margin: 0 auto;
+    margin-top: -200px;
 }
 .applicationStatus{
     display: flex;
