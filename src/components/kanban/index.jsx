@@ -43,7 +43,7 @@ const StyledAlwaysScrollSection = styled.div`
     width: 8px;
 
     /* 가로 스크롤 높이 */
-    height: 0px;
+    height: 8px;
 
     border-radius: 6px;
     background: rgba(255, 255, 255, 0.4);
@@ -87,6 +87,8 @@ const Kanban = () => {
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
   };
+
+  const [value, setValue] = useState('');
 
   const TodoTemplate = ({ children }) => {
     return (
@@ -236,6 +238,9 @@ const Kanban = () => {
                 value={textValue}
                 onChange={(e) => handleSetValue(e)}
               ></textarea>
+              <div className="kanban_save_button_wrapper">
+                <button className="kanban_save_button">저장하기</button>
+              </div>
             </div>
           </div>
           <div className="progressWrapper">
@@ -252,6 +257,9 @@ const Kanban = () => {
                 />
               </TodoTemplate>
             </div>
+            <div className="kanban_save_button_wrapper">
+              <button className="kanban_save_button2">저장하기</button>
+            </div>
           </div>
 
           <div className="freespaceWrapper">
@@ -266,6 +274,9 @@ const Kanban = () => {
                   [codeSyntaxHighlight, { highlighter: Prism }],
                 ]}
               />
+              <div className="kanban_save_button_wrapper">
+                <button className="kanban_save_button">저장하기</button>
+              </div>
             </div>
           </div>
 
@@ -309,6 +320,13 @@ const Kanban = () => {
                             </Draggable>
                           ))}
                           {provided.placeholder}
+                        </div>
+                        <div className="kanban_insert_wrapper">
+                          <input
+                            className="kanban_insert"
+                            placeholder="추가할 작업을 입력하세요."
+                          />
+                          <button className="kanban_insert_button">+</button>
                         </div>
                       </div>
                     )}

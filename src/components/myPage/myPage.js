@@ -74,7 +74,7 @@ const MyPage = () => {
               {item.designer}
             </p>
             <Link
-              to={'/kanbanboard'}
+              to={'/progress'}
               className="myPage_linkStyle"
               style={{
                 textDecoration: 'none',

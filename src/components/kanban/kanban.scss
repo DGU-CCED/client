@@ -58,15 +58,15 @@
     border-style: none;
 }
 
-.codeConventionWrapper { 
-    padding:10px;
+.codeConventionWrapper {
+    padding: 10px;
 }
 
-.codeConvention { 
+.codeConvention {
     padding: 10px;
     border-radius: 10px;
-    margin:auto;
-    border:5px solid #ff008c;
+    margin: auto;
+    border: 5px solid #ff008c;
 }
 
 .textArea {
@@ -79,29 +79,112 @@
 .progressWrapper {
     margin-left: 10px;
     margin-right: 10px;
-    border:5px solid #ff008c;
+    border: 5px solid #ff008c;
     border-radius: 10px;
 }
 
-.progress {  
-    margin:auto;
+.progress {
+    margin: auto;
 }
 
 .freespaceWrapper {
-    padding:10px;
+    padding: 10px;
 }
 
-.freespace { 
+.freespace {
     padding: 10px;
     border-radius: 10px;
-    margin:auto;
-    border:5px solid #ff008c;
+    margin: auto;
+    border: 5px solid #ff008c;
 }
 
 .kanbanBoardWrapper {
-    padding:10px;
+    padding: 10px;
 }
 
-.progressLabelWrapper{
+.progressLabelWrapper {
     margin-left: -10%;
+}
+
+.kanban_save_button_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.kanban_save_button {    
+    background-color: #adb5bd;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.kanban_save_button2 {    
+    background-color: #adb5bd;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 20px;
+    color: #ffffff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.kanban_insert_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.kanban_insert {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+    margin-top: 10px;
+    background: white;
+    padding: 0.5rem;
+    font-size: 0.5rem;
+    line-height: 1.5;
+    color: black;
+
+    &::placeholder {
+        color: #a8a8a8;
+    }
+
+    flex: 1
+}
+
+.kanban_insert_button {
+    // 기본 스타일 초기화
+    width: 10%;
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+
+    &:hover {
+        background: #adb5bd;
+    }
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 5px;
 }
