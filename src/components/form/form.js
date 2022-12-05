@@ -60,7 +60,9 @@ export default function () {
           <p className="form_title">만족도 조사</p>
           {team.map((section) => (
             <div>
-              <p className="form_p">{section.id}. </p>
+              <div className="p_wrap">
+                <p className="form_p">{section.id}. </p>
+              </div>
               <div className="form_formWrapper">
                 <div className="question">
                   <p>{section.content}</p>
