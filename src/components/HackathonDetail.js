@@ -47,6 +47,9 @@ const HackathonDetail = () => {
 
     getData();
   }, []);
+  const onClickBack = () =>{
+    navigate(-1);
+  }
 
   return (
     <>
@@ -79,13 +82,16 @@ const HackathonDetail = () => {
               참가
             </ApplyButton>
           </p>
-          <Link
+          {/* <Link
             to={'/hackathon/list'}
             className="linkStyle"
             style={{ textDecoration: 'none', color: 'white' }}
           >
             돌아가기(클릭)
-          </Link>
+          </Link> */}
+            <ApplyButton className="applybutton" onClick={onClickBack}>
+              뒤로 가기
+            </ApplyButton>
         </div>
       </Styled>
     </>

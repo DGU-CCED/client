@@ -36,8 +36,8 @@ class App extends Component {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/kanbanboard" element={<KanbanBoard />} />
           <Route path="/progress" element={<Progress />} />
-          <Route path="/viewapplicant" element={<ViewApplicant />} />
-          <Route path="/approvalandrefusal" element={<ApprovalAndRefusal />} />
+          <Route exact path="/viewapplicant/:id" element={<ViewApplicant />} />
+          <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </div>

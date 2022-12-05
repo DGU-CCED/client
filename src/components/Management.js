@@ -30,7 +30,9 @@ const Management = () => {
 
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const url = '/management/' + '/' + pageNum;
+  // const url = '/management/' + '/' + pageNum; // 여기서 나중에 user_id랑 같이 보내서 내가 개설한 해커톤 정보 받아오기
+  const url = 'hackathon/list/newest/'+pageNum; // 임시로 쓰기
+  const user_id = localStorage.getItem("userId");
 
   useEffect(() => {
     const getData = async () => {
@@ -60,6 +62,44 @@ const Management = () => {
     console.log(pageNum + 1);
   };
 
+  const thisPage =
+  currentPageData &&
+  currentPageData.map((item, index) => {
+    return (
+      <>
+        <div className="hackathonBox">
+          <li key={index} className="hackathonList">
+            <img
+              src={item.hackathon_image}
+              alt="에러"
+              style={{ width: '300px', height: '200px' }}
+            />
+            <p>{item.name}</p>
+            <p>
+              {item.start_date} ~ {item.end_date}
+            </p>
+            <p>{item.content}</p>
+            <p>
+              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
+              {item.designer}
+            </p>
+            <Link
+              to={'/viewApplicant/' + item.id}
+              className="linkStyle"
+              style={{
+                textDecoration: 'none',
+                color: 'blue',
+                fontWeight: 'bolder',
+              }}
+            >
+              이동 테스트...(클릭)
+            </Link>
+          </li>
+        </div>
+      </>
+    );
+  });
+
   const dummyManagement = dummy.data.map((item, index) => {
     return (
       <>
@@ -80,7 +120,7 @@ const Management = () => {
               {item.designer}
             </p>
             <Link
-              to={'/viewApplicant'}
+              to={'/viewApplicant/'+item.id}
               className="management_linkStyle"
               style={{
                 textDecoration: 'none',
@@ -107,7 +147,11 @@ const Management = () => {
       {/* <p style={{ color: 'white' }}>대회관리 종료</p> */}
 
       <div className="management_wrap">
-        <div className="management_board">{dummyManagement}</div>
+        {/* <div className="management_board">{dummyManagement}</div> */}
+
+        {/* 실제 데이터 받아오면 이거 출력하기 */}
+        <div className="management_board">{thisPage}</div>
+        
       </div>
       <div className="management_buttonWrap">
         <button onClick={onClickPrev} className="management_pageButton">

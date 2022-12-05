@@ -1,7 +1,8 @@
 import './approvalAndRefusal.css';
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
 
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
@@ -28,32 +29,45 @@ const StyledAlwaysScrollSection = styled.div`
 `;
 
 export default function () {
+  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get('hackathonId');
+  const user_id = searchParams.get('userid');
+  const user_part = searchParams.get('part');
   const [data, setData] = useState([]);
+
+  const url = '/applicant/'+id+'/'+user_id+'/'+user_part;
+  useEffect(() => {
+    const getData = async() => {
+      try{
+        const response = await axios.get(url);
+        console.log(response);
+        setData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <>
       <div className="approvalAndRefusal_wrap">
         <div className="formWrap">
-          <p className="approvalAndRefusal_p">기획파트 지원서</p>
+          <p className="approvalAndRefusal_p">{user_part}파트 지원서</p>
           <div className="introWrap">
             <div className="image">image</div>
             <div className="intro">
-              <p className="approvalAndRefusal_p2">이름: 홍민기</p>
-              <p className="approvalAndRefusal_p2">나이: 24</p>
-              <p className="approvalAndRefusal_p2">학교: 동국대학교</p>
-              <p className="approvalAndRefusal_p2">전공: 컴퓨터공학</p>
+              <p className="approvalAndRefusal_p2">이름: {data.name}</p>
+              <p className="approvalAndRefusal_p2">나이: {data.age}</p>
+              <p className="approvalAndRefusal_p2">학교: {data.institution}</p>
+              <p className="approvalAndRefusal_p2">전공: {data.major}</p>
             </div>
           </div>
           <p className="approvalAndRefusal_p">자기소개</p>
           <div className="selfIntro">
             <AlwaysScrollSection>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              {data.self_Introduction}
             </AlwaysScrollSection>
           </div>
           <div className="approvalAndRefusal_buttonWrap">

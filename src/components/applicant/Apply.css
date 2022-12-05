@@ -52,6 +52,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 10px;
+}
+.submit1{
+    background-color: #FF008C;
+    width: 150px;
+    height: 50px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: white;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:10px;
 }
 .buttonWrapper{
     display: flex;
