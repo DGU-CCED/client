@@ -1,16 +1,18 @@
-.create_wrappter{
+.create_wrappter {
     /* justify-content: center; */
     /* align-items: center; */
     margin-top: 20px;
-    width: 100%;  
+    width: 100%;
     display: block;
 }
-.form{
+
+.form {
     border: 1px solid #7838c5;
     width: max-content;
     margin: auto;
 }
-.text{
+
+.text {
     color: #ffffff;
     font-weight: 500;
     font-size: 20px;
@@ -20,7 +22,8 @@
     justify-content: left;
 
 }
-.input{
+
+.input {
     width: 300px;
     height: 30px;
     padding-left: 10px;
@@ -30,44 +33,58 @@
     justify-content: left;
     border: 1px solid #ffffff;
 }
-.teamMember{
+
+.teamMember {
     height: 20px;
     width: 40px;
     margin: 10px;
     border-radius: 10px;
     text-align: center;
-    background-color:white;
-    color:black;
+    background-color: white;
+    color: black;
 }
-.teamBox1{
-    width:max-content;
+
+.teamBox0 {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 5px;
+    color: black;
+}
+
+.teamBox1 {
+    width: max-content;
     padding: 10px;
     background-color: #E68037;
     border-radius: 10px;
     margin: 5px;
 }
-.teamBox2{
-    width:max-content;
+
+.teamBox2 {
+    width: max-content;
     padding: 10px;
     background-color: #84AD58;
     border-radius: 10px;
     margin: 5px;
 }
-.teamBox3{
-    width:max-content;
+
+.teamBox3 {
+    width: max-content;
     padding: 10px;
     background-color: #DF4845;
     border-radius: 10px;
     margin: 5px;
 }
-.hackathonDesc{
+
+.hackathonDesc {
     width: 300px;
     height: 150px;
     padding-left: 10px;
     margin: 10px;
     border-radius: 10px;
 }
-.move{
+
+.move {
     background-color: #FF008C;
     width: 160px;
     height: 30px;
@@ -78,7 +95,7 @@
     margin-left: 160px;
 }
 
-.img-preview{    
+.img-preview {
     display: flex;
     align-items: center;
     justify-content: center;
