@@ -8,10 +8,34 @@
     font-size: 15px;
 }
 
-.approvalAndRefusal_wrap{
+.approvalAndRefusal_wrap_pm{
     margin: auto;
     margin-top: 100px;
     background-color: #E68037;
+    width: 33%;
+    height: max-content;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.approvalAndRefusal_wrap_developer{
+    margin: auto;
+    margin-top: 100px;
+    background-color: #84AD58;
+    width: 33%;
+    height: max-content;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.approvalAndRefusal_wrap_designer{
+    margin: auto;
+    margin-top: 100px;
+    background-color: #DF4845;
     width: 33%;
     height: max-content;
     border-radius: 10px;
@@ -53,7 +77,7 @@
 .intro{
     background-color: #ffffff;
     margin-left: 10px;
-    width: 80%;
+    width:100%;
     height: max-content;
     border-radius: 10px;
 }
