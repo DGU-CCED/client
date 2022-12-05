@@ -1,7 +1,7 @@
 import './viewApplicant.css';
 import React, { useState, memo, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
 import dummy from '../../data/userInfoDummy.json';
 import axios from 'axios';
@@ -37,6 +37,7 @@ export default function () {
   const [part, setPart] = useState('pm');
 
   const url = '/hackathon/detail/' + id;
+  const navigate = useNavigate();
   const style = {
     backgroundImage: 'url(' + data.hackathon_image + ')',
   };
@@ -84,24 +85,25 @@ export default function () {
     setPart(event.currentTarget.value);
   };
 
-  const dummy_viewApplicant = dummy.data.map((item) => {
-    return (
-      <>
-        <button className="viewApplicant_label">
-          <Link
-            to={'/approvalandrefusal'}
-            className="linkStyle"
-            style={{
-              textDecoration: 'none',
-              color: 'white',
-            }}
-          >
-            {item.name} / {item.age} / {item.university}
-          </Link>
-        </button>
-      </>
-    );
-  });
+  const startHackathon = (event) => {
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios.post('/hackathon/start',{
+      hackathon_id: Number(id),
+    })
+    .then((response) => {
+      if(response.data.data !== ''){
+        alert('해커톤 시작..!');
+        navigate('/hackathon/list/');
+      } else {
+        alert('시작 실패');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('시작 실패');
+    })
+  }
 
   const part_viewApplicant =
     applicantData &&
@@ -247,8 +249,8 @@ export default function () {
         </div>
 
         <div className="buttonWrap">
-          <button className="button1">저장</button>
-          <button className="button2">해커톤 시작</button>
+          {/* <button className="button1">저장</button> */}
+          <button className="button2" onClick={startHackathon}>해커톤 시작</button>
         </div>
       </div>
     </>
