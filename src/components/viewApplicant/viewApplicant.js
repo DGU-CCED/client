@@ -86,6 +86,7 @@ export default function () {
   };
 
   const startHackathon = (event) => {
+    
     axios.defaults.withCredentials = false;
     event.preventDefault();
     axios.post('/hackathon/start', {
@@ -185,15 +186,6 @@ export default function () {
         );
       }
     });
-
-  const dummy_viewApplicant = dummy.data.map((item) => {
-    return (
-      <>
-        <p>{item.name} 이메일 입력: </p>
-        <textarea></textarea>
-      </>
-    );
-  });
 
   return (
     <>

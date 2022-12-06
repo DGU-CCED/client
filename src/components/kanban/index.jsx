@@ -31,6 +31,7 @@ import {
 } from 'react-icons/md';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
@@ -58,6 +59,7 @@ const StyledAlwaysScrollSection = styled.div`
 
 const Kanban = () => {
   const user_id = localStorage.getItem("userId");
+  const hackathon_id = useParams();
 
   // 코드 컨벤션 부분
   const codeUrl = '/guideline/'+user_id;

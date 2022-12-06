@@ -78,7 +78,7 @@ const MyPage = () => {
               {item.designer}
             </p>
             <Link
-              to={'/progress'}
+              to={'/kanbanboard/'+item.id}
               className="myPage_linkStyle"
               style={{
                 textDecoration: 'none',
@@ -94,41 +94,6 @@ const MyPage = () => {
     );
   });
 
-  const dummyManagement = dummy.data.map((item, index) => {
-    return (
-      <>
-        <div className="myPage_box">
-          <li key={index} className="myPage_list">
-            <img
-              src={item.hackathon_image}
-              alt="에러"
-              style={{ width: '300px', height: '200px' }}
-            />
-            <p>{item.name}</p>
-            <p>
-              {item.start_date} ~ {item.end_date}
-            </p>
-            <p>{item.content}</p>
-            <p>
-              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-              {item.designer}
-            </p>
-            <Link
-              to={'/progress'}
-              className="myPage_linkStyle"
-              style={{
-                textDecoration: 'none',
-                color: 'blue',
-                fontWeight: 'bolder',
-              }}
-            >
-              이동
-            </Link>
-          </li>
-        </div>
-      </>
-    );
-  });
 
   return (
     <>

@@ -4,6 +4,7 @@ import { useState, useRef, memo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UserList from './userList';
+import axios from 'axios';
 
 const AlwaysScrollSection = memo((props) => {
     const { children } = props;
@@ -29,18 +30,9 @@ const StyledAlwaysScrollSection = styled.div`
   }
 `;
 
-function CreateUser({ teamName, email, onChange, onCreate }) {
+function CreateUser({ email, onChange, onCreate }) {
     return (
         <div className='input_wrapper'>
-            <div className='teambuilding_input_wrapper'>
-                <input className='teambuilding_input'
-                    name="teamName"
-                    placeholder="팀명을 입력하시오"
-                    onChange={onChange}
-                    value={teamName}
-                />
-            </div>
-
             <div>
                 <input className='teambuilding_input'
                     name="email"
@@ -55,13 +47,14 @@ function CreateUser({ teamName, email, onChange, onCreate }) {
 }
 
 function TeamBuilding() {
-    const hackathon_id = useParams();
-
+    const { id } = useParams();
+    
     const [inputs, setInputs] = useState({
         email: '',
-        teamName: ''
     });
-    const { email, teamName } = inputs;
+    const [teamName, setTeamName] = useState('');
+
+    const { email } = inputs;
     const onChange = e => {
         const { name, value } = e.target;
         setInputs({
@@ -84,17 +77,35 @@ function TeamBuilding() {
         });
         nextId.current += 1;
     };
+    const onTeamNameHandler = (event) => {
+        event.preventDefault();
+        setTeamName(event.currentTarget.value);
+    }
     const check = (event) => {
-        console.log("해커톤 아이디 : hackathon_id");
-        
+        console.log(teamName);
+        console.log(users);
+        // axios.defaults.withCredentials = false;
+        // event.preventDefault();
+        // axios
+        // .post('/team',{
+        //     teamName: teamName,
+        //     users: users
+        // }) // 팀 빌딩 API 호출하기
     }
 
     return (
         <>
             <div className="applicationStatusWrap">
                 <p className="teamBuilding_p">팀빌딩</p>
+                <input name="teamName"
+                    type="text"
+                    placeholder="팀 이름을 입력하세요"
+                    value={teamName}
+                    onChange={onTeamNameHandler}
+                    class="teambuilding_input" />
                 <div className="status">
                     <CreateUser
+                        teamName={teamName}
                         email={email}
                         onChange={onChange}
                         onCreate={onCreate}
