@@ -214,6 +214,7 @@ const Kanban = () => {
       setTodos(todos.concat(todo));
       nextId.current += 1;
 
+      console.log(todos);
       // axios.defaults.withCredentials = false;
       // axios
       // .post('/timeline/create',{
@@ -272,7 +273,7 @@ const Kanban = () => {
   const freeSubmit = (event) => {
     event.preventDefault();
     axios.defaults.withCredentials = false;
-    console.log(editorRef.current?.getInstance().getMarkdown()); // text editor 값 가져오기
+    console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
     
     axios.put(freeUrl, {
       content: freeData
@@ -356,7 +357,7 @@ const Kanban = () => {
               </TodoTemplate>
             </div>
             <div className="kanban_save_button_wrapper">
-              <button className="kanban_save_button2">저장하기</button>
+              <button className="kanban_save_button2" >저장하기</button>
             </div>
           </div>
 

@@ -61,6 +61,15 @@ const Management = () => {
     setPageNum(pageNum + 1);
     console.log(pageNum + 1);
   };
+  const onLinkHandler = (event) => {
+    
+    if(event.currentTarget.value){
+      // navigate('/viewApplicant/'+event.currentTarget.value);
+    } else {
+        // navigate('/progress');
+    }
+  }
+  
 
   const thisPage =
   currentPageData &&
