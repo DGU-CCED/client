@@ -47,6 +47,7 @@ const Apply = () => {
     setDescription(event.currentTarget.value);
   };
   const onClickButton = (event) => {
+    axios.defaults.withCredentials = false;
     event.preventDefault();
     axios.post('/applicant/apply',{
       user_id: localStorage.getItem("userId"),
