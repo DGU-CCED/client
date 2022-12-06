@@ -1,7 +1,7 @@
 import './kanban.scss';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import mockData from '../../mockData';
 import { useState, useRef, useCallback, memo } from 'react';
+import mockData from '../../mockData';
 import Card from '../card';
 import React from 'react';
 import styled from 'styled-components';
@@ -32,6 +32,9 @@ import {
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import markdownIt from "markdown-it";
+import DOMPurify from 'dompurify';
 
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
@@ -394,11 +397,19 @@ const Kanban = () => {
               <Editor
                 ref={editorRef}
                 previewStyle="vertical"
-                plugins={[
-                  colorSyntax,
-                  [codeSyntaxHighlight, { highlighter: Prism }],
-                ]}
+                height="500px"
+                minHeight="200px"
+                initialEditType="markdown"
+                useCommandShortcut={true}
+                ref={editorRef}
+                onFocus={handleFocus}
               />
+
+              {/* <div
+                dangerouslySetInnerHTML={{
+                  __html: sanitizer(markdownIt().render(text)),
+                }}
+              ></div> */}
               <div className="kanban_save_button_wrapper">
                 <button className="kanban_save_button" onClick={freeSubmit}>저장하기</button>
               </div>
