@@ -35,9 +35,6 @@ import { useParams } from 'react-router-dom';
 import markdownIt from "markdown-it";
 import DOMPurify from 'dompurify';
 
-import markdownIt from "markdown-it";
-import DOMPurify from 'dompurify';
-
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
   return <StyledAlwaysScrollSection>{children}</StyledAlwaysScrollSection>;
