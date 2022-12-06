@@ -1,7 +1,7 @@
 import './kanban.scss';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import mockData from '../../mockData';
 import { useState, useRef, useCallback, memo } from 'react';
+import mockData from '../../mockData';
 import Card from '../card';
 import React from 'react';
 import styled from 'styled-components';
@@ -29,6 +29,9 @@ import {
   MdRemoveCircleOutline,
   MdAdd,
 } from 'react-icons/md';
+
+import markdownIt from "markdown-it";
+import DOMPurify from 'dompurify';
 
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
@@ -222,6 +225,19 @@ const Kanban = () => {
     [todos]
   );
 
+  const editorRef = useRef();
+  const [text, setText] = useState("");
+  const sanitizer = DOMPurify.sanitize;
+  const handleClick = () => {
+    setText(editorRef.current.getInstance().getMarkdown());
+    console.log("작동함", text);
+    console.log(markdownIt().render(text), "태그화");
+  };
+  const handleFocus = () => {
+    console.log("focus!!");
+    editorRef.current.getRootElement().classList.add("my-editor-root");
+  };
+
   return (
     <div className="background">
       <div className="kanban_wrapper">
@@ -268,14 +284,23 @@ const Kanban = () => {
                 <label className="label">자유 공간</label>
               </div>
               <Editor
+                initialValue="hello react editor world!"
                 previewStyle="vertical"
-                plugins={[
-                  colorSyntax,
-                  [codeSyntaxHighlight, { highlighter: Prism }],
-                ]}
+                height="500px"
+                minHeight="200px"
+                initialEditType="markdown"
+                useCommandShortcut={true}
+                ref={editorRef}
+                onFocus={handleFocus}
               />
+
+              {/* <div
+                dangerouslySetInnerHTML={{
+                  __html: sanitizer(markdownIt().render(text)),
+                }}
+              ></div> */}
               <div className="kanban_save_button_wrapper">
-                <button className="kanban_save_button">저장하기</button>
+                <button onClick={handleClick} className="kanban_save_button">저장하기</button>
               </div>
             </div>
           </div>

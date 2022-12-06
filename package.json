@@ -12,7 +12,8 @@
         "@toast-ui/react-editor": "^3.2.2",
         "axios": "^1.2.0",
         "http-proxy-middleware": "^2.0.6",
-        "node-sass": "^8.0.0",
+        "markdown": "^0.5.0",
+        "markdownlint": "^0.26.2",
         "package": "^1.0.1",
         "prismjs": "^1.29.0",
         "rc-progress": "^3.4.1",
@@ -55,6 +56,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "proxy": "http://ec2-52-79-235-201.ap-northeast-2.compute.amazonaws.com:3000/"
+    }
 }
