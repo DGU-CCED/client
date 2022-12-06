@@ -47,7 +47,6 @@ function LoginPage() {
         console.log(JSON.parse(JSON.stringify(response.data.data[2].user_id)));
         const user_id = JSON.parse(JSON.stringify(response.data.data[2].user_id));
         localStorage.setItem("userId", user_id);
-        const check = localStorage.getItem("userId");
         alert("로그인 성공!");
         navigate('/hackathon/list');
       } else {
@@ -57,9 +56,6 @@ function LoginPage() {
       console.log(error);
       alert("로그인 실패..");
     })
-    
-
-
   };
 
   const onclick = () => { // 나중에 삭제
