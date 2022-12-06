@@ -204,7 +204,7 @@ export default function () {
           <span className="date"> ~ {data.end_date}</span>
           <span className="date"> / {data.location}</span>
         </div>
-        <div className="teamPart">
+        <div className="viewapplicant_teamPart">
           <span className="teamBox11">기획자 : {data.pm}명</span>
           <span className="teamBox21">개발자 : {data.developer}명</span>
           <span className="teamBox31">디자이너 : {data.designer}명</span>
@@ -215,9 +215,33 @@ export default function () {
       <div className="applicationStatusWrap">
         <p className="viewApplicant_p">신청 현황</p>
         <div className="applicationStatus">
-          <button value="pm" className="teamBox11" onChange={onPartHandler}>기획자 : {data.pm}명</button>
-          <button value="developer" className="teamBox21" onChange={onPartHandler}>개발자 : {data.developer}명</button>
-          <button value="designer" className="teamBox31" onChange={onPartHandler}>디자이너 : {data.designer}명</button>
+          <span className="teamBox11">
+            <input
+              type="radio"
+              value="pm"
+              checked={part === 'pm'}
+              onChange={onPartHandler}
+            />
+            <label>기획자</label>
+          </span>
+          <span className="teamBox21">
+            <input
+              type="radio"
+              value="developer"
+              checked={part === 'developer'}
+              onChange={onPartHandler}
+            />
+            <label>개발자</label>
+          </span>
+          <span className="teamBox31">
+            <input
+              type="radio"
+              value="designer"
+              checked={part === 'designer'}
+              onChange={onPartHandler}
+            />
+            <label>디자이너</label>
+          </span>
         </div>
         <AlwaysScrollSection>
           <div className="status">
