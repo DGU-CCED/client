@@ -74,6 +74,9 @@ const Header = () => {
   const handleToggleOpen = () => {
     setIsToggleOpen(!isToggleOpen);
   };
+  const refresh = () => {
+    localStorage.clear();
+  }
   return (
     <>
       <StyledHeader>
@@ -100,8 +103,8 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to={'/login'} className="nav-menu-list">
-              로그인/회원가입
+            <Link to={'/login'} className="nav-menu-list" onClick={refresh}>
+              로그인/로그아웃
             </Link>
           </li>
         </NavManu>

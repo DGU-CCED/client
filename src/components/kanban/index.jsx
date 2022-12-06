@@ -63,6 +63,24 @@ const StyledAlwaysScrollSection = styled.div`
 const Kanban = () => {
   const user_id = localStorage.getItem("userId");
   const hackathon_id = useParams();
+  const [part, setPart] = useState('team');
+
+  const changePart1 = () => {
+    console.log('team');
+    setPart('team');
+  }
+  const changePart2 = () => {
+    console.log('pm');
+    setPart('pm');
+  }
+  const changePart3 = () => {
+    console.log('개발자');
+    setPart('developer');
+  }
+  const changePart4 = () => {
+    console.log('디자이너');
+    setPart('designer');
+  }
 
   // 코드 컨벤션 부분
   const codeUrl = '/guideline/' + user_id;
@@ -79,7 +97,7 @@ const Kanban = () => {
     };
 
     getCodeData();
-  }, []);
+  }, [part]);
 
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
@@ -271,15 +289,14 @@ const Kanban = () => {
     };
 
     getFreeData();
-
     editorRef.current.getInstance().setHTML(freeData);
-  }, []);
+  }, [part]);
 
   const freeSubmit = (event) => {
     event.preventDefault();
     axios.defaults.withCredentials = false;
     console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
-
+    
     axios.put(freeUrl, {
       content: freeData
     })
@@ -287,7 +304,7 @@ const Kanban = () => {
         if (response.data.data !== '') {
           console.log(response);
         } else {
-          console.log('서버에 안들어가짐')
+          console.log('서버에 안들어가짐');
         }
       })
       .catch((error) => {
@@ -323,24 +340,6 @@ const Kanban = () => {
       setData(data);
     }
   };
-
-  const [part, setPart] = useState('team');
-  const changePart1 = () => {
-    console.log('team');
-    setPart('team');
-  }
-  const changePart2 = () => {
-    console.log('pm');
-    setPart('pm');
-  }
-  const changePart3 = () => {
-    console.log('개발자');
-    setPart('developer');
-  }
-  const changePart4 = () => {
-    console.log('디자이너');
-    setPart('designer');
-  }
 
   return (
     <div className="background">
