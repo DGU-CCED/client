@@ -1,3 +1,8 @@
+.hackathon_p {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
 .hackathonWrap {
   width: 100%;
   height: 100%;
@@ -33,12 +38,10 @@
   justify-content: center;
   flex-direction: column;
   list-style: none;
-  font-size: x-small;
   background-color: black;
   color: #ffffff;
   width: 100%;
   height: max-content;
-  padding-top: 10px;
 }
 
 .Pagination {
@@ -115,4 +118,60 @@
   &:hover {
     background: #adb5bd;
   }
+}
+
+.nameWrapper {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: 10%;
+}
+
+.circleWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: -150px;
+  flex-direction: row;
+}
+
+.pm_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #E68037;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.developer_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #84AD58;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.designer_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #DF4845;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.linkWrapper {
+  margin-top: 30px;
 }
