@@ -88,21 +88,21 @@ export default function () {
   const startHackathon = (event) => {
     axios.defaults.withCredentials = false;
     event.preventDefault();
-    axios.post('/hackathon/start',{
+    axios.post('/hackathon/start', {
       hackathon_id: Number(id),
     })
-    .then((response) => {
-      if(response.data.data !== ''){
-        alert('해커톤 시작..!');
-        navigate('/hackathon/list/');
-      } else {
+      .then((response) => {
+        if (response.data.data !== '') {
+          alert('해커톤 시작..!');
+          navigate('/hackathon/list/');
+        } else {
+          alert('시작 실패');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
         alert('시작 실패');
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-      alert('시작 실패');
-    })
+      })
   }
 
   const part_viewApplicant =
@@ -186,6 +186,15 @@ export default function () {
       }
     });
 
+  const dummy_viewApplicant = dummy.data.map((item) => {
+    return (
+      <>
+        <p>{item.name} 이메일 입력: </p>
+        <textarea></textarea>
+      </>
+    );
+  });
+
   return (
     <>
       <div className="viewApplicant_wrap" style={style}>
@@ -203,55 +212,23 @@ export default function () {
       </div>
       <div className="horizon"></div>
 
-      <div className="viewApplicant_wrap">
-        {/* <div className="detail_content">
-          <h3>{data.content}</h3>
-        </div> */}
-      </div>
-
       <div className="applicationStatusWrap">
         <p className="viewApplicant_p">신청 현황</p>
         <div className="applicationStatus">
-          {/* <button value="pm" className="teamBox11" onChange={onPartHandler}>기획자 : {data.pm}명</button>
+          <button value="pm" className="teamBox11" onChange={onPartHandler}>기획자 : {data.pm}명</button>
           <button value="developer" className="teamBox21" onChange={onPartHandler}>개발자 : {data.developer}명</button>
-          <button value="designer" className="teamBox31" onChange={onPartHandler}>디자이너 : {data.designer}명</button> */}
-          <span className="teamBox11">
-            <input
-              type="radio"
-              value="pm"
-              checked={part === 'pm'}
-              onChange={onPartHandler}
-            />
-            <label>기획자</label>
-          </span>
-          <span className="teamBox21">
-            <input
-              type="radio"
-              value="developer"
-              checked={part === 'developer'}
-              onChange={onPartHandler}
-            />
-            <label>개발자</label>
-          </span>
-          <span className="teamBox31">
-            <input
-              type="radio"
-              value="designer"
-              checked={part === 'designer'}
-              onChange={onPartHandler}
-            />
-            <label>디자이너</label>
-          </span>
+          <button value="designer" className="teamBox31" onChange={onPartHandler}>디자이너 : {data.designer}명</button>
         </div>
-        <div className="status">
-          {/* <AlwaysScrollSection>{dummy_viewApplicant}</AlwaysScrollSection> */}
-          <AlwaysScrollSection>{part_viewApplicant}</AlwaysScrollSection>
-        </div>
+        <AlwaysScrollSection>
+          <div className="status">
+            {part_viewApplicant}
+          </div>
 
-        <div className="buttonWrap">
-          {/* <button className="button1">저장</button> */}
-          <button className="button2" onClick={startHackathon}>해커톤 시작</button>
-        </div>
+          <div className="buttonWrap">
+            <button className="button1">저장</button>
+            <button className="button2" onClick={startHackathon}>해커톤 시작</button>
+          </div>
+        </AlwaysScrollSection>
       </div>
     </>
   );

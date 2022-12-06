@@ -61,15 +61,6 @@ const Management = () => {
     setPageNum(pageNum + 1);
     console.log(pageNum + 1);
   };
-  const onLinkHandler = (event) => {
-    
-    if(event.currentTarget.value){
-      // navigate('/viewApplicant/'+event.currentTarget.value);
-    } else {
-        // navigate('/progress');
-    }
-  }
-  
 
   const thisPage =
   currentPageData &&
@@ -80,7 +71,7 @@ const Management = () => {
         navigate('/viewApplicant/'+item.id);
       }else{
         alert('해커톤 팀 관리 이동');
-        navigate('/progress');
+        navigate('/teambuilding/'+item.id);
       }
     }
     return (
