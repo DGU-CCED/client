@@ -58,10 +58,11 @@ const StyledAlwaysScrollSection = styled.div`
 
 const Kanban = () => {
   const user_id = localStorage.getItem("userId");
+
   // 코드 컨벤션 부분
   const codeUrl = '/guideline/'+user_id;
   const [textValue, setTextValue] = useState('');
-  useEffect(() => {
+  useEffect(() => { // get으로 받아오기
     const getCodeData = async () => {
       try{
         const response = await axios.get(codeUrl);
@@ -79,7 +80,7 @@ const Kanban = () => {
     setTextValue(e.target.value);
   };
   
-  const codeSubmit = (event) => {
+  const codeSubmit = (event) => { // put으로 데이터 수정
     axios.defaults.withCredentials = false;
     event.preventDefault();
     axios
@@ -234,6 +235,47 @@ const Kanban = () => {
   );
 
 
+  // 자유공간 코드
+  const editorRef = useRef();
+  const freeUrl = '/freespace/'+user_id;
+  const [freeData, setFreeData] = useState('');
+
+  useEffect(() => { // 첫 랜더링 시 입력했던 정보 가져옴
+    const getFreeData = async () => {
+      try {
+        const response = await axios.get(freeUrl);
+        console.log(response);
+        setFreeData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFreeData();
+    
+    editorRef.current.getInstance().setHTML(freeData);
+  }, []);
+
+  const freeSubmit = (event) => {
+    event.preventDefault();
+    axios.defaults.withCredentials = false;
+    console.log(editorRef.current?.getInstance().getMarkdown()); // text editor 값 가져오기
+    
+    axios.put(freeUrl, {
+      content: freeData
+    })
+    .then((response) => {
+      if(response.data.data !== ''){
+        console.log(response);
+      } else {
+        console.log('서버에 안들어가짐')
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   // 칸반 코드
   const [data, setData] = useState(mockData);
 
@@ -311,6 +353,7 @@ const Kanban = () => {
                 <label className="label">자유 공간</label>
               </div>
               <Editor
+                ref={editorRef}
                 previewStyle="vertical"
                 plugins={[
                   colorSyntax,
@@ -318,7 +361,7 @@ const Kanban = () => {
                 ]}
               />
               <div className="kanban_save_button_wrapper">
-                <button className="kanban_save_button">저장하기</button>
+                <button className="kanban_save_button" onClick={freeSubmit}>저장하기</button>
               </div>
             </div>
           </div>
