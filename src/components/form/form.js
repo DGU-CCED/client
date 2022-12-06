@@ -41,8 +41,9 @@ export default function () {
   const [ans6, setAns6] = useState(1);
   const [ans7, setAns7] = useState(1);
 
-  const user_id = localStorage.getItem("userId");
-  const hakcathon_id = useParams();
+  const user_id = Number(localStorage.getItem("userId"));
+  const hackathon_id = Number(useParams().hackathon_id);
+ 
 
   const ans1Handler = (event) => {
     console.log(Number(event.currentTarget.value));
@@ -75,10 +76,11 @@ export default function () {
 
   const formSubmit = (event) => {
     event.preventDefault();
+    
     axios.defaults.withCredentials = false;
     axios.post('/survey',{
-      hakcathon_id: Number(hakcathon_id),
-      user_id: Number(user_id),
+      hackathon_id: hackathon_id,
+      user_id: user_id,
       q1: ans1,
       q2: ans2,
       q3: ans3,
@@ -88,8 +90,11 @@ export default function () {
       q7: ans7
     })
     .then((response) => {
-      console.log(response);
+      alert('설문 조사 완료');
       navigate('/hackathon/list');
+    })
+    .catch((error) => {
+      console.log(error);
     })
   }
 
