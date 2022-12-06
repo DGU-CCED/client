@@ -1,21 +1,16 @@
-.viewApplicant_p {
+.teamBuilding_p {
     color: #ffffff;
     font-size: 20px;
 }
 
-.viewApplicant_wrap {
+.teamBuilding_wrap {
     color: white;
+    margin-top: 100px;
+    margin-left: 200px;
     text-align: left;
-    width: 100%;
-    height: 200px;
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
-    background-attachment: fixed;
 }
 
 .name {
-    margin-left: 100px;
     font-size: 50px;
 }
 
@@ -25,12 +20,9 @@
     font-weight: 500;
 }
 
-.viewapplicant_teamPart {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.teamPart {
     margin-top: 30px;
-    margin-left: 66px;
+    margin-left: -30px;
 }
 
 .teamBox11 {
@@ -61,7 +53,7 @@
     font-size: 15px;
 }
 
-.viewApplicant_wrap2 {
+.teamBuilding_wrap2 {
     color: white;
     margin-top: 40px;
 }
@@ -77,8 +69,7 @@
 }
 
 .applicationStatusWrap {
-    margin: 0 auto;
-    margin-top: -200px;
+    margin: auto;
 }
 
 .applicationStatus {
@@ -102,42 +93,14 @@
     height: max-content;
     border-radius: 10px;
     margin: auto;
-    background-color: #ffffff;
+    background-color: #000000;
 }
 
-.viewApplicant_label_pm {
+.teamBuilding_label {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #e68037;
-    padding: 10px;
-    width: 90%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    margin-right: 30px;
-    font-size: 20px;
-    color: #ffffff;
-}
-
-.viewApplicant_label_developer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #84ad58;
-    padding: 10px;
-    width: 90%;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    margin-right: 30px;
-    font-size: 20px;
-    color: #ffffff;
-}
-
-.viewApplicant_label_designer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #df4845;
     padding: 10px;
     width: 90%;
     border-radius: 10px;
@@ -179,4 +142,47 @@
     border-radius: 10px;
     font-size: 20px;
     color: #ffffff;
+}
+
+.teambuilding_input {
+    background: white;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    &::placeholder {
+        color: #dee2e6;
+    }
+}
+
+.register_button {
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    margin: auto;
+
+    &:hover {
+        background: #adb5bd;
+    }
+}
+
+.input_wrapper {
+    display: flex;
+    flex-direction: column;
 }

@@ -58,6 +58,13 @@
     border-style: none;
 }
 
+.kanban_buttonWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 15px;
+}
+
 .codeConventionWrapper {
     padding: 10px;
 }
@@ -106,13 +113,13 @@
     margin-left: -10%;
 }
 
-.kanban_save_button_wrapper{
+.kanban_save_button_wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.kanban_save_button {    
+.kanban_save_button {
     background-color: #adb5bd;
     padding: 10px;
     width: 100px;
@@ -124,7 +131,8 @@
     font-size: 1.2rem;
     font-weight: 700;
 }
-.kanban_save_button2 {    
+
+.kanban_save_button2 {
     background-color: #adb5bd;
     padding: 10px;
     width: 100px;
@@ -138,7 +146,7 @@
     font-weight: 700;
 }
 
-.kanban_insert_wrapper{
+.kanban_insert_wrapper {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -184,7 +192,108 @@
     &:hover {
         background: #adb5bd;
     }
+
     border-radius: 10px;
     margin-top: 10px;
     margin-left: 5px;
+}
+
+.index_total1 {
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    &:hover {
+        background: #adb5bd;
+    }
+}
+
+.index_total2 {
+    background: none;
+    outline: none;
+    border: none;
+    background: #E68037;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    &:hover {
+        background: #adb5bd;
+    }
+}
+
+.index_total3 {
+    background: none;
+    outline: none;
+    border: none;
+    background: #84AD58;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    &:hover {
+        background: #adb5bd;
+    }
+}
+
+.index_total4 {
+    background: none;
+    outline: none;
+    border: none;
+    background: #DF4845;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+
+    &:hover {
+        background: #adb5bd;
+    }
 }

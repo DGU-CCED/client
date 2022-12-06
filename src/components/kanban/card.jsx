@@ -1,3 +1,35 @@
+const nextId = useRef(4);
+const onInsert2 = useCallback(
+  (text) => {
+    const card = {
+      id: nextId.current,
+      text,
+      checked: false,
+    };
+    setCards(cards.concat(card));
+    nextId.current += 1;
+  },
+  [cards]
+);
+
+const onRemove2 = useCallback(
+  (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  },
+  [todos]
+);
+
+const onToggle = useCallback(
+  (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo
+      )
+    );
+  },
+  [todos]
+);
+
 const CardTemplate = ({ children }) => {
   return (
     <div className="Card">
@@ -6,7 +38,7 @@ const CardTemplate = ({ children }) => {
   );
 };
 
-const CardInsert = ({ onInsert }) => {
+const CardInsert = ({ onInsert2 }) => {
   const [value, setValue] = useState('');
 
   const onChange = useCallback((e) => {
@@ -15,20 +47,20 @@ const CardInsert = ({ onInsert }) => {
 
   const onSubmit = useCallback(
     (e) => {
-      onInsert(value);
+      onInsert2(value);
       setValue(''); // value 값 초기화
 
       //submit 이벤트는 브라우저에서 새로고침을 발생시킵니다.
       //이를 방지하기 위해 이 함수를 호출합니다.
       e.preventDefault();
     },
-    [onInsert, value]
+    [onInsert2, value]
   );
 
   const onClick = useCallback(() => {
-    onInsert(value);
+    onInsert2(value);
     setValue(''); // value 값 초기화
-  }, [onInsert, value]);
+  }, [onInsert2, value]);
 
   return (
     <form className="CardInsert">
@@ -41,7 +73,7 @@ const CardInsert = ({ onInsert }) => {
   );
 };
 
-const CardListItem = ({ card, onRemove, onToggle }) => {
+const CardListItem = ({ card, onRemove2, onToggle }) => {
   const { id, text, checked } = card;
   return (
     <div className="CardListItem">
@@ -49,21 +81,21 @@ const CardListItem = ({ card, onRemove, onToggle }) => {
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
         <div className="text">{text}</div>
       </div>
-      <div className="remove" onClick={() => onRemove(id)}>
+      <div className="remove" onClick={() => onRemove2(id)}>
         <MdRemoveCircleOutline />
       </div>
     </div>
   );
 };
 
-const CardList = ({ cards, onRemove, onToggle }) => {
+const CardList = ({ cards, onRemove2, onToggle }) => {
   return (
     <div className="CardList">
       {cards.map((card) => (
         <TodoListItem
           card={card}
           key={card.id}
-          onRemove={onRemove}
+          onRemove2={onRemove2}
           onToggle={onToggle}
         />
       ))}

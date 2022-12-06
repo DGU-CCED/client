@@ -27,12 +27,12 @@ const Management = () => {
   const create = (event) => {
     navigate('/create');
   };
-
+  
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  // const url = '/management/' + '/' + pageNum; // 여기서 나중에 user_id랑 같이 보내서 내가 개설한 해커톤 정보 받아오기
-  const url = 'hackathon/list/newest/'+pageNum; // 임시로 쓰기
+  
   const user_id = localStorage.getItem("userId");
+  const url = '/hackathon/list/' + user_id; // 여기서 나중에 user_id랑 같이 보내서 내가 개설한 해커톤 정보 받아오기
 
   useEffect(() => {
     const getData = async () => {
@@ -65,6 +65,15 @@ const Management = () => {
   const thisPage =
   currentPageData &&
   currentPageData.map((item, index) => {
+    const move = (event) => {
+      if(item.is_progress == 0){
+        alert('신청자 관리 이동');
+        navigate('/viewApplicant/'+item.id);
+      }else{
+        alert('해커톤 팀 관리 이동');
+        navigate('/teambuilding/'+item.id);
+      }
+    }
     return (
       <>
         <div className="hackathonBox">
@@ -83,7 +92,7 @@ const Management = () => {
               개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
               {item.designer}
             </p>
-            <Link
+            {/* <Link
               to={'/viewApplicant/' + item.id}
               className="linkStyle"
               style={{
@@ -92,49 +101,50 @@ const Management = () => {
                 fontWeight: 'bolder',
               }}
             >
-              이동 테스트...(클릭)
-            </Link>
+              자세히 보기
+            </Link> */}
+            <button onClick={move}>이동</button>
           </li>
         </div>
       </>
     );
   });
 
-  const dummyManagement = dummy.data.map((item, index) => {
-    return (
-      <>
-        <div className="management_box">
-          <li key={index} className="management_list">
-            <img
-              src={item.hackathon_image}
-              alt="에러"
-              style={{ width: '300px', height: '200px' }}
-            />
-            <p>{item.name}</p>
-            <p>
-              {item.start_date} ~ {item.end_date}
-            </p>
-            <p>{item.content}</p>
-            <p>
-              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-              {item.designer}
-            </p>
-            <Link
-              to={'/viewApplicant/'+item.id}
-              className="management_linkStyle"
-              style={{
-                textDecoration: 'none',
-                color: 'blue',
-                fontWeight: 'bolder',
-              }}
-            >
-              이동
-            </Link>
-          </li>
-        </div>
-      </>
-    );
-  });
+  // const dummyManagement = dummy.data.map((item, index) => {
+  //   return (
+  //     <>
+  //       <div className="management_box">
+  //         <li key={index} className="management_list">
+  //           <img
+  //             src={item.hackathon_image}
+  //             alt="에러"
+  //             style={{ width: '300px', height: '200px' }}
+  //           />
+  //           <p>{item.name}</p>
+  //           <p>
+  //             {item.start_date} ~ {item.end_date}
+  //           </p>
+  //           <p>{item.content}</p>
+  //           <p>
+  //             개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
+  //             {item.designer}
+  //           </p>
+  //           <Link
+  //             to={'/viewApplicant/'+item.id}
+  //             className="management_linkStyle"
+  //             style={{
+  //               textDecoration: 'none',
+  //               color: 'blue',
+  //               fontWeight: 'bolder',
+  //             }}
+  //           >
+  //             이동
+  //           </Link>
+  //         </li>
+  //       </div>
+  //     </>
+  //   );
+  // });
 
   return (
     <>
@@ -153,7 +163,7 @@ const Management = () => {
         <div className="management_board">{thisPage}</div>
         
       </div>
-      <div className="management_buttonWrap">
+      {/* <div className="management_buttonWrap">
         <button onClick={onClickPrev} className="management_pageButton">
           이전 페이지
         </button>
@@ -161,7 +171,7 @@ const Management = () => {
         <button onClick={onClickNext} className="management_pageButton">
           다음 페이지
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -16,6 +16,7 @@ import ViewApplicant from './components/viewApplicant/viewApplicant';
 import ApprovalAndRefusal from './components/approvalAndRefusal/approvalAndRefusal';
 import MyPage from './components/myPage/myPage';
 import Form from './components/form/form';
+import TeamBuilding from './components/teamBuilding/teamBuilding';
 
 class App extends Component {
   render() {
@@ -35,12 +36,13 @@ class App extends Component {
           <Route exact path="/create" element={<Create />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/kanbanboard" element={<KanbanBoard />} />
-          <Route path="/progress" element={<Progress />} />
+          <Route path="/kanbanboard/:hackathon_id" element={<KanbanBoard />} />
+          <Route exact path="/progress/:id" element={<Progress />} />
           <Route exact path="/viewapplicant/:id" element={<ViewApplicant />} />
           <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/form" element={<Form />} />
+          <Route exact path="/form/:hackathon_id" element={<Form />} />
+          <Route path="/teambuilding/:id" element={<TeamBuilding />} />
         </Routes>
       </div>
     );

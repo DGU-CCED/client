@@ -212,8 +212,8 @@ const Create = () => {
                     getDayName(createDate(date)) === '토'
                       ? 'saturday'
                       : getDayName(createDate(date)) === '일'
-                      ? 'sunday'
-                      : undefined
+                        ? 'sunday'
+                        : undefined
                   }
                 />
               </div>
@@ -235,8 +235,8 @@ const Create = () => {
                     getDayName(createDate(date)) === '토'
                       ? 'saturday'
                       : getDayName(createDate(date)) === '일'
-                      ? 'sunday'
-                      : undefined
+                        ? 'sunday'
+                        : undefined
                   }
                 />
               </div>
@@ -251,6 +251,16 @@ const Create = () => {
                   onChange={onLocationHandler}
                 />
               </div>
+              <p className="text">팀 개수</p>
+              <span className="teamBox0">
+                <span>
+                  <input
+                    type="number"
+                    className="teamMember"
+                    onChange={onPmHandler}
+                  />
+                </span>
+              </span>
               <p className="text">팀 구성</p>
               <span className="teamBox1">
                 <span>기획자</span>

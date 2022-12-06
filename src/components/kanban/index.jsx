@@ -29,6 +29,9 @@ import {
   MdRemoveCircleOutline,
   MdAdd,
 } from 'react-icons/md';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import markdownIt from "markdown-it";
 import DOMPurify from 'dompurify';
@@ -58,41 +61,51 @@ const StyledAlwaysScrollSection = styled.div`
 `;
 
 const Kanban = () => {
-  const [data, setData] = useState(mockData);
+  const user_id = localStorage.getItem("userId");
+  const hackathon_id = useParams();
 
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
-
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
-      const destinationColIndex = data.findIndex(
-        (e) => e.id === destination.droppableId
-      );
-
-      const sourceCol = data[sourceColIndex];
-      const destinationCol = data[destinationColIndex];
-
-      const sourceTask = [...sourceCol.tasks];
-      const destinationTask = [...destinationCol.tasks];
-
-      const [removed] = sourceTask.splice(source.index, 1);
-      destinationTask.splice(destination.index, 0, removed);
-
-      data[sourceColIndex].tasks = sourceTask;
-      data[destinationColIndex].tasks = destinationTask;
-
-      setData(data);
-    }
-  };
-
+  // 코드 컨벤션 부분
+  const codeUrl = '/guideline/' + user_id;
   const [textValue, setTextValue] = useState('');
+  useEffect(() => { // get으로 받아오기
+    const getCodeData = async () => {
+      try {
+        const response = await axios.get(codeUrl);
+        console.log(response);
+        setData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCodeData();
+  }, []);
+
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
   };
 
-  const [value, setValue] = useState('');
+  const codeSubmit = (event) => { // put으로 데이터 수정
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios
+      .put(codeUrl, {
+        codeconvention: textValue,
+      })
+      .then((response) => {
+        if (response.data.data !== '') {
+          console.log(response);
+        } else {
+          console.log('서버에 안들어가짐')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
 
+
+  // 진행상황 부분
   const TodoTemplate = ({ children }) => {
     return (
       <div className="TodoTemplate">
@@ -123,6 +136,7 @@ const Kanban = () => {
     const onClick = useCallback(() => {
       onInsert(value);
       setValue(''); // value 값 초기화
+      console.log(todos);
     }, [onInsert, value]);
 
     return (
@@ -140,15 +154,15 @@ const Kanban = () => {
   };
 
   const TodoListItem = ({ todo, onRemove, onToggle }) => {
-    const { id, text, checked } = todo;
+    const { id, content, status } = todo;
     return (
       <div className="TodoListItem">
         <div
-          className={cn('checkbox', { checked })}
+          className={cn('checkbox', { status })}
           onClick={() => onToggle(id)}
         >
-          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-          <div className="text">{text}</div>
+          {status ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          <div className="text">{content}</div>
         </div>
         <div className="remove" onClick={() => onRemove(id)}>
           <MdRemoveCircleOutline />
@@ -173,36 +187,50 @@ const Kanban = () => {
   };
 
   const [todos, setTodos] = useState([
-    // {
-    //   id: 1,
-    //   text: '리액트의 기초 알아보기',
-    //   checked: true,
-    // },
-    // {
-    //   id: 2,
-    //   text: '컴포넌트 스타일링 해보기',
-    //   checked: true,
-    // },
-    // {
-    //   id: 3,
-    //   text: '일정 관리 앱 만들어 보기',
-    //   checked: false,
-    // },
+    {
+      id: 1,
+      content: '주제 정하기',
+      status: false,
+    },
+    {
+      id: 2,
+      content: 'Code Convention 정하기',
+      status: false,
+    },
+    {
+      id: 3,
+      content: '해커톤을 시작해 봅시다',
+      status: false,
+    },
   ]);
 
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
-
+  // 나중에는 서버에 개수 저장해놓고 그 개수를 useRef에다가 넣어야 할듯
   const nextId = useRef(4);
+  // const [nextId, setNextId] = useState(4);
   const onInsert = useCallback(
-    (text) => {
+    (content) => {
       const todo = {
         id: nextId.current,
-        text,
-        checked: false,
+        content,
+        status: false,
       };
       setTodos(todos.concat(todo));
       nextId.current += 1;
+
+      console.log(todos);
+      // axios.defaults.withCredentials = false;
+      // axios
+      // .post('/timeline/create',{
+      //   user_id: user_id,
+      //   team_timeline_id: todo.id,
+      //   content: todo.content,
+      //   status: todo.status,
+      // })
+      // .then((response) => {
+      //   response.
+      // })
     },
     [todos]
   );
@@ -218,30 +246,112 @@ const Kanban = () => {
     (id) => {
       setTodos(
         todos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo
+          todo.id === id ? { ...todo, status: !todo.status } : todo
         )
       );
     },
     [todos]
   );
 
+
+  // 자유공간 코드
   const editorRef = useRef();
-  const [text, setText] = useState("");
-  const sanitizer = DOMPurify.sanitize;
-  const handleClick = () => {
-    setText(editorRef.current.getInstance().getMarkdown());
-    console.log("작동함", text);
-    console.log(markdownIt().render(text), "태그화");
+  const freeUrl = '/freespace/' + user_id;
+  const [freeData, setFreeData] = useState('');
+
+  useEffect(() => { // 첫 랜더링 시 입력했던 정보 가져옴
+    const getFreeData = async () => {
+      try {
+        const response = await axios.get(freeUrl);
+        console.log(response);
+        setFreeData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getFreeData();
+
+    editorRef.current.getInstance().setHTML(freeData);
+  }, []);
+
+  const freeSubmit = (event) => {
+    event.preventDefault();
+    axios.defaults.withCredentials = false;
+    console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
+
+    axios.put(freeUrl, {
+      content: freeData
+    })
+      .then((response) => {
+        if (response.data.data !== '') {
+          console.log(response);
+        } else {
+          console.log('서버에 안들어가짐')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+  // 칸반 코드
+  const [data, setData] = useState(mockData);
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
+      const destinationColIndex = data.findIndex(
+        (e) => e.id === destination.droppableId
+      );
+
+      const sourceCol = data[sourceColIndex];
+      const destinationCol = data[destinationColIndex];
+
+      const sourceTask = [...sourceCol.tasks];
+      const destinationTask = [...destinationCol.tasks];
+
+      const [removed] = sourceTask.splice(source.index, 1);
+      destinationTask.splice(destination.index, 0, removed);
+
+      data[sourceColIndex].tasks = sourceTask;
+      data[destinationColIndex].tasks = destinationTask;
+
+      setData(data);
+    }
   };
-  const handleFocus = () => {
-    console.log("focus!!");
-    editorRef.current.getRootElement().classList.add("my-editor-root");
-  };
+
+  const [part, setPart] = useState('team');
+  const changePart1 = () => {
+    console.log('team');
+    setPart('team');
+  }
+  const changePart2 = () => {
+    console.log('pm');
+    setPart('pm');
+  }
+  const changePart3 = () => {
+    console.log('개발자');
+    setPart('developer');
+  }
+  const changePart4 = () => {
+    console.log('디자이너');
+    setPart('designer');
+  }
 
   return (
     <div className="background">
       <div className="kanban_wrapper">
         <AlwaysScrollSection>
+          <div className="kanban_buttonWrapper">
+            <button onClick={changePart1} className="index_total1">전체 공간</button>
+            <button onClick={changePart2} className="index_total2">PM</button>
+            <button onClick={changePart3} className="index_total3">개발자</button>
+            <button onClick={changePart4} className="index_total4">디자이너</button>
+          </div>
           <div className="codeConventionWrapper">
             <div className="codeConvention">
               <div>
@@ -255,10 +365,11 @@ const Kanban = () => {
                 onChange={(e) => handleSetValue(e)}
               ></textarea>
               <div className="kanban_save_button_wrapper">
-                <button className="kanban_save_button">저장하기</button>
+                <button className="kanban_save_button" onClick={codeSubmit}>저장하기</button>
               </div>
             </div>
           </div>
+
           <div className="progressWrapper">
             <div className="progress">
               <div className="progressLabelWrapper">
@@ -274,7 +385,7 @@ const Kanban = () => {
               </TodoTemplate>
             </div>
             <div className="kanban_save_button_wrapper">
-              <button className="kanban_save_button2">저장하기</button>
+              <button className="kanban_save_button2" >저장하기</button>
             </div>
           </div>
 
@@ -284,7 +395,7 @@ const Kanban = () => {
                 <label className="label">자유 공간</label>
               </div>
               <Editor
-                initialValue="hello react editor world!"
+                ref={editorRef}
                 previewStyle="vertical"
                 height="500px"
                 minHeight="200px"
@@ -300,7 +411,7 @@ const Kanban = () => {
                 }}
               ></div> */}
               <div className="kanban_save_button_wrapper">
-                <button onClick={handleClick} className="kanban_save_button">저장하기</button>
+                <button className="kanban_save_button" onClick={freeSubmit}>저장하기</button>
               </div>
             </div>
           </div>
