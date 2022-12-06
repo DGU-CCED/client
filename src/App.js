@@ -16,6 +16,7 @@ import ViewApplicant from './components/viewApplicant/viewApplicant';
 import ApprovalAndRefusal from './components/approvalAndRefusal/approvalAndRefusal';
 import MyPage from './components/myPage/myPage';
 import Form from './components/form/form';
+import TeamBuilding from './components/teamBuilding/teamBuilding';
 
 class App extends Component {
   render() {
@@ -41,6 +42,7 @@ class App extends Component {
           <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/form" element={<Form />} />
+          <Route path="/teambuilding" element={<TeamBuilding />} />
         </Routes>
       </div>
     );
