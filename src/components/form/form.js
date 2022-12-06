@@ -33,23 +33,31 @@ export default function () {
   const [team, setState] = useState([
     {
       id: 1,
-      content: '해커톤의 전체적인 구성은 만족스러웠나요?',
+      content: '제공된 가이드라인은 해커톤을 진행하며 도움이 되었나요?',
     },
     {
       id: 2,
-      content: '해커톤의 전체적인 구성은 만족스러웠나요?',
+      content: '제공된 타임라인은 해커톤을 진행하며 도움이 되었나요?',
     },
     {
       id: 3,
-      content: '해커톤의 전체적인 구성은 만족스러웠나요?',
+      content: '제공된 파트별 공간은 해커톤을 진행하며 도움이 이되었나요?',
     },
     {
       id: 4,
-      content: '해커톤의 전체적인 구성은 만족스러웠나요?',
+      content: '해커톤의 주제는 적합하였나요?',
     },
     {
       id: 5,
-      content: '해커톤의 전체적인 구성은 만족스러웠나요?',
+      content: '해커톤 운영은 잘 진행되었나요?',
+    },
+    {
+      id: 6,
+      content: '해커톤의 팀 빌딩은 원할하게 진행 되었나요?',
+    },
+    {
+      id: 7,
+      content: '같이 진행한 팀원들은 열심히 참여하였나요?',
     },
   ]);
 
@@ -66,10 +74,16 @@ export default function () {
                   <p>{section.content}</p>
                 </div>
                 <div className="answer">
-                  <p>예</p>
-                  <input type="radio" name="answer" value="yes"></input>
-                  <p className="form_p2">아니오</p>
-                  <input type="radio" name="answer" value="no"></input>
+                  <p>1</p>
+                  <input type="radio" name="answer" value="1"></input>
+                  <p className="form_p2">2</p>
+                  <input type="radio" name="answer" value="2"></input>
+                  <p className="form_p2">3</p>
+                  <input type="radio" name="answer" value="3"></input>
+                  <p className="form_p2">4</p>
+                  <input type="radio" name="answer" value="4"></input>
+                  <p className="form_p2">5</p>
+                  <input type="radio" name="answer" value="5"></input>
                 </div>
               </div>
             </div>
