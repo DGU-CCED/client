@@ -1,7 +1,7 @@
 import { Line } from 'rc-progress';
 import './progress.scss';
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import React, { memo } from 'react';
 import styled from 'styled-components';
 
@@ -30,6 +30,7 @@ const StyledAlwaysScrollSection = styled.div`
 `;
 
 export default function () {
+  const { id } = useParams();
   const [team, setState] = useState([
     {
       id: 1,
