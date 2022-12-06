@@ -62,11 +62,11 @@ const Kanban = () => {
   const hackathon_id = useParams();
 
   // 코드 컨벤션 부분
-  const codeUrl = '/guideline/'+user_id;
+  const codeUrl = '/guideline/' + user_id;
   const [textValue, setTextValue] = useState('');
   useEffect(() => { // get으로 받아오기
     const getCodeData = async () => {
-      try{
+      try {
         const response = await axios.get(codeUrl);
         console.log(response);
         setData(response.data.data);
@@ -81,26 +81,26 @@ const Kanban = () => {
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
   };
-  
+
   const codeSubmit = (event) => { // put으로 데이터 수정
     axios.defaults.withCredentials = false;
     event.preventDefault();
     axios
-    .put(codeUrl,{
-      codeconvention: textValue,
-    })
-    .then((response) => {
-      if(response.data.data !== ''){
-        console.log(response);
-      } else {
-        console.log('서버에 안들어가짐')
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .put(codeUrl, {
+        codeconvention: textValue,
+      })
+      .then((response) => {
+        if (response.data.data !== '') {
+          console.log(response);
+        } else {
+          console.log('서버에 안들어가짐')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
-  
+
 
   // 진행상황 부분
   const TodoTemplate = ({ children }) => {
@@ -253,7 +253,7 @@ const Kanban = () => {
 
   // 자유공간 코드
   const editorRef = useRef();
-  const freeUrl = '/freespace/'+user_id;
+  const freeUrl = '/freespace/' + user_id;
   const [freeData, setFreeData] = useState('');
 
   useEffect(() => { // 첫 랜더링 시 입력했던 정보 가져옴
@@ -268,7 +268,7 @@ const Kanban = () => {
     };
 
     getFreeData();
-    
+
     editorRef.current.getInstance().setHTML(freeData);
   }, []);
 
@@ -276,20 +276,20 @@ const Kanban = () => {
     event.preventDefault();
     axios.defaults.withCredentials = false;
     console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
-    
+
     axios.put(freeUrl, {
       content: freeData
     })
-    .then((response) => {
-      if(response.data.data !== ''){
-        console.log(response);
-      } else {
-        console.log('서버에 안들어가짐')
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .then((response) => {
+        if (response.data.data !== '') {
+          console.log(response);
+        } else {
+          console.log('서버에 안들어가짐')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   // 칸반 코드
@@ -343,12 +343,13 @@ const Kanban = () => {
     <div className="background">
       <div className="kanban_wrapper">
         <AlwaysScrollSection>
-
-          <div className="codeConventionWrapper">
+          <div className="kanban_buttonWrapper">
             <button onClick={changePart1} className="index_total1">전체 공간</button>
             <button onClick={changePart2} className="index_total2">PM</button>
             <button onClick={changePart3} className="index_total3">개발자</button>
             <button onClick={changePart4} className="index_total4">디자이너</button>
+          </div>
+          <div className="codeConventionWrapper">
             <div className="codeConvention">
               <div>
                 <label className="label">코드컨벤션</label>
