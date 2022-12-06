@@ -89,7 +89,7 @@ const Kanban = () => {
       try {
         const response = await axios.get(codeUrl);
         console.log(response);
-        setData(response.data.data);
+        setTextValue(response.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -130,6 +130,23 @@ const Kanban = () => {
       </div>
     );
   };
+
+  const todoUrl = '/todo/' + user_id;
+  const [todoValue, setTodoValue] = useState('');
+  const [todos, setTodos] = useState([]);
+  useEffect(() => { // get으로 받아오기
+    const getTodoData = async () => {
+      try {
+        const response = await axios.get(todoUrl);
+        console.log(response);
+        setTodoValue(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getTodoData();
+  }, [part]);
 
   const TodoInsert = ({ onInsert }) => {
     const [value, setValue] = useState('');
@@ -203,28 +220,29 @@ const Kanban = () => {
     );
   };
 
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      content: '주제 정하기',
-      status: false,
-    },
-    {
-      id: 2,
-      content: 'Code Convention 정하기',
-      status: false,
-    },
-    {
-      id: 3,
-      content: '해커톤을 시작해 봅시다',
-      status: false,
-    },
-  ]);
+  // const [todos, setTodos] = useState([
+  //   {
+  //     id: 1,
+  //     content: '주제 정하기',
+  //     status: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     content: 'Code Convention 정하기',
+  //     status: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     content: '해커톤을 시작해 봅시다',
+  //     status: false,
+  //   },
+  // ]);
+  
 
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
   // 나중에는 서버에 개수 저장해놓고 그 개수를 useRef에다가 넣어야 할듯
-  const nextId = useRef(4);
+  const nextId = useRef(todos.length);
   // const [nextId, setNextId] = useState(4);
   const onInsert = useCallback(
     (content) => {
@@ -274,7 +292,7 @@ const Kanban = () => {
   // 자유공간 코드
   const editorRef = useRef();
   const freeUrl = '/freespace/' + user_id;
-  const [freeData, setFreeData] = useState('');
+  const [freeData, setFreeData] = useState('hello!!!');
 
   useEffect(() => { // 첫 랜더링 시 입력했던 정보 가져옴
     const getFreeData = async () => {
@@ -414,6 +432,7 @@ const Kanban = () => {
                 minHeight="200px"
                 initialEditType="markdown"
                 useCommandShortcut={true}
+                ref={editorRef}
               />
               {/* <div
                 dangerouslySetInnerHTML={{
