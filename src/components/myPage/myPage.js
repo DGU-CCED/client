@@ -21,11 +21,39 @@ const CreateHackathon = styled.div`
   }
 `;
 
+const Tab = (props) => {
+  const tabName = props.tab.tabName;
+  const isOn = props.tab.isOn;
+  const tabId = props.tab.id;
+
+  const changeTab = () => {
+    document.querySelector('.tabList li a.on').classList.remove('on');
+    document.querySelector('.tabList li a#' + tabId).classList.add('on');
+  };
+
+  return (
+    <li role="presentation" style={{ minWidth: props.minWidth + 'px' }}>
+      <a
+        href="#"
+        role="tab"
+        tabIndex="0"
+        id={tabId}
+        aria-selected={isOn.toString()}
+        className={isOn ? 'on' : ''}
+        onClick={changeTab}
+      >
+        <span>{tabName}</span>
+      </a>
+    </li>
+  );
+};
+
 const MyPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
+  const [type, setType] = useState('in_progress');
   const user_id = localStorage.getItem("userId");
-  const url = '/applicant/list/'+user_id; // 내가 신청한 해커톤 목록들 뜨기
+  const url = '/applicant/list/' + user_id; // 내가 신청한 해커톤 목록들 뜨기
 
   useEffect(() => {
     const getData = async () => {
@@ -56,47 +84,78 @@ const MyPage = () => {
   };
 
   // 실제 내가 참여한 목록 띄워 주기
-  const thisPage = 
-  currentPageData &&
-  currentPageData.map((item, index) => {
-    return (
-      <>
-        <div className="myPage_box">
-          <li key={index} className="myPage_list">
-            <img
-              src={item.hackathon_image}
-              alt="에러"
-              style={{ width: '300px', height: '200px' }}
-            />
-            <p>{item.name}</p>
-            <p>
-              {item.start_date} ~ {item.end_date}
-            </p>
-            <p>{item.content}</p>
-            <p>
-              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-              {item.designer}
-            </p>
-            <Link
-              to={'/kanbanboard/'+item.id}
-              className="myPage_linkStyle"
-              style={{
-                textDecoration: 'none',
-                color: 'blue',
-                fontWeight: 'bolder',
-              }}
-            >
-              이동
-            </Link>
-          </li>
-        </div>
-      </>
-    );
-  });
+  const thisPage =
+    currentPageData &&
+    currentPageData.map((item, index) => {
+      return (
+        <>
+          <div className="myPage_box">
+            <li key={index} className="myPage_list">
+              <img
+                src={item.hackathon_image}
+                alt="에러"
+                style={{ width: '300px', height: '200px' }}
+              />
+              <p>{item.name}</p>
+              <p>
+                {item.start_date} ~ {item.end_date}
+              </p>
+              <p>{item.content}</p>
+              <p>
+                개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
+                {item.designer}
+              </p>
+              <Link
+                to={'/kanbanboard/' + item.id}
+                className="myPage_linkStyle"
+                style={{
+                  textDecoration: 'none',
+                  color: 'blue',
+                  fontWeight: 'bolder',
+                }}
+              >
+                이동
+              </Link>
+            </li>
+          </div>
+        </>
+      );
+    });
 
+  const tabList = [
+    { tabName: '진행중', id: 'in_progress', isOn: true },
+    { tabName: '종료', id: 'done', isOn: false },
+    // 각 Tab의 넓이 지정
+  ];
+
+  const onTabHandler = (event) => {
+    console.log(event.currentTarget.value);
+    setType(event.currentTarget.value);
+    setPageNum(1);
+  };
 
   return (
     <>
+      <div className="tabBox">
+        <span>
+          <button
+            className="hackathonList_butt"
+            value="in_progress"
+            onClick={onTabHandler}
+          >
+            진행중
+          </button>
+        </span>
+        <span>
+          <button
+            className="hackathonList_butt"
+            value="done"
+            onClick={onTabHandler}
+          >
+            종료
+          </button>
+        </span>
+      </div>
       <div className="myPage_wrap">
         <div className="myPage_board">{thisPage}</div>
       </div>
