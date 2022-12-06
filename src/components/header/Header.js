@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
       font-size: 24px;
       color: #fab005;
       font-weight: bold;
-    }
+    }    
   }
   .menuToggleBtn {
     display: none;
@@ -58,6 +58,7 @@ const NavManu = styled.ul`
     display: block;
     padding: 10px 10px;
     font-size: 15px;
+    margin-left: 15px;
   }
   @media screen and (max-width: 768px) {
     display: ${(props) => (props.isToggleOpen ? 'block' : 'none')};
