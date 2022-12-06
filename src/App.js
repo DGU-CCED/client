@@ -41,7 +41,7 @@ class App extends Component {
           <Route exact path="/viewapplicant/:id" element={<ViewApplicant />} />
           <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/form" element={<Form />} />
+          <Route exact path="/form/:hackathon_id" element={<Form />} />
           <Route path="/teambuilding/:id" element={<TeamBuilding />} />
         </Routes>
       </div>
