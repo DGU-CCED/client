@@ -82,15 +82,33 @@ function TeamBuilding() {
         setTeamName(event.currentTarget.value);
     }
     const check = (event) => {
+        const user_arr = [];
         console.log(teamName);
-        console.log(users);
-        // axios.defaults.withCredentials = false;
-        // event.preventDefault();
-        // axios
-        // .post('/team',{
-        //     teamName: teamName,
-        //     users: users
-        // }) // 팀 빌딩 API 호출하기
+        console.log(users.length);
+
+        users.forEach( (email) =>
+            user_arr.push(email.email)
+        )
+        console.log(user_arr);
+
+        axios.defaults.withCredentials = false;
+        event.preventDefault();
+        axios
+        .post('/team',{
+            team_name: teamName,
+            user_Arr: user_arr,
+            hackathon_id: Number(id)
+        }) // 팀 빌딩 API 호출하기
+        .then((response) =>{
+            if(response.data.data !== ""){
+                console.log("성공");
+            } else {
+                console.log("error");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
 
     return (

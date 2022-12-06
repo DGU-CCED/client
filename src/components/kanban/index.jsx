@@ -401,8 +401,6 @@ const Kanban = () => {
                 minHeight="200px"
                 initialEditType="markdown"
                 useCommandShortcut={true}
-                ref={editorRef}
-                onFocus={handleFocus}
               />
 
               {/* <div
