@@ -35,7 +35,7 @@ function CreateUser({ teamName, email, onChange, onCreate }) {
             <div className='teambuilding_input_wrapper'>
                 <input className='teambuilding_input'
                     name="teamName"
-                    placeholder="팀명"
+                    placeholder="팀명을 입력하시오"
                     onChange={onChange}
                     value={teamName}
                 />
@@ -44,7 +44,7 @@ function CreateUser({ teamName, email, onChange, onCreate }) {
             <div>
                 <input className='teambuilding_input'
                     name="email"
-                    placeholder="이메일"
+                    placeholder="팀원들의 이메일을 입력하시오"
                     onChange={onChange}
                     value={email}
                 />
@@ -58,10 +58,9 @@ function TeamBuilding() {
     const [data, setData] = useState([]);
 
     const [inputs, setInputs] = useState({
-        teamName: '',
         email: ''
     });
-    const { teamName, email } = inputs;
+    const { email } = inputs;
     const onChange = e => {
         const { name, value } = e.target;
         setInputs({
@@ -72,18 +71,15 @@ function TeamBuilding() {
     const [users, setUsers] = useState([
         {
             id: 1,
-            teamName: 'velopert',
-            email: 'public.velopert@gmail.com'
+            email: 'dummy1@example.com'
         },
         {
             id: 2,
-            teamName: 'tester',
-            email: 'tester@example.com'
+            email: 'dummy2@example.com'
         },
         {
             id: 3,
-            teamName: 'liz',
-            email: 'liz@example.com'
+            email: 'dummy3@example.com'
         }
     ]);
 
@@ -91,13 +87,11 @@ function TeamBuilding() {
     const onCreate = () => {
         const user = {
             id: nextId.current,
-            teamName,
             email
         };
         setUsers([...users, user]);
 
         setInputs({
-            teamName: '',
             email: ''
         });
         nextId.current += 1;
@@ -131,7 +125,6 @@ function TeamBuilding() {
                 <AlwaysScrollSection>
                     <div className="status">
                         <CreateUser
-                            teamName={data}
                             email={email}
                             onChange={onChange}
                             onCreate={onCreate}
