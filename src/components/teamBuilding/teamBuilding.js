@@ -100,21 +100,6 @@ function TeamBuilding() {
     return (
         <>
             <div className="teamBuilding_wrap">
-                <h1 className="name">{data.name}</h1>
-                <div className="date_loc">
-                    <span className="date">{data.start_date}</span>
-                    <span className="date"> ~ {data.end_date}</span>
-                    <span className="date"> / {data.location}</span>
-                </div>
-                <div className="teamPart">
-                    <span className="teamBox11">기획자 : {data.pm}명</span>
-                    <span className="teamBox21">개발자 : {data.developer}명</span>
-                    <span className="teamBox31">디자이너 : {data.designer}명</span>
-                </div>
-            </div>
-            <div className="horizon"></div>
-
-            <div className="teamBuilding_wrap">
                 <div className="detail_content">
                     <h3>{data.content}</h3>
                 </div>
@@ -122,30 +107,28 @@ function TeamBuilding() {
 
             <div className="applicationStatusWrap">
                 <p className="teamBuilding_p">팀빌딩</p>
-                <AlwaysScrollSection>
-                    <div className="status">
-                        <CreateUser
-                            email={email}
-                            onChange={onChange}
-                            onCreate={onCreate}
-                        />
-                        <UserList users={users} />
-                    </div>
+                <div className="status">
+                    <CreateUser
+                        email={email}
+                        onChange={onChange}
+                        onCreate={onCreate}
+                    />
+                    <UserList users={users} />
+                </div>
 
-                    <div className="buttonWrap">
-                        <button className="button1">팀 빌딩 완료</button>
-                        <button className="button2">팀 페이지로 이동
-                            <Link
-                                to={'/kanbanboard'}
-                                className="linkStyle"
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'white',
-                                }}
-                            >
-                            </Link></button>
-                    </div>
-                </AlwaysScrollSection>
+                <div className="buttonWrap">
+                    <button className="button1">팀 빌딩 완료</button>
+                    <button className="button2">팀 페이지로 이동
+                        <Link
+                            to={'/kanbanboard'}
+                            className="linkStyle"
+                            style={{
+                                textDecoration: 'none',
+                                color: 'white',
+                            }}
+                        >
+                        </Link></button>
+                </div>
             </div>
         </>
     );
