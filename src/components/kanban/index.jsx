@@ -29,6 +29,8 @@ import {
   MdRemoveCircleOutline,
   MdAdd,
 } from 'react-icons/md';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const AlwaysScrollSection = memo((props) => {
   const { children } = props;
@@ -55,41 +57,49 @@ const StyledAlwaysScrollSection = styled.div`
 `;
 
 const Kanban = () => {
-  const [data, setData] = useState(mockData);
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-    const { source, destination } = result;
-
-    if (source.droppableId !== destination.droppableId) {
-      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
-      const destinationColIndex = data.findIndex(
-        (e) => e.id === destination.droppableId
-      );
-
-      const sourceCol = data[sourceColIndex];
-      const destinationCol = data[destinationColIndex];
-
-      const sourceTask = [...sourceCol.tasks];
-      const destinationTask = [...destinationCol.tasks];
-
-      const [removed] = sourceTask.splice(source.index, 1);
-      destinationTask.splice(destination.index, 0, removed);
-
-      data[sourceColIndex].tasks = sourceTask;
-      data[destinationColIndex].tasks = destinationTask;
-
-      setData(data);
-    }
-  };
-
+  const user_id = localStorage.getItem("userId");
+  // 코드 컨벤션 부분
+  const codeUrl = '/guideline/'+user_id;
   const [textValue, setTextValue] = useState('');
+  useEffect(() => {
+    const getCodeData = async () => {
+      try{
+        const response = await axios.get(codeUrl);
+        console.log(response);
+        setData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCodeData();
+  }, []);
+
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
   };
+  
+  const codeSubmit = (event) => {
+    axios.defaults.withCredentials = false;
+    event.preventDefault();
+    axios
+    .put(codeUrl,{
+      codeconvention: textValue,
+    })
+    .then((response) => {
+      if(response.data.data !== ''){
+        console.log(response);
+      } else {
+        console.log('서버에 안들어가짐')
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+  
 
-  const [value, setValue] = useState('');
-
+  // 진행상황 부분
   const TodoTemplate = ({ children }) => {
     return (
       <div className="TodoTemplate">
@@ -120,6 +130,7 @@ const Kanban = () => {
     const onClick = useCallback(() => {
       onInsert(value);
       setValue(''); // value 값 초기화
+      console.log(todos);
     }, [onInsert, value]);
 
     return (
@@ -137,15 +148,15 @@ const Kanban = () => {
   };
 
   const TodoListItem = ({ todo, onRemove, onToggle }) => {
-    const { id, text, checked } = todo;
+    const { id, content, status } = todo;
     return (
       <div className="TodoListItem">
         <div
-          className={cn('checkbox', { checked })}
+          className={cn('checkbox', { status })}
           onClick={() => onToggle(id)}
         >
-          {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
-          <div className="text">{text}</div>
+          {status ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          <div className="text">{content}</div>
         </div>
         <div className="remove" onClick={() => onRemove(id)}>
           <MdRemoveCircleOutline />
@@ -170,33 +181,33 @@ const Kanban = () => {
   };
 
   const [todos, setTodos] = useState([
-    // {
-    //   id: 1,
-    //   text: '리액트의 기초 알아보기',
-    //   checked: true,
-    // },
-    // {
-    //   id: 2,
-    //   text: '컴포넌트 스타일링 해보기',
-    //   checked: true,
-    // },
-    // {
-    //   id: 3,
-    //   text: '일정 관리 앱 만들어 보기',
-    //   checked: false,
-    // },
+    {
+      id: 1,
+      content: '리액트의 기초 알아보기',
+      status: true,
+    },
+    {
+      id: 2,
+      content: '컴포넌트 스타일링 해보기',
+      status: true,
+    },
+    {
+      id: 3,
+      content: '일정 관리 앱 만들어 보기',
+      status: false,
+    },
   ]);
 
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
-
   const nextId = useRef(4);
+  // const [nextId, setNextId] = useState(4);
   const onInsert = useCallback(
-    (text) => {
+    (content) => {
       const todo = {
         id: nextId.current,
-        text,
-        checked: false,
+        content,
+        status: false,
       };
       setTodos(todos.concat(todo));
       nextId.current += 1;
@@ -215,17 +226,48 @@ const Kanban = () => {
     (id) => {
       setTodos(
         todos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo
+          todo.id === id ? { ...todo, status: !todo.status } : todo
         )
       );
     },
     [todos]
   );
 
+
+  // 칸반 코드
+  const [data, setData] = useState(mockData);
+
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const { source, destination } = result;
+
+    if (source.droppableId !== destination.droppableId) {
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
+      const destinationColIndex = data.findIndex(
+        (e) => e.id === destination.droppableId
+      );
+
+      const sourceCol = data[sourceColIndex];
+      const destinationCol = data[destinationColIndex];
+
+      const sourceTask = [...sourceCol.tasks];
+      const destinationTask = [...destinationCol.tasks];
+
+      const [removed] = sourceTask.splice(source.index, 1);
+      destinationTask.splice(destination.index, 0, removed);
+
+      data[sourceColIndex].tasks = sourceTask;
+      data[destinationColIndex].tasks = destinationTask;
+
+      setData(data);
+    }
+  };
+
   return (
     <div className="background">
       <div className="kanban_wrapper">
         <AlwaysScrollSection>
+
           <div className="codeConventionWrapper">
             <div className="codeConvention">
               <div>
@@ -239,10 +281,11 @@ const Kanban = () => {
                 onChange={(e) => handleSetValue(e)}
               ></textarea>
               <div className="kanban_save_button_wrapper">
-                <button className="kanban_save_button">저장하기</button>
+                <button className="kanban_save_button" onClick={codeSubmit}>저장하기</button>
               </div>
             </div>
           </div>
+
           <div className="progressWrapper">
             <div className="progress">
               <div className="progressLabelWrapper">
