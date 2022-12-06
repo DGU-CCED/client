@@ -1,0 +1,161 @@
+import './teamBuilding.css';
+import React from 'react';
+import { useState, useRef, memo } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import UserList from './userList';
+
+const AlwaysScrollSection = memo((props) => {
+    const { children } = props;
+    return <StyledAlwaysScrollSection>{children}</StyledAlwaysScrollSection>;
+});
+
+const StyledAlwaysScrollSection = styled.div`
+  overflow: scroll;
+  height: 200px;
+  &::-webkit-scrollbar {
+    /* 세로 스크롤 넓이 */
+    width: 8px;
+
+    /* 가로 스크롤 높이 */
+    height: 0px;
+
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+`;
+
+function CreateUser({ teamName, email, onChange, onCreate }) {
+    return (
+        <div className='input_wrapper'>
+            <div className='teambuilding_input_wrapper'>
+                <input className='teambuilding_input'
+                    name="teamName"
+                    placeholder="팀명"
+                    onChange={onChange}
+                    value={teamName}
+                />
+            </div>
+
+            <div>
+                <input className='teambuilding_input'
+                    name="email"
+                    placeholder="이메일"
+                    onChange={onChange}
+                    value={email}
+                />
+            </div>
+            <button className="register_button" onClick={onCreate}>등록</button>
+        </div>
+    )
+}
+
+function TeamBuilding() {
+    const [data, setData] = useState([]);
+
+    const [inputs, setInputs] = useState({
+        teamName: '',
+        email: ''
+    });
+    const { teamName, email } = inputs;
+    const onChange = e => {
+        const { name, value } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+    const [users, setUsers] = useState([
+        {
+            id: 1,
+            teamName: 'velopert',
+            email: 'public.velopert@gmail.com'
+        },
+        {
+            id: 2,
+            teamName: 'tester',
+            email: 'tester@example.com'
+        },
+        {
+            id: 3,
+            teamName: 'liz',
+            email: 'liz@example.com'
+        }
+    ]);
+
+    const nextId = useRef(4);
+    const onCreate = () => {
+        const user = {
+            id: nextId.current,
+            teamName,
+            email
+        };
+        setUsers([...users, user]);
+
+        setInputs({
+            teamName: '',
+            email: ''
+        });
+        nextId.current += 1;
+    };
+
+    return (
+        <>
+            <div className="teamBuilding_wrap">
+                <h1 className="name">{data.name}</h1>
+                <div className="date_loc">
+                    <span className="date">{data.start_date}</span>
+                    <span className="date"> ~ {data.end_date}</span>
+                    <span className="date"> / {data.location}</span>
+                </div>
+                <div className="teamPart">
+                    <span className="teamBox11">기획자 : {data.pm}명</span>
+                    <span className="teamBox21">개발자 : {data.developer}명</span>
+                    <span className="teamBox31">디자이너 : {data.designer}명</span>
+                </div>
+            </div>
+            <div className="horizon"></div>
+
+            <div className="teamBuilding_wrap">
+                <div className="detail_content">
+                    <h3>{data.content}</h3>
+                </div>
+            </div>
+
+            <div className="applicationStatusWrap">
+                <p className="teamBuilding_p">팀빌딩</p>
+                <AlwaysScrollSection>
+                    <div className="status">
+                        <CreateUser
+                            teamName={data}
+                            email={email}
+                            onChange={onChange}
+                            onCreate={onCreate}
+                        />
+                        <UserList users={users} />
+                    </div>
+
+                    <div className="buttonWrap">
+                        <button className="button1">팀 빌딩 완료</button>
+                        <button className="button2">팀 페이지로 이동
+                            <Link
+                                to={'/kanbanboard'}
+                                className="linkStyle"
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'white',
+                                }}
+                            >
+                            </Link></button>
+                    </div>
+                </AlwaysScrollSection>
+            </div>
+        </>
+    );
+}
+
+export default TeamBuilding;
