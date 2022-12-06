@@ -24,6 +24,16 @@
     justify-content: center;
     color: #000000;
 }
+.form_desc {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 2rem;
+    font-weight: 1000;
+    justify-content: center;
+    color: #000000;
+}
 
 .form_background {
     background: black;

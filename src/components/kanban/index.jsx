@@ -321,12 +321,34 @@ const Kanban = () => {
     }
   };
 
+  const [part, setPart] = useState('team');
+  const changePart1 = () => {
+    console.log('team');
+    setPart('team');
+  }
+  const changePart2 = () => {
+    console.log('pm');
+    setPart('pm');
+  }
+  const changePart3 = () => {
+    console.log('개발자');
+    setPart('developer');
+  }
+  const changePart4 = () => {
+    console.log('디자이너');
+    setPart('designer');
+  }
+
   return (
     <div className="background">
       <div className="kanban_wrapper">
         <AlwaysScrollSection>
 
           <div className="codeConventionWrapper">
+            <button onClick={changePart1} className="index_total1">전체 공간</button>
+            <button onClick={changePart2} className="index_total2">PM</button>
+            <button onClick={changePart3} className="index_total3">개발자</button>
+            <button onClick={changePart4} className="index_total4">디자이너</button>
             <div className="codeConvention">
               <div>
                 <label className="label">코드컨벤션</label>

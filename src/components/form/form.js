@@ -98,6 +98,7 @@ export default function () {
       <AlwaysScrollSection>
         <div className="form_wrapper">
           <p className="form_title">만족도 조사</p>
+          <p className='form_desc'>설문 조사 결과는 더 나은 서비스를 위해 익명으로 사용될 예정입니다.</p>
           <div>
             <p className="form_p">1. </p>
             <div className="form_formWrapper">
