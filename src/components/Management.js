@@ -61,19 +61,19 @@ const Management = () => {
     setPageNum(pageNum + 1);
     console.log(pageNum + 1);
   };
-  const onLinkHandler = (event) => {
-    
-    if(event.currentTarget.value){
-      // navigate('/viewApplicant/'+event.currentTarget.value);
-    } else {
-        // navigate('/progress');
-    }
-  }
-  
 
   const thisPage =
   currentPageData &&
   currentPageData.map((item, index) => {
+    const move = (event) => {
+      if(item.is_progress == 0){
+        alert('신청자 관리 이동');
+        navigate('/viewApplicant/'+item.id);
+      }else{
+        alert('해커톤 팀 관리 이동');
+        navigate('/teambuilding/'+item.id);
+      }
+    }
     return (
       <>
         <div className="hackathonBox">
@@ -92,7 +92,7 @@ const Management = () => {
               개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
               {item.designer}
             </p>
-            <Link
+            {/* <Link
               to={'/viewApplicant/' + item.id}
               className="linkStyle"
               style={{
@@ -102,7 +102,8 @@ const Management = () => {
               }}
             >
               자세히 보기
-            </Link>
+            </Link> */}
+            <button onClick={move}>이동</button>
           </li>
         </div>
       </>

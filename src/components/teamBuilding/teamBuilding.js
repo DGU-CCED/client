@@ -1,7 +1,7 @@
 import './teamBuilding.css';
 import React from 'react';
 import { useState, useRef, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UserList from './userList';
 
@@ -55,12 +55,13 @@ function CreateUser({ teamName, email, onChange, onCreate }) {
 }
 
 function TeamBuilding() {
-    const [data, setData] = useState([]);
+    const hackathon_id = useParams();
 
     const [inputs, setInputs] = useState({
-        email: ''
+        email: '',
+        teamName: ''
     });
-    const { email } = inputs;
+    const { email, teamName } = inputs;
     const onChange = e => {
         const { name, value } = e.target;
         setInputs({
@@ -68,22 +69,9 @@ function TeamBuilding() {
             [name]: value
         });
     };
-    const [users, setUsers] = useState([
-        {
-            id: 1,
-            email: 'dummy1@example.com'
-        },
-        {
-            id: 2,
-            email: 'dummy2@example.com'
-        },
-        {
-            id: 3,
-            email: 'dummy3@example.com'
-        }
-    ]);
+    const [users, setUsers] = useState([]);
 
-    const nextId = useRef(4);
+    const nextId = useRef(1);
     const onCreate = () => {
         const user = {
             id: nextId.current,
@@ -96,15 +84,13 @@ function TeamBuilding() {
         });
         nextId.current += 1;
     };
+    const check = (event) => {
+        console.log("해커톤 아이디 : hackathon_id");
+        
+    }
 
     return (
         <>
-            <div className="teamBuilding_wrap">
-                <div className="detail_content">
-                    <h3>{data.content}</h3>
-                </div>
-            </div>
-
             <div className="applicationStatusWrap">
                 <p className="teamBuilding_p">팀빌딩</p>
                 <div className="status">
@@ -117,7 +103,7 @@ function TeamBuilding() {
                 </div>
 
                 <div className="buttonWrap">
-                    <button className="button1">팀 빌딩 완료</button>
+                    <button className="button1" onClick={check}>팀 빌딩 완료</button>
                     <button className="button2">팀 페이지로 이동
                         <Link
                             to={'/kanbanboard'}

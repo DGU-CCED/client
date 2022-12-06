@@ -37,12 +37,12 @@ class App extends Component {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/kanbanboard" element={<KanbanBoard />} />
-          <Route path="/progress" element={<Progress />} />
+          <Route exact path="/progress/:id" element={<Progress />} />
           <Route exact path="/viewapplicant/:id" element={<ViewApplicant />} />
           <Route path="/approvalandrefusal/" element={<ApprovalAndRefusal />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/form" element={<Form />} />
-          <Route path="/teambuilding" element={<TeamBuilding />} />
+          <Route path="/teambuilding/:id" element={<TeamBuilding />} />
         </Routes>
       </div>
     );
