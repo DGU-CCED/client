@@ -24,7 +24,7 @@ const CreateHackathon = styled.div`
 const MyPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const url = '/myPage/' + '/' + pageNum;
+  const url = '/myPage/' + '/' + pageNum; // 내가 신청한 해커톤 목록들 뜨기
 
   useEffect(() => {
     const getData = async () => {
@@ -53,6 +53,45 @@ const MyPage = () => {
     setPageNum(pageNum + 1);
     console.log(pageNum + 1);
   };
+
+  // 실제 내가 참여한 목록 띄워 주기
+  const thisPage = 
+  currentPageData &&
+  currentPageData.map((item, index) => {
+    return (
+      <>
+        <div className="myPage_box">
+          <li key={index} className="myPage_list">
+            <img
+              src={item.hackathon_image}
+              alt="에러"
+              style={{ width: '300px', height: '200px' }}
+            />
+            <p>{item.name}</p>
+            <p>
+              {item.start_date} ~ {item.end_date}
+            </p>
+            <p>{item.content}</p>
+            <p>
+              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
+              {item.designer}
+            </p>
+            <Link
+              to={'/progress'}
+              className="myPage_linkStyle"
+              style={{
+                textDecoration: 'none',
+                color: 'blue',
+                fontWeight: 'bolder',
+              }}
+            >
+              이동
+            </Link>
+          </li>
+        </div>
+      </>
+    );
+  });
 
   const dummyManagement = dummy.data.map((item, index) => {
     return (
