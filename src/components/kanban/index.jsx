@@ -184,23 +184,24 @@ const Kanban = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      content: '리액트의 기초 알아보기',
-      status: true,
+      content: '주제 정하기',
+      status: false,
     },
     {
       id: 2,
-      content: '컴포넌트 스타일링 해보기',
-      status: true,
+      content: 'Code Convention 정하기',
+      status: false,
     },
     {
       id: 3,
-      content: '일정 관리 앱 만들어 보기',
+      content: '해커톤을 시작해 봅시다',
       status: false,
     },
   ]);
 
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
+  // 나중에는 서버에 개수 저장해놓고 그 개수를 useRef에다가 넣어야 할듯
   const nextId = useRef(4);
   // const [nextId, setNextId] = useState(4);
   const onInsert = useCallback(
@@ -212,6 +213,18 @@ const Kanban = () => {
       };
       setTodos(todos.concat(todo));
       nextId.current += 1;
+
+      // axios.defaults.withCredentials = false;
+      // axios
+      // .post('/timeline/create',{
+      //   user_id: user_id,
+      //   team_timeline_id: todo.id,
+      //   content: todo.content,
+      //   status: todo.status,
+      // })
+      // .then((response) => {
+      //   response.
+      // })
     },
     [todos]
   );
