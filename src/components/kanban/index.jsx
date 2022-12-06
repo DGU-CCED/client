@@ -1,7 +1,7 @@
 import './kanban.scss';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import mockData from '../../mockData';
 import { useState, useRef, useCallback, memo } from 'react';
+import mockData from '../../mockData';
 import Card from '../card';
 import React from 'react';
 import styled from 'styled-components';
@@ -32,6 +32,9 @@ import {
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import markdownIt from "markdown-it";
+import DOMPurify from 'dompurify';
+
 import markdownIt from "markdown-it";
 import DOMPurify from 'dompurify';
 
