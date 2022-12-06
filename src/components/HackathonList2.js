@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import dummy from '../data/dummy.json';
+import moment from "moment";
 
 import './HackathonList.css';
 
@@ -95,39 +96,59 @@ const HackathonList2 = () => {
     setPageNum(1);
   };
 
+  function change_date(published_at) {
+    var date = moment(published_at, "YY.MM.DD");
+    date.format();
+    return date
+  }
+
   const thisPage =
     currentPageData &&
     currentPageData.map((item, index) => {
       return (
         <>
           <div className="hackathonBox">
-            <li key={index} className="hackathonList">
+            <div key={index} className="hackathonList">
               <img
                 src={item.hackathon_image}
                 alt="에러"
                 style={{ width: '300px', height: '200px' }}
               />
-              <p>{item.name}</p>
-              <p>
-                {item.start_date} ~ {item.end_date}
-              </p>
-              <p>{item.content}</p>
-              <p>
-                개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-                {item.designer}
-              </p>
-              <Link
-                to={'/hackathon/detail/' + item.id}
-                className="linkStyle"
-                style={{
-                  textDecoration: 'none',
-                  color: 'blue',
-                  fontWeight: 'bolder',
-                }}
-              >
-                자세히 보기
-              </Link>
-            </li>
+              <div className='nameWrapper'>
+                <p className='hackathon_p'> {item.name}</p>
+              </div>
+              <div className='nameWrapper'>
+                <p>
+                  {(item.start_date).substring(0, 10)} ~ {(item.end_date).substring(0, 10)}
+                </p>
+              </div>
+              {/* <p>{item.content}</p> */}
+              <div className='circleWrapper'>
+                <div className='pm_circle'>
+                  {item.pm}
+                </div>
+                <div className='developer_circle'>
+                  {item.developer}
+                </div>
+                <div className='designer_circle'>
+                  {item.designer}
+                </div>
+              </div>
+
+              <div className='linkWrapper'>
+                <Link
+                  to={'/hackathon/detail/' + item.id}
+                  className="linkStyle"
+                  style={{
+                    textDecoration: 'none',
+                    color: 'blue',
+                    fontWeight: 'bolder',
+                  }}
+                >
+                  자세히 보기
+                </Link>
+              </div>
+            </div>
           </div>
         </>
       );
