@@ -24,7 +24,8 @@ const CreateHackathon = styled.div`
 const MyPage = () => {
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  const url = '/myPage/' + '/' + pageNum; // 내가 신청한 해커톤 목록들 뜨기
+  const user_id = localStorage.getItem("userId");
+  const url = '/applicant/list/'+user_id; // 내가 신청한 해커톤 목록들 뜨기
 
   useEffect(() => {
     const getData = async () => {
@@ -132,9 +133,9 @@ const MyPage = () => {
   return (
     <>
       <div className="myPage_wrap">
-        <div className="myPage_board">{dummyManagement}</div>
+        <div className="myPage_board">{thisPage}</div>
       </div>
-      <div className="myPage_buttonWrap">
+      {/* <div className="myPage_buttonWrap">
         <button onClick={onClickPrev} className="myPage_pageButton">
           이전 페이지
         </button>
@@ -142,7 +143,7 @@ const MyPage = () => {
         <button onClick={onClickNext} className="myPage_pageButton">
           다음 페이지
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -125,7 +125,7 @@ const HackathonList2 = () => {
                   fontWeight: 'bolder',
                 }}
               >
-                이동 테스트...(클릭)
+                자세히 보기
               </Link>
             </li>
           </div>
