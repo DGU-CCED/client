@@ -143,7 +143,13 @@ const Kanban = () => {
         const response = await axios.get(codeUrl1);
         console.log(response);
         console.log("코드컨벤션 가져오기");
-        setTextArr(response.data.data);
+        
+        var i;
+        for(i=0; i<response.data.data.length; i++){
+          console.log(response.data.data[i].codeconvention);
+          textValue += response.data.data[i].codeconvention+'\n';
+          setTextValue(textValue);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -151,7 +157,6 @@ const Kanban = () => {
 
     getCodeData();
   }, [part]);
-
   const handleSetValue = (e) => {
     setTextValue(e.target.value);
   };
@@ -369,45 +374,79 @@ const Kanban = () => {
     [todos]
   );
 
+  
+
   // 자유공간 코드
   const editorRef = useRef();
-  const freeUrl = '/freespace/' + user_id;
-  const [freeData, setFreeData] = useState('');
+  const freeUrl = '/freeboard/' + spaceNum1;
+  var [freeValue, setFreeValue] = useState('');
+
+  useEffect(() => { // get으로 받아오기
+    const getCodeData = async () => {
+      try {
+        const response = await axios.get(codeUrl1);
+        console.log(response);
+        console.log("코드컨벤션 가져오기");
+        
+        var i;
+        for(i=0; i<response.data.data.length; i++){
+          console.log(response.data.data[i].codeconvention);
+          textValue += response.data.data[i].codeconvention+'\n';
+          setTextValue(textValue);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCodeData();
+  }, []);
 
   useEffect(() => { // 첫 랜더링 시 입력했던 정보 가져옴
     const getFreeData = async () => {
       try {
         const response = await axios.get(freeUrl);
         console.log(response);
-        setFreeData(response.data.data);
+        console.log("프리 가져오기");
+        
+        var i;
+        for(i=0; i<response.data.data.length; i++){
+          console.log(response.data.data[i].content);
+          freeValue += response.data.data[i].content+'\n';
+          setFreeValue(freeValue);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     getFreeData();
-    editorRef.current.getInstance().setHTML(freeData);
-  }, [part]);
+    editorRef.current.getInstance().setHTML(freeValue);
+  }, []);
 
   const freeSubmit = (event) => {
     event.preventDefault();
     axios.defaults.withCredentials = false;
     console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
+    console.log(typeof editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
     
     axios.put(freeUrl, {
-      content: freeData
+      content: freeValue
     })
-      .then((response) => {
-        if (response.data.data !== '') {
-          console.log(response);
-        } else {
-          console.log('서버에 안들어가짐');
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
+    .then((response) => {
+      if (response.data.data !== '') {
+        console.log(response);
+      } else {
+        console.log('서버에 안들어가짐');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
+
+
+
 
   // 칸반 코드
   const [data, setData] = useState(mockData);
@@ -440,17 +479,17 @@ const Kanban = () => {
 
 
 
-  const [text, setText] = useState("");
-  const sanitizer = DOMPurify.sanitize;
-  const handleClick = () => {
-    setText(editorRef.current.getInstance().getMarkdown());
-    console.log("작동함", text);
-    console.log(markdownIt().render(text), "태그화");
-  };
-  const handleFocus = () => {
-    console.log("focus!!");
-    editorRef.current.getRootElement().classList.add("my-editor-root");
-  };
+  // const [text, setText] = useState("");
+  // const sanitizer = DOMPurify.sanitize;
+  // const handleClick = () => {
+  //   setText(editorRef.current.getInstance().getMarkdown());
+  //   console.log("작동함", text);
+  //   console.log(markdownIt().render(text), "태그화");
+  // };
+  // const handleFocus = () => {
+  //   console.log("focus!!");
+  //   editorRef.current.getRootElement().classList.add("my-editor-root");
+  // };
 
 
   return (
@@ -520,7 +559,7 @@ const Kanban = () => {
                 }}
               ></div> */}
               <div className="kanban_save_button_wrapper">
-                <button onClick={handleClick} className="kanban_save_button">저장하기</button>
+                <button onClick={freeSubmit} className="kanban_save_button">저장하기</button>
               </div>
             </div>
           </div>
@@ -531,7 +570,7 @@ const Kanban = () => {
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <div className="kanban">
-                {/* {data.map((section) => (
+                {data.map((section) => (
                   <Droppable key={section.id} droppableId={section.id}>
                     {(provided) => (
                       <div
@@ -576,7 +615,7 @@ const Kanban = () => {
                       </div>
                     )}
                   </Droppable>
-                ))} */}
+                ))}
               </div>
             </DragDropContext>
           </div>
