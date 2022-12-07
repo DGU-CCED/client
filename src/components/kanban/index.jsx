@@ -80,16 +80,27 @@ const Kanban = () => {
     console.log('디자이너');
     setPart('designer');
   }
-  const [spaceNum, setStateNum] = useState([]);
+
+  const [spaceNum1, setStateNum1] = useState(1);
+  const [spaceNum2, setStateNum2] = useState(2);
+  const [spaceNum3, setStateNum3] = useState(3);
+  const [spaceNum4, setStateNum4] = useState(4);
   useEffect(() => {
-    const response = axios.post('/space',{
+    axios.defaults.withCredentials=false;
+    axios.post('/space',{
       user_id: Number(user_id),
-      hackathon_id: Number(hackathon_id)
+      hackathon_id: 20
     })
     .then((response) => {
       if(response !== ''){
-        console.log(response.data.data);
-        setStateNum(response.data.data);
+        console.log(response.data.data[0].space_id);
+        setStateNum1(response.data.data[0].space_id);
+        console.log(response.data.data[1].space_id);
+        setStateNum2(response.data.data[1].space_id);
+        console.log(response.data.data[2].space_id);
+        setStateNum3(response.data.data[2].space_id);
+        console.log(response.data.data[3].space_id);
+        setStateNum4(response.data.data[3].space_id);
       } else{
         console.log('22');
       }
@@ -97,17 +108,42 @@ const Kanban = () => {
     .catch((error) => {
       console.log(error);
     })
-  })
+  },[]);
+
 
   // 코드 컨벤션 부분
-  const codeUrl = '/guideline/' + user_id;
-  const [textValue, setTextValue] = useState('');
+  const codeUrl = '/guideline/' + spaceNum1;
+  const codeUrl1 = '/guideline/' + spaceNum1;
+  const [textArr, setTextArr] = useState([]);
+  var [textValue, setTextValue] = useState('');
   useEffect(() => { // get으로 받아오기
     const getCodeData = async () => {
       try {
-        const response = await axios.get(codeUrl);
+        const response = await axios.get(codeUrl1);
         console.log(response);
-        setData(response.data.data);
+        console.log("코드컨벤션 가져오기");
+        
+        var i;
+        for(i=0; i<response.data.data.length; i++){
+          console.log(response.data.data[i].codeconvention);
+          textValue += response.data.data[i].codeconvention+'\n';
+          setTextValue(textValue);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCodeData();
+  }, []);
+
+  useEffect(() => { // get으로 받아오기
+    const getCodeData = async () => {
+      try {
+        const response = await axios.get(codeUrl1);
+        console.log(response);
+        console.log("코드컨벤션 가져오기");
+        setTextArr(response.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -148,6 +184,7 @@ const Kanban = () => {
       </div>
     );
   };
+  
 
   // const [todos, setTodos] = useState([
   //   {
@@ -166,20 +203,56 @@ const Kanban = () => {
   //     status: false,
   //   },
   // ]);
-  const [todos, setTodos] = useState([]);
-  const todoUrl = '/todo';
+  const [todoV, setTodoV] = useState([]);
+  const [todos, setTodos] = useState([
+    {
+      id:0,
+      content: '예시',
+      status: true,
+    },
+  ]);
+  const nextId = useRef(todoV.length);
+  const todoUrl = '/timeline/'+spaceNum1;
   useEffect(() => {
     const getTodoData = async () => {
       try{
         const response = await axios.get(todoUrl);
         console.log(response);
-        setTodos(response.data.data);
+        console.log("타임라인 가져오기");
+        setTodoV(response.data.data);
+        var i;
+        for(i=0; i<response.data.data.length; i++){ 
+          console.log(response.data.data[i].content);
+          // todos[i].id = i+1;
+          // todos[i].content = response.data.data[i].content;
+          // todos[i].status = response.data.data[i].status;
+          
+          todos.push({"id": i+1, "content": response.data.data[i].content, "status": response.data.data[i].status});
+        }
       } catch (error){
         console.log(error);
       }
+      
     };
+   
+
     getTodoData();
+    
   }, [part]);
+  const onInsert = useCallback(
+    (content) => {
+      const todo = {
+        id: nextId.current,
+        content,
+        status: false,
+      };
+      setTodos(todos.concat(todo));
+      nextId.current += 1;
+
+       
+    },
+    [todos]
+  );
 
   const TodoInsert = ({ onInsert }) => {
     const [value, setValue] = useState('');
@@ -204,6 +277,22 @@ const Kanban = () => {
       onInsert(value);
       setValue(''); // value 값 초기화
       console.log(todos);
+      axios.defaults.withCredentials=false;
+      axios.put(todoUrl,{
+        content: value,
+        status: false,
+      })
+      .then((response) => {
+        if (response.data.data !== '') {
+          console.log(response);
+        } else {
+          console.log('서버에 안들어가짐')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
     }, [onInsert, value]);
 
     return (
@@ -238,10 +327,11 @@ const Kanban = () => {
     );
   };
 
+  
   const TodoList = ({ todos, onRemove, onToggle }) => {
     return (
       <div className="TodoList">
-        {todos.map((todo) => (
+        {todos.map((todo, index) => (
           <TodoListItem
             todo={todo}
             key={todo.id}
@@ -257,33 +347,9 @@ const Kanban = () => {
   // ref를 사용하여 변수 담기
   // 나중에는 서버에 개수 저장해놓고 그 개수를 useRef에다가 넣어야 할듯
   // const nextId = useRef(4);
-  const nextId = useRef(todos.length);
+  
   // const [nextId, setNextId] = useState(4);
-  const onInsert = useCallback(
-    (content) => {
-      const todo = {
-        id: nextId.current,
-        content,
-        status: false,
-      };
-      setTodos(todos.concat(todo));
-      nextId.current += 1;
-
-      console.log(todos);
-      // axios.defaults.withCredentials = false;
-      // axios
-      // .post('/timeline/create',{
-      //   user_id: user_id,
-      //   team_timeline_id: todo.id,
-      //   content: todo.content,
-      //   status: todo.status,
-      // })
-      // .then((response) => {
-      //   response.
-      // })
-    },
-    [todos]
-  );
+  
 
   const onRemove = useCallback(
     (id) => {
@@ -465,7 +531,7 @@ const Kanban = () => {
             </div>
             <DragDropContext onDragEnd={onDragEnd}>
               <div className="kanban">
-                {data.map((section) => (
+                {/* {data.map((section) => (
                   <Droppable key={section.id} droppableId={section.id}>
                     {(provided) => (
                       <div
@@ -510,7 +576,7 @@ const Kanban = () => {
                       </div>
                     )}
                   </Droppable>
-                ))}
+                ))} */}
               </div>
             </DragDropContext>
           </div>
