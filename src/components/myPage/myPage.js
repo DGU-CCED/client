@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -54,6 +54,7 @@ const MyPage = () => {
   const [type, setType] = useState('in_progress');
   const user_id = localStorage.getItem("userId");
   const url = '/applicant/list/' + user_id; // 내가 신청한 해커톤 목록들 뜨기
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = async () => {
@@ -134,6 +135,10 @@ const MyPage = () => {
     setPageNum(1);
   };
 
+  const onTabHandler1 = (event) => {
+    navigate('/form/20');
+  }
+
   return (
     <>
       <div className="tabBox">
@@ -150,7 +155,7 @@ const MyPage = () => {
           <button
             className="hackathonList_butt"
             value="done"
-            onClick={onTabHandler}
+            onClick={onTabHandler1}
           >
             종료
           </button>
