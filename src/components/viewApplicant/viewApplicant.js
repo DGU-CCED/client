@@ -86,7 +86,7 @@ export default function () {
   };
 
   const startHackathon = (event) => {
-    
+
     axios.defaults.withCredentials = false;
     event.preventDefault();
     axios.post('/hackathon/start', {
@@ -105,6 +105,25 @@ export default function () {
         alert('시작 실패');
       })
   }
+
+  const dummy_viewApplicant = dummy.data.map((item) => {
+    return (
+      <>
+        <button className="viewApplicant_label">
+          <Link
+            to={'/approvalandrefusal'}
+            className="linkStyle"
+            style={{
+              textDecoration: 'none',
+              color: 'white',
+            }}
+          >
+            {item.name} / {item.age} / {item.university}
+          </Link>
+        </button>
+      </>
+    );
+  });
 
   const part_viewApplicant =
     applicantData &&
@@ -237,6 +256,7 @@ export default function () {
         </div>
         <AlwaysScrollSection>
           <div className="status">
+            {/* {dummy_viewApplicant} */}
             {part_viewApplicant}
           </div>
 

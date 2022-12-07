@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
       font-size: 24px;
       color: #fab005;
       font-weight: bold;
-    }
+    }    
   }
   .menuToggleBtn {
     display: none;
