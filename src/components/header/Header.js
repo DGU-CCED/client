@@ -58,7 +58,6 @@ const NavManu = styled.ul`
     display: block;
     padding: 10px 10px;
     font-size: 15px;
-    margin-left: 15px;
   }
   @media screen and (max-width: 768px) {
     display: ${(props) => (props.isToggleOpen ? 'block' : 'none')};
