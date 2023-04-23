@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet@2.2.2/dist/posenet.min.js"></script>
+    <style>
+        /* 이미지에 캔버스를 겹쳐서 그릴때는 아래 주석 해제 */
+        canvas {
+            position: absolute;
+        }
+
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <!-- <video id="video" width="1200" height="800" "autoplay muted playsinline src='../images/2_people.mp4 '></video> -->
+    <video id="video" width="800" height="600" autoplay muted playsinline></video>
+</body>
+
+<script>
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    const start = Date.now() / 1000;    
+
+    let myReq;
+    let head_curr_mean = 0;
+    let body_curr_mean = 0;
+    let leg_curr_mean = 0;
+
+    // 웹캠 사용 시 주석 해제
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(function (stream) {
+            video.srcObject = stream;
+        });
+
+    posenet.load({
+        //architecture: 'ResNet50',
+        architecture: 'MobileNetV1',
+
+    }).then(function (model) {
+        video.onloadeddata = (e) => {
+            predict();
+        }
+        function predict(head_prev_mean, body_prev_mean, leg_prev_mean) {
+        //function predict() {
+            const date = new Date();
+            const timestamp = Math.floor(+ date.getTime() / 1000);
+            const progress = timestamp - start;
+
+            let head_boundingbox = 0;
+            let body_boundingbox = 0;
+            let leg_boundingbox = 0;
+            
+            //console.log("객체의 수: ", progress);
+            // if (progress < 5) {
+                model.estimateMultiplePoses(video,
+                    {
+                        maxDetections: 100,
+                    }
+                ).then(pose => {
+                    canvas.width = video.width;
+                    canvas.height = video.height;
+                    //console.log(pose.length);
+
+                    for (let i = 0; i < pose.length; i++) {
+                        console.log('Keypoints JSON', JSON.stringify(pose[i].keypoints));
+
+                        drawKeypoints(pose[i].keypoints, 0.6, context);
+                        drawSkeleton(pose[i].keypoints, 0.6, context);
+
+                        let head = [];
+                        for (let j = 0; j < 7; j++) {
+                            head.push(pose[i].keypoints[j]);
+                        }
+                        // console.log(head);
+                        let body = [];
+                        for (let j = 5; j < 13; j++) {
+                            if(j == 7 || j == 8 || j == 9 || j == 10)
+                                continue;
+                            body.push(pose[i].keypoints[j]);
+                        }
+                        let leg = [];
+                        for (let j = 11; j < 17; j++) {
+                            leg.push(pose[i].keypoints[j]);
+                        }
+
+                        head_boundingbox = posenet.getBoundingBox(head);
+                        head_curr_mean = (head_boundingbox.maxY + head_boundingbox.minY) / 2;
+                        console.log("머리 segment 낙하 속도 변화값: ", head_curr_mean - head_prev_mean);
+
+                        body_boundingbox = posenet.getBoundingBox(body);
+                        body_curr_mean = (body_boundingbox.maxY + body_boundingbox.minY) / 2;
+                        console.log("몸통 segment 낙하 속도 변화값: ", body_curr_mean - body_prev_mean);
+
+                        leg_boundingbox = posenet.getBoundingBox(leg);
+                        leg_curr_mean = (leg_boundingbox.maxY + leg_boundingbox.minY) / 2;
+                        console.log("다리 segment 낙하 속도 변화값: ", leg_curr_mean - leg_prev_mean);
+
+
+                        console.log(head_boundingbox.minY, body_boundingbox.maxY);
+
+                        // 보정 필요
+                        if(head_boundingbox.minY < body_boundingbox.maxY - 400){
+                            console.log("머리, 몸통 segment 중첩!");
+                        }
+
+                        console.log(body_boundingbox.minY, leg_boundingbox.maxY);
+
+                        // 보정 필요 (왜 앉으면 body_boundingbox.minY 늘어남? (진짜 모름))
+                        if(body_boundingbox.minY < leg_boundingbox.maxY - 500){
+                            console.log("몸통, 다리 segment 중첩!");
+                        }
+
+                        drawBoundingBox(head, context);
+                        drawBoundingBox(body, context);
+                        drawBoundingBox(leg, context);
+
+                        const boundingBox = posenet.getBoundingBox(pose[i].keypoints);
+                        console.log("R값 : ", (boundingBox.maxX - boundingBox.minX) / (boundingBox.maxY - boundingBox.minY));
+                    }
+
+                });
+                //requestAnimationFrame(predict);
+                requestAnimationFrame(function() {
+                    predict(head_curr_mean, body_curr_mean, leg_curr_mean)
+                })
+                //myReq = requestAnimationFrame(predict);
+            // }
+            // myReq = requestAnimationFrame(predict);
+            // cancelAnimationFrame(myReq);
+        }
+    })
+
+</script>
+<script src="posenet.js"></script>
+
+</html>
