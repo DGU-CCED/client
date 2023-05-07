@@ -350,6 +350,25 @@ const Kanban = () => {
     );
   };
 
+  // const [todos, setTodos] = useState([
+  //   {
+  //     id: 1,
+  //     content: '주제 정하기',
+  //     status: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     content: 'Code Convention 정하기',
+  //     status: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     content: '해커톤을 시작해 봅시다',
+  //     status: false,
+  //   },
+  // ]);
+
+
   // 고윳값으로 사용될 id
   // ref를 사용하여 변수 담기
   // 나중에는 서버에 개수 저장해놓고 그 개수를 useRef에다가 넣어야 할듯
@@ -430,8 +449,7 @@ const Kanban = () => {
     event.preventDefault();
     axios.defaults.withCredentials = false;
     console.log(editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
-    console.log(typeof editorRef.current?.getInstance().getHTML()); // text editor 값 가져오기
-    
+
     axios.put(freeUrl, {
       content: freeValue
     })
@@ -498,7 +516,25 @@ const Kanban = () => {
 
 
   // 칸반 코드
+
   const [data, setData] = useState(mockData);
+
+  useEffect(() => {
+    const fetchData = async () => { // async, await, axios로 data 가져옴.
+      const response = await axios.put('/kanban/32', {
+        state: Number(0),
+        content: '씨발',
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    };
+    fetchData();
+  }, [data]);
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return;

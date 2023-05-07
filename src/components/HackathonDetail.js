@@ -47,7 +47,7 @@ const HackathonDetail = () => {
 
     getData();
   }, []);
-  const onClickBack = () =>{
+  const onClickBack = () => {
     navigate(-1);
   }
 
@@ -89,9 +89,9 @@ const HackathonDetail = () => {
           >
             돌아가기(클릭)
           </Link> */}
-            <ApplyButton className="applybutton" onClick={onClickBack}>
-              뒤로 가기
-            </ApplyButton>
+          <ApplyButton className="applybutton" onClick={onClickBack}>
+            back
+          </ApplyButton>
         </div>
       </Styled>
     </>

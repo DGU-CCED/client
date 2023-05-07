@@ -15,7 +15,7 @@ const AlwaysScrollSection = memo((props) => {
 
 const StyledAlwaysScrollSection = styled.div`
   overflow: scroll;
-  height: 600px;
+  height: 400px;
   &::-webkit-scrollbar {
     /* 세로 스크롤 넓이 */
     width: 8px;
@@ -177,10 +177,10 @@ const Create = () => {
 
   return (
     <>
-      <div className="Wrapper">
+      <div className="create_wrappter">
         <h1 style={{ color: 'white', fontSize: '50px' }}>대회 개설하기</h1>
 
-        <div className="FormWrap">
+        <div className="formWrap">
           <form className="form" style={{ color: 'white' }}>
             <AlwaysScrollSection>
               <p className="text">해커톤 이름</p>
@@ -296,7 +296,7 @@ const Create = () => {
               <div className="img-preview">
                 <ImgPreview src={img} alt="이미지 선택 전" />
               </div>
-              <div>
+              <div className='uploadImageWrapper'>
                 <UploadImage
                   type="file"
                   accept="image/*"

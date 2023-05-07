@@ -43,7 +43,7 @@ function LoginPage() {
       email: email,
       password: password,
     }).then((response) => {
-      if(response){
+      if (response) {
         console.log(JSON.parse(JSON.stringify(response.data.data[2].user_id)));
         const user_id = JSON.parse(JSON.stringify(response.data.data[2].user_id));
         localStorage.setItem("userId", user_id);
@@ -68,8 +68,8 @@ function LoginPage() {
         localStorage.setItem("userId", response.data.data);
         console.log(localStorage.getItem("userId"));
         let userId = localStorage.getItem("userId")
-        alert({userId}+" 님 환영합니다.");
-      } else{
+        alert({ userId } + " 님 환영합니다.");
+      } else {
         alert("로그인 실패..");
       }
     })
@@ -112,7 +112,7 @@ function LoginPage() {
           </button>
         </div>
       </form>
-      <button onClick={onclick}>확인</button>
+      {/* <button onClick={onclick}>확인</button> */}
     </div>
   );
 }

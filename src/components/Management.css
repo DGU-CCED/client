@@ -6,17 +6,16 @@
     justify-content: center;
     background-color: black;
     margin-top: 10px;
-  }
-  
-  .management_board {
+}
+
+.management_board {
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-wrap: wrap;
     height: 100%;
     background-color: black;
-    margin-left: 60px;
-  }
+}
 
 .management_box {
     margin: auto;
@@ -33,27 +32,21 @@
     justify-content: center;
     flex-direction: column;
     list-style: none;
-    font-size: x-small;
     background-color: black;
     color: #ffffff;
     width: 100%;
     height: max-content;
-    padding-top: 10px;
 }
 
 .management_linkStyle {
     text-decoration: none;
 }
 
-.management_buttonWrap{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    background-color: black;
+.management_buttonWrap {
+    margin-top: 30px;
 }
 
-.management_pageButton{
+.management_pageButton {
     border-radius: 4px;
     cursor: pointer;
     transition: 0.5s;
@@ -62,8 +55,28 @@
     background: #84ad58;
 }
 
-.management_currentPage{
+.management_currentPage {
     font-size: 25px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.management_button {
+    background: none;
+    outline: none;
+    border: none;
+    background: #868e96;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.1s background ease-in;
+    border-radius: 10px;
+
+    &:hover {
+        background: #adb5bd;
+    }
 }

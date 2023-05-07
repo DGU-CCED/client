@@ -27,10 +27,10 @@ const Management = () => {
   const create = (event) => {
     navigate('/create');
   };
-  
+
   const [pageNum, setPageNum] = useState(1);
   const [currentPageData, setCurrentPageData] = useState([]);
-  
+
   const user_id = localStorage.getItem("userId");
   const url = '/hackathon/list/' + user_id; // 여기서 나중에 user_id랑 같이 보내서 내가 개설한 해커톤 정보 받아오기
 
@@ -63,36 +63,47 @@ const Management = () => {
   };
 
   const thisPage =
-  currentPageData &&
-  currentPageData.map((item, index) => {
-    const move = (event) => {
-      if(item.is_progress == 0){
-        alert('신청자 관리 이동');
-        navigate('/viewApplicant/'+item.id);
-      }else{
-        alert('해커톤 팀 관리 이동');
-        navigate('/teambuilding/'+item.id);
+    currentPageData &&
+    currentPageData.map((item, index) => {
+      const move = (event) => {
+        if (item.is_progress == 0) {
+          alert('신청자 관리 이동');
+          navigate('/viewApplicant/' + item.id);
+        } else {
+          alert('해커톤 팀 관리 이동');
+          navigate('/teambuilding/' + item.id);
+        }
       }
-    }
-    return (
-      <>
-        <div className="hackathonBox">
-          <li key={index} className="hackathonList">
-            <img
-              src={item.hackathon_image}
-              alt="에러"
-              style={{ width: '300px', height: '200px' }}
-            />
-            <p>{item.name}</p>
-            <p>
-              {item.start_date} ~ {item.end_date}
-            </p>
-            <p>{item.content}</p>
-            <p>
-              개발자 : {item.developer} PM : {item.pm} 디자이너 :{' '}
-              {item.designer}
-            </p>
-            {/* <Link
+      return (
+        <>
+          <div className="management_box">
+            <div key={index} className="management_list">
+              <img
+                src={item.hackathon_image}
+                alt="에러"
+                style={{ width: '300px', height: '200px' }}
+              />
+              <div className='nameWrapper'>
+                <p className='hackathon_p'> {item.name}</p>
+              </div>
+              <div className='nameWrapper'>
+                <p>
+                  {(item.start_date).substring(0, 10)} ~ {(item.end_date).substring(0, 10)}
+                </p>
+              </div>
+              {/* <p>{item.content}</p> */}
+              <div className='circleWrapper'>
+                <div className='pm_circle'>
+                  {item.pm}
+                </div>
+                <div className='developer_circle'>
+                  {item.developer}
+                </div>
+                <div className='designer_circle'>
+                  {item.designer}
+                </div>
+              </div>
+              {/* <Link
               to={'/viewApplicant/' + item.id}
               className="linkStyle"
               style={{
@@ -103,12 +114,14 @@ const Management = () => {
             >
               자세히 보기
             </Link> */}
-            <button onClick={move}>이동</button>
-          </li>
-        </div>
-      </>
-    );
-  });
+              <div className='management_buttonWrap'>
+                <button className='management_button' onClick={move}>이동</button>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    });
 
   // const dummyManagement = dummy.data.map((item, index) => {
   //   return (
@@ -161,7 +174,7 @@ const Management = () => {
 
         {/* 실제 데이터 받아오면 이거 출력하기 */}
         <div className="management_board">{thisPage}</div>
-        
+
       </div>
       {/* <div className="management_buttonWrap">
         <button onClick={onClickPrev} className="management_pageButton">
