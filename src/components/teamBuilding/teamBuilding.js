@@ -1,7 +1,7 @@
 import './teamBuilding.css';
 import React from 'react';
 import { useState, useRef, memo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import UserList from './userList';
 import axios from 'axios';
@@ -48,6 +48,7 @@ function CreateUser({ email, onChange, onCreate }) {
 
 function TeamBuilding() {
     const { id } = useParams();
+    const navigate = useNavigate();
     
     const [inputs, setInputs] = useState({
         email: '',
@@ -101,6 +102,7 @@ function TeamBuilding() {
         }) // 팀 빌딩 API 호출하기
         .then((response) =>{
             if(response.data.data !== ""){
+                alert("팀 빌딩 완료");
                 console.log("성공");
             } else {
                 console.log("error");
@@ -109,6 +111,10 @@ function TeamBuilding() {
         .catch((error) => {
             console.log(error);
         })
+    }
+    const move = (event) => {
+        event.preventDefault();
+        navigate('/kanbanboard/22');
     }
 
     return (
@@ -133,7 +139,7 @@ function TeamBuilding() {
 
                 <div className="buttonWrap">
                     <button className="button1" onClick={check}>팀 빌딩 완료</button>
-                    <button className="button2">팀 페이지로 이동
+                    <button className="button2" onClick={move}>팀 페이지로 이동
                         <Link
                             to={'/kanbanboard'}
                             className="linkStyle"

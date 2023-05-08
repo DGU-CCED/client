@@ -39,7 +39,8 @@
 </head>
 
 <body>
-    <video id="video" width="1200" height="1080" autoplay muted playsinline src='../images/test6.mp4 '></video>
+    <!-- test9.mov는 42프레임부터 넘어짐. -->
+    <video id="video" width="1200" height="1080" autoplay muted playsinline src='../images/test9.mov '></video>
     <!-- <video id="video" width="1200" height="1080" autoplay muted playsinline></video> -->
     <canvas id="canvas"></canvas>
 </body>
@@ -49,9 +50,21 @@
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
     const start = Date.now() / 1000;
+    const startTime = new Date();
+    let checkPoint = 0;
+    let checkRvalue = [];
+    let checkHSSCValue = [];
+    let prevHeadPosX = 0;
+    let prevHeadPosY = 0;
 
     const colors = ['red', 'green', 'blue'];
 
+    let videoDuration;
+    video.onloadedmetadata = () =>{
+        videoDuration = video.duration;
+        console.log(videoDuration);
+    }
+    
     let myReq;
     // 웹캠 사용 시 주석 해제
     // navigator.mediaDevices.getUserMedia({ video: true, audio: false })
@@ -61,28 +74,33 @@
 
     posenet.load().then(model => {
         video.onloadeddata = (e) => {
-            predict();
-        }
-        function predict() {
-            const date = new Date();
-            const timestamp = Math.floor(+ date.getTime() / 1000);
-            const progress = timestamp - start;
-
-            console.log(progress);
-            if (progress < 5) {
+            const predict = (makePredict, delay, duration) => {
+                let count = 0;
+                
+                const interval = setInterval(() => {
+                    if (delay * count >= duration) return clearInterval(interval);
+                    makePredict();
+                    count++;
+                    console.log(count);
+                }, delay);
+            };
+            const makePredict = () =>{
                 model.estimateSinglePose(video).then(pose => {
                     console.log('Keypoints JSON', JSON.stringify(pose.keypoints));
                     canvas.width = video.width;
                     canvas.height = video.height;
                     drawKeypoints(pose.keypoints, 0.1, context);
                     drawSkeleton(pose.keypoints, 0.1, context);           
-                    // console.log(pose.keypoints);
                     
+                    totalHeadX = 0.0;
+                    totalHeadY = 0.0;
+
                     let head = [];
                     for (let i = 0; i < 7; i++) {
                         head.push(pose.keypoints[i]);
+                        totalHeadX += pose.keypoints[i].position.x;
+                        totalHeadY += pose.keypoints[i].position.y;
                     }
-                    // console.log(head);
                     let body = [];
                     for(let i = 5; i < 13; i++){
                         body.push(pose.keypoints[i]);
@@ -94,17 +112,35 @@
                     drawBoundingBox(head, context);
                     drawBoundingBox(body, context);
                     drawBoundingBox(leg, context);
-                    
+
+                    if(prevHeadPosX == 0 && prevHeadPosY == 0){
+                        prevHeadPosX = totalHeadX / 7;
+                        prevHeadPosY = totalHeadY / 7;
+                    }
+                    else{
+                        const distance = Math.sqrt(
+                            Math.pow(totalHeadX/7 - prevHeadPosX, 2) + 
+                            Math.pow(totalHeadY/7 - prevHeadPosY, 2)
+                        );
+                        const speed = distance / 33;
+                        checkHSSCValue.push(speed);
+                        prevHeadPosX = totalHeadX/7;
+                        prevHeadPosY = totalHeadY/7;
+                    }
+
+
                     const boundingBox = posenet.getBoundingBox(pose.keypoints);
-                    // console.log("1. ", boundingBox.minX, "2. ", boundingBox.maxX, "3. ", boundingBox.minY, "4. ", boundingBox.maxY);
                     console.log("R값 : ", (boundingBox.maxX - boundingBox.minX) / (boundingBox.maxY - boundingBox.minY));
+                    checkRvalue.push((boundingBox.maxX - boundingBox.minX) / (boundingBox.maxY - boundingBox.minY).toFixed(2));
                 })
-                myReq = requestAnimationFrame(predict);
             }
-            myReq = requestAnimationFrame(predict);
-            cancelAnimationFrame(myReq);
+            predict(makePredict, 33.3, videoDuration*1000);
         }
     })
+
+    console.log(checkRvalue);
+    console.log(checkHSSCValue);
+    
 
     const color = 'aqua';
     const boundingBoxColor = 'red';

@@ -1,6 +1,7 @@
 import './kanban.scss';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useState, useRef, useCallback, memo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import mockData from '../../mockData';
 import Card from '../card';
 import React from 'react';
@@ -81,7 +82,8 @@ const Kanban = () => {
     setPart('designer');
   }
 
-  const [spaceNum1, setStateNum1] = useState(1);
+  // const [spaceNum1, setStateNum1] = useState(1);
+  const spaceNum1 = 513;
   const [spaceNum2, setStateNum2] = useState(2);
   const [spaceNum3, setStateNum3] = useState(3);
   const [spaceNum4, setStateNum4] = useState(4);
@@ -89,12 +91,12 @@ const Kanban = () => {
     axios.defaults.withCredentials=false;
     axios.post('/space',{
       user_id: Number(user_id),
-      hackathon_id: 20
+      hackathon_id: 27
     })
     .then((response) => {
       if(response !== ''){
         console.log(response.data.data[0].space_id);
-        setStateNum1(response.data.data[0].space_id);
+        // setStateNum1(response.data.data[0].space_id);
         console.log(response.data.data[1].space_id);
         setStateNum2(response.data.data[1].space_id);
         console.log(response.data.data[2].space_id);
@@ -463,7 +465,54 @@ const Kanban = () => {
     })
   }
 
-
+  const mockData = [
+    {
+        id: uuidv4(),
+        title: ' 📃 To do',
+        tasks: [
+            {
+                id: uuidv4(),
+                title: 'Learn JavaScript'
+            },
+            {
+                id: uuidv4(),
+                title: 'Learn Git'
+            },
+            {
+                id: uuidv4(),
+                title: 'Learn Python'
+            },
+            {
+              id: uuidv4(),
+              title: '주제 정하기'
+            },
+        ]
+    },
+    {
+        id: uuidv4(),
+        title: ' ✏️ In progress',
+        tasks: [
+            {
+                id: uuidv4(),
+                title: 'Learn CSS'
+            },
+            {
+                id: uuidv4(),
+                title: 'Learn Golang'
+            }
+        ]
+    },
+    {
+        id: uuidv4(),
+        title: ' ✔️ Completed',
+        tasks: [
+            {
+                id: uuidv4(),
+                title: 'Learn HTML'
+            }
+        ]
+    }
+]
 
 
   // 칸반 코드
@@ -512,6 +561,12 @@ const Kanban = () => {
       setData(data);
     }
   };
+  const insert = (event) => {
+    mockData[0].tasks.push({
+      id: uuidv4(),
+      title: '주제 정하기'
+    });
+  }
 
 
 
@@ -646,7 +701,7 @@ const Kanban = () => {
                             className="kanban_insert"
                             placeholder="추가할 작업을 입력하세요."
                           />
-                          <button className="kanban_insert_button">+</button>
+                          <button className="kanban_insert_button" onClick={insert}>+</button>
                         </div>
                       </div>
                     )}
