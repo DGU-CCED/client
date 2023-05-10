@@ -118,11 +118,13 @@
                         prevHeadPosY = totalHeadY / 7;
                     }
                     else{
+                        let posneg = 1;
+                        if (prevHeadPosY < totalHeadY) posneg = -1;
                         const distance = Math.sqrt(
                             Math.pow(totalHeadX/7 - prevHeadPosX, 2) + 
                             Math.pow(totalHeadY/7 - prevHeadPosY, 2)
                         );
-                        const speed = distance / 33;
+                        const speed = posneg * (distance / 33);
                         checkHSSCValue.push(speed);
                         prevHeadPosX = totalHeadX/7;
                         prevHeadPosY = totalHeadY/7;
